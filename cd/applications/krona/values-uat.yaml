@@ -1,0 +1,80 @@
+project: uat
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm-release
+destinations:
+  - cluster: krona-uat-e1
+    namespace: uat
+    region: e1
+  - cluster: krona-uat-e2
+    namespace: uat
+    region: e2
+applications:
+  - name: account-history
+    version: ""
+  - name: account-management
+    version: ""
+  - name: allowance
+    version: ""
+  - name: authentication
+    version: ""
+    values:
+      env:
+        open:
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-uat
+          AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-2
+          AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
+  - name: charge
+    version: ""
+  - name: chores
+    version: ""
+  - name: cobrand-api
+    version: ""
+  - name: cobrand-healthz
+    version: ""
+  - name: extauth
+    version: ""
+  - name: graphql
+    version: ""
+  - name: ledger
+    version: ""
+    values:
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: uat_
+  - name: move-funds
+    version: ""
+    values:
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: uat_
+          EXTERNAL_FUNDING_KRONA_RFP_URL: https://api2-ext-cert.jpmchase.net/deposit-account/payments/wires-transfers/first-banking/request-for-payment/v1/payment-requests
+  - name: notification
+    version: ""
+    values:
+      env:
+        open:
+          NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: https://api2-ext-cert.jpmchase.net/consumer-banking/servicing/alerts-notifications/v1/events
+  - name: outbound-authentication
+    version: ""
+    values:
+      env:
+        open:
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: https://idauat.jpmorganchase.com/adfs/oauth2/token
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_ISSUER: CC-106059-D613084-60122-UAT
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_SUBJECT: CC-106059-D613084-60122-UAT
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_CLIENT_ID: CC-106059-D613084-60122-UAT
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: JPMC:URI:RS-103326-47861-VaderExternal-UAT
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: JPMC:URI:RS-84657-36766-DigitalGrammerRFPSvc-UAT
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: https://idauat.jpmorganchase.com/adfs/oauth2/token
+          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: https://api2-ext-oauth-perf01.jpmchase.net/oauth/client-credentials/v1/token
+  - name: reconciliation
+    version: ""
+    values:
+      env:
+        open:
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-uat-reconciliation
+          CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: uat-reconciliation-overage
+  - name: spending-rules
+    version: ""
+  - name: store-match
+    version: ""

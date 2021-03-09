@@ -1,0 +1,83 @@
+project: qainternal
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm
+destinations:
+  - cluster: krona-internal-e1
+    namespace: qainternal
+    region: e1
+  - cluster: krona-internal-e2
+    namespace: qainternal
+    region: e2
+applications:
+  - name: account-history
+    version: "2.9.1"
+  - name: account-management
+    version: "1.13.16-059b6b0"
+  - name: allowance
+    version: "2.4.24-125266b"
+  - name: authentication
+    version: "2.4.0-develop.2"
+    values:
+      env:
+        open:
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qainternal
+          AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-1
+          AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
+  - name: charge
+    version: "2.8.0"
+  - name: chores
+    version: "1.9.0-develop.9"
+  - name: cobrand-api
+    version: "1.19.6-8972d5e"
+  - name: cobrand-healthz
+    version: "1.5.6-82a71ce"
+  - name: cobrand-server-mock
+    version: "0.18.0-rc.0"
+  - name: extauth
+    version: "2.5.0-rc.1"
+  - name: graphql
+    version: "1.44.4-676f181"
+  - name: ledger
+    version: "2.5.0"
+    values:
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qainternal_
+  - name: move-funds
+    version: "2.6.0"
+    values:
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qainternal_
+          EXTERNAL_FUNDING_KRONA_RFP_URL: http://cobrand-server-mock-service/rfp/krona
+  - name: notification
+    version: "2.8.14-d3b1d6a"
+    values:
+      env:
+        open:
+          NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: http://cobrand-server-mock-service/notification/krona
+  - name: outbound-authentication
+    version: "1.7.0-develop.6"
+    values:
+      env:
+        open:
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: jwt-audience
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_ISSUER: jwt-issuer
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_SUBJECT: jwt-subject
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_CLIENT_ID: data-client-id
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: data-resource-event
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: data-resource-rfp
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/adfs
+          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
+  - name: reconciliation
+    version: "2.3.2"
+    values:
+      env:
+        open:
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-qainternal-reconciliation
+          CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: qainternal-reconciliation-overage
+          CLOUD_AWS_SQS_QUEUES_CHARGE: qainternal-charge
+  - name: spending-rules
+    version: "2.3.23-72d2a0b"
+  - name: store-match
+    version: "2.5.10-e9da2ce"

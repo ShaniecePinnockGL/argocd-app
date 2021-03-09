@@ -1,0 +1,16 @@
+project: dev
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm
+destinations:
+  - cluster: gl-dev-e1
+    namespace: dev
+    region: e1
+  - cluster: gl-dev-e2
+    namespace: dev
+    region: e2
+syncPolicy:
+  automated:
+    prune: true
+applications:
+  - name: galileo-proxy
+    version: ">= 0.0.0-0"

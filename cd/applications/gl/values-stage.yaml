@@ -1,0 +1,16 @@
+project: stage
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm
+destinations:
+  - cluster: gl-stage-e1
+    namespace: stage
+    region: e1
+  - cluster: gl-stage-e2
+    namespace: stage
+    region: e2
+syncPolicy:
+  automated:
+    prune: true
+applications:
+  - name: galileo-proxy
+    version: ">= 0.0.0-0"
