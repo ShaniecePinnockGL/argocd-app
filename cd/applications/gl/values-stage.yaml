@@ -11,6 +11,10 @@ destinations:
 syncPolicy:
   automated:
     prune: true
+common:
+  values:
+    ambassador:
+      instanceId: dev
 applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"

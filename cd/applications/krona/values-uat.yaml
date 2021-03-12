@@ -8,6 +8,10 @@ destinations:
   - cluster: krona-uat-e2
     namespace: uat
     region: e2
+common:
+  values:
+    ambassador:
+      instanceId: uat
 applications:
   - name: account-history
     version: ""

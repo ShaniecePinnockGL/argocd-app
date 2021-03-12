@@ -1,0 +1,20 @@
+name: Continuous Integration
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  lint:
+    name: Lint Helm files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Helm 2
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
+          sudo ln -s /usr/local/bin/helm /usr/local/bin/helm2
+      - name: Lint Helm files
+        run: |
+          helm2 lint cd/applications/krona
+          helm2 lint cd/applications/gl

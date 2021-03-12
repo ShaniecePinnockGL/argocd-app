@@ -11,6 +11,14 @@ destinations:
 syncPolicy:
   automated:
     prune: true
+common:
+  values:
+    ambassador:
+      instanceId: devinternal
+    env:
+      open:
+        LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+        LOG_LEVEL: debug
 applications:
   - name: account-history
     version: ">= 0.0.0-0"

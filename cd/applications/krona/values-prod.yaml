@@ -8,6 +8,10 @@ destinations:
   - cluster: krona-prod-e2
     namespace: prod
     region: e2
+common:
+  values:
+    ambassador:
+      instanceId: prod
 applications:
   - name: account-history
     version: ""

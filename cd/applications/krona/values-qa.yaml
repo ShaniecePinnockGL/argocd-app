@@ -5,6 +5,10 @@ destinations:
   - cluster: krona-test-e2
     namespace: qa
     region: e2
+common:
+  values:
+    ambassador:
+      instanceId: qa
 applications:
   - name: account-history
     version: "2.9.1"

@@ -5,6 +5,10 @@ destinations:
   - cluster: krona-test-e2
     namespace: dev
     region: e2
+common:
+  values:
+    ambassador:
+      instanceId: dev
 applications:
   - name: account-history
     version: "2.10.0-develop.8"

@@ -1,3 +1,5 @@
 argo:
   namespace: argocd
 lob: krona
+common:
+  values:

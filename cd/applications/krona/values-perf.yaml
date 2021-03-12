@@ -8,6 +8,10 @@ destinations:
   - cluster: krona-perf-e2
     namespace: perf
     region: e2
+common:
+  values:
+    ambassador:
+      instanceId: perf
 applications:
   - name: account-history
     version: ""

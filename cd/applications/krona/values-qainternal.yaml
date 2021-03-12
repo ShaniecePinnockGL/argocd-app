@@ -8,6 +8,14 @@ destinations:
   - cluster: krona-internal-e2
     namespace: qainternal
     region: e2
+common:
+  values:
+    ambassador:
+      instanceId: qainternal
+    env:
+      open:
+        LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+        LOG_LEVEL: debug
 applications:
   - name: account-history
     version: "2.9.1"
