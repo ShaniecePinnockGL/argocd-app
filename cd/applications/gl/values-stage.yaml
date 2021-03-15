@@ -15,6 +15,13 @@ common:
   values:
     ambassador:
       instanceId: stage
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 768Mi
+      requests:
+        cpu: 1000m
+        memory: 768Mi
 applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"
