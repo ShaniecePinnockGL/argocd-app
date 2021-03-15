@@ -22,6 +22,28 @@ common:
       requests:
         cpu: 1000m
         memory: 768Mi
+    env:
+      open:
+        LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
 applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://stage-ambassador/card-webhooks/auth/Authorization
+          AUTH_AUTHORIZATION_STABLE_HANDLER: me.greenlight.galileoproxy.service.RestRequestHandler
+          AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT:
+          AUTH_AUTHORIZATION_CANDIDATE_HANDLER:
+          ALERT_ACCOUNT_EVENT_STABLE_ENDPOINT: http://stage-ambassador/card-webhooks/alert/AccountEvent
+          ALERT_ACCOUNT_EVENT_STABLE_HANDLER: me.greenlight.galileoproxy.service.RestRequestHandler
+          ALERT_ACCOUNT_EVENT_CANDIDATE_ENDPOINT:
+          ALERT_ACCOUNT_EVENT_CANDIDATE_HANDLER:
+          ALERT_SETTLEMENT_STABLE_ENDPOINT: http://stage-ambassador/card-webhooks/alert/Settlement
+          ALERT_SETTLEMENT_STABLE_HANDLER: me.greenlight.galileoproxy.service.RestRequestHandler
+          ALERT_SETTLEMENT_CANDIDATE_ENDPOINT:
+          ALERT_SETTLEMENT_CANDIDATE_HANDLER:
+          ALERT_TRANSACTION_STABLE_ENDPOINT: http://stage-ambassador/card-webhooks/alert/Transaction
+          ALERT_TRANSACTION_STABLE_HANDLER: me.greenlight.galileoproxy.service.RestRequestHandler
+          ALERT_TRANSACTION_CANDIDATE_ENDPOINT:
+          ALERT_TRANSACTION_CANDIDATE_HANDLER:
