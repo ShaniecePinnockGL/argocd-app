@@ -13,8 +13,6 @@ syncPolicy:
     prune: true
 common:
   values:
-    ambassador:
-      instanceId: stage-ambassador
     resources:
       limits:
         cpu: 1000m

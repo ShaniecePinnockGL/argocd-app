@@ -13,8 +13,6 @@ syncPolicy:
     prune: true
 common:
   values:
-    ambassador:
-      instanceId: dev-ambassador
     resources:
       limits:
         cpu: 1000m
