@@ -14,7 +14,7 @@ syncPolicy:
 common:
   values:
     ambassador:
-      instanceId: dev
+      instanceId: dev-ambassador
     resources:
       limits:
         cpu: 1000m
