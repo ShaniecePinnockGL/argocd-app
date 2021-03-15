@@ -15,6 +15,13 @@ common:
   values:
     ambassador:
       instanceId: dev
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 768Mi
+      requests:
+        cpu: 1000m
+        memory: 768Mi
     env:
       open:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
