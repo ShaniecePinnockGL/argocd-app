@@ -14,7 +14,7 @@ syncPolicy:
 common:
   values:
     ambassador:
-      instanceId: dev
+      instanceId: stage
 applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"
