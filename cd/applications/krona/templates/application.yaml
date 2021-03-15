@@ -19,14 +19,14 @@ spec:
     chart: {{ $app.name }}
     helm:
       releaseName: {{ $app.name }}-{{ $dest.namespace }}
-      {{- if hasKey . "values" }}
-      {{- $regionValues := (index .values $dest.region) }}
-      {{- $noRegionValues := omit $app.values "e1" "e2" }}
-      {{- $values := merge $regionValues $noRegionValues }}
       values: |
-        {{- toYaml $values | trim | nindent 8 }}
         {{- toYaml $.Values.common.values | trim | nindent 8 }}
-      {{- end }}
+        {{- if hasKey . "values" }}
+        {{- $regionValues := (index .values $dest.region) }}
+        {{- $noRegionValues := omit $app.values "e1" "e2" }}
+        {{- $values := merge $regionValues $noRegionValues }}
+          {{- toYaml $values | trim | nindent 8 }}
+        {{- end }}
       parameters:
         - name: application
           value: {{ $app.name }}
