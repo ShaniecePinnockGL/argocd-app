@@ -1,0 +1,13 @@
+project: prod
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm-release
+destinations:
+  - cluster: gl-prod-e1
+    namespace: prod
+    region: e1
+  - cluster: gl-prod-e2
+    namespace: prod
+    region: e2
+syncPolicy:
+  automated:
+    prune: true
