@@ -4,7 +4,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  {{- if $.Values.lob }}
   name: {{ $.Values.lob }}-{{ $app.name }}-{{ $dest.namespace }}-{{ $dest.region }}
+  {{- else }}
+  name: {{ $app.name }}-{{ $dest.namespace }}-{{ $dest.region }}
+  {{- end }}
   namespace: {{ $.Values.argo.namespace }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -14,7 +18,11 @@ metadata:
     namespace: {{ $dest.namespace }}
     region: {{ $dest.region }}
 spec:
+  {{- if $.Values.lob }}
   project: {{ $.Values.lob }}-{{ $.Values.project }}
+  {{- else }}
+  project: {{ $.Values.project }}
+  {{- end }}
   source:
     chart: {{ $app.name }}
     helm:
