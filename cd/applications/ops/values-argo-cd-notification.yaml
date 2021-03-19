@@ -5,6 +5,9 @@ destinations:
   - cluster: in-cluster
     namespace: argo-cd-notification
     region: e1
+syncPolicy:
+  automated:
+    prune: true
 applications:
   - name: argo-cd-notification-tool
     version: ">= 0.0.0-0"
