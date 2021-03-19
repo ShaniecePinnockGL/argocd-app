@@ -18,3 +18,4 @@ jobs:
         run: |
           helm2 lint cd/applications/krona
           helm2 lint cd/applications/gl
+          helm2 lint cd/applications/ops

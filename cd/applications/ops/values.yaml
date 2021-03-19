@@ -1,0 +1,5 @@
+argo:
+  namespace: argocd
+lob: all
+common:
+  values:

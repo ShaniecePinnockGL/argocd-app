@@ -1,0 +1,10 @@
+project: ops
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm-release
+destinations:
+  - cluster: in-cluster
+    namespace: argo-cd-notification
+    region: e1
+applications:
+  - name: argo-cd-notification-tool
+    version: ">= 0.0.0-0"
