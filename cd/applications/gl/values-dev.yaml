@@ -27,6 +27,7 @@ applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
       env:
         open:
           AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://dev-ambassador/card-webhooks/auth/Authorization
