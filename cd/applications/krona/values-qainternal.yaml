@@ -40,7 +40,7 @@ applications:
   - name: cobrand-healthz
     version: "1.6.0"
   - name: cobrand-server-mock
-    version: "0.20.0"
+    version: "0.21.0"
   - name: extauth
     version: "2.6.0-rc.0"
   - name: graphql
