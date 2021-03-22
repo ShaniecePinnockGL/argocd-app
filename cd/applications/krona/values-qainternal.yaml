@@ -18,13 +18,13 @@ common:
         LOG_LEVEL: debug
 applications:
   - name: account-history
-    version: "2.9.1"
+    version: "2.10.0-rc.1"
   - name: account-management
-    version: "1.13.16-059b6b0"
+    version: "1.14.0-rc.1"
   - name: allowance
-    version: "2.4.24-125266b"
+    version: "2.5.0-rc.0"
   - name: authentication
-    version: "2.4.0-develop.2"
+    version: "2.5.0"
     values:
       env:
         open:
@@ -32,40 +32,40 @@ applications:
           AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-1
           AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
   - name: charge
-    version: "2.8.0"
+    version: "2.9.0-rc.1"
   - name: chores
-    version: "1.9.0-develop.9"
+    version: "1.10.0-rc.1"
   - name: cobrand-api
-    version: "1.19.6-8972d5e"
+    version: "1.20.0-rc.1"
   - name: cobrand-healthz
-    version: "1.5.6-82a71ce"
+    version: "1.6.0"
   - name: cobrand-server-mock
-    version: "0.18.0-rc.0"
+    version: "0.20.0"
   - name: extauth
-    version: "2.5.0-rc.1"
+    version: "2.6.0-rc.0"
   - name: graphql
-    version: "1.44.4-676f181"
+    version: "1.45.0-rc.1"
   - name: ledger
-    version: "2.5.0"
+    version: "2.6.0-rc.1"
     values:
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qainternal_
   - name: move-funds
-    version: "2.6.0"
+    version: "2.7.0-rc.1"
     values:
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qainternal_
           EXTERNAL_FUNDING_KRONA_RFP_URL: http://cobrand-server-mock-service/rfp/krona
   - name: notification
-    version: "2.8.14-d3b1d6a"
+    version: "2.9.0-rc.0"
     values:
       env:
         open:
           NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: http://cobrand-server-mock-service/notification/krona
   - name: outbound-authentication
-    version: "1.7.0-develop.6"
+    version: "1.7.0-rc.0"
     values:
       env:
         open:
@@ -78,7 +78,7 @@ applications:
           OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/adfs
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
   - name: reconciliation
-    version: "2.3.2"
+    version: "2.4.0-rc.1"
     values:
       env:
         open:
@@ -86,6 +86,6 @@ applications:
           CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: qainternal-reconciliation-overage
           CLOUD_AWS_SQS_QUEUES_CHARGE: qainternal-charge
   - name: spending-rules
-    version: "2.3.23-72d2a0b"
+    version: "2.4.0-rc.0"
   - name: store-match
-    version: "2.5.10-e9da2ce"
+    version: "2.6.0-rc.0"
