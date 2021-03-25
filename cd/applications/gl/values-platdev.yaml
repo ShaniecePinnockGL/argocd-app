@@ -46,3 +46,5 @@ applications:
           ALERT_TRANSACTION_STABLE_HANDLER: me.greenlight.galileoproxy.service.RestRequestHandler
           ALERT_TRANSACTION_CANDIDATE_ENDPOINT:
           ALERT_TRANSACTION_CANDIDATE_HANDLER:
+      nodePort:
+        nodePort: 32323
