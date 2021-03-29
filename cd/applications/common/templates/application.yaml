@@ -28,12 +28,14 @@ spec:
     helm:
       releaseName: {{ $app.name }}-{{ $dest.namespace }}
       values: |
-        {{- toYaml $.Values.common.values | trim | nindent 8 }}
+        {{- with $.Values.common.values }}
+        {{- toYaml . | trim | nindent 8 }}
+        {{- end }}
         {{- if hasKey . "values" }}
         {{- $regionValues := (index .values $dest.region) }}
         {{- $noRegionValues := omit $app.values "e1" "e2" }}
         {{- $values := merge $regionValues $noRegionValues }}
-          {{- toYaml $values | trim | nindent 8 }}
+        {{- toYaml $values | trim | nindent 8 }}
         {{- end }}
       parameters:
         - name: application
