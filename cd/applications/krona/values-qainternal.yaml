@@ -45,6 +45,10 @@ applications:
     version: "2.6.0-rc.0"
   - name: graphql
     version: "1.45.0-rc.1"
+    values:
+      env:
+        open:
+          PROCESSOR: krona
   - name: ledger
     version: "2.6.0-rc.1"
     values:

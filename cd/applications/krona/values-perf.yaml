@@ -94,6 +94,9 @@ applications:
       hpa:
         minReplicas: 10
         maxReplicas: 12
+      env:
+        open:
+          PROCESSOR: krona
   - name: ledger
     version: ""
     values:

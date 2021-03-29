@@ -39,6 +39,10 @@ applications:
     version: ""
   - name: graphql
     version: ""
+    values:
+      env:
+        open:
+          PROCESSOR: krona
   - name: ledger
     version: ""
     values:

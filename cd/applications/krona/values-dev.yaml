@@ -38,6 +38,10 @@ applications:
     version: "2.3.8-cab34b9"
   - name: graphql
     version: "1.45.0-develop.17"
+    values:
+      env:
+        open:
+          PROCESSOR: krona
   - name: ledger
     version: "2.6.0-develop.2"
     values:
