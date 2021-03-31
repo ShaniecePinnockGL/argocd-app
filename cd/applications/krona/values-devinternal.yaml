@@ -47,7 +47,7 @@ applications:
   - name: extauth
     version: "2.7.0-develop.3"
   - name: graphql
-    version: "1.46.0-develop.40"
+    version: "1.47.0-develop.7"
     values:
       env:
         open:
