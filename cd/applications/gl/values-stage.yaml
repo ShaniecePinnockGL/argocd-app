@@ -23,6 +23,7 @@ common:
     env:
       open:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+        DD_ENV: staging
 applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"
