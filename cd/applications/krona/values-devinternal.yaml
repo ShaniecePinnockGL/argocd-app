@@ -37,7 +37,7 @@ applications:
   - name: charge
     version: "2.10.0-develop.5"
   - name: chores
-    version: "1.11.0-develop.12"
+    version: "1.11.0-develop.13"
   - name: cobrand-api
     version: "1.21.0-develop.59"
   - name: cobrand-healthz
