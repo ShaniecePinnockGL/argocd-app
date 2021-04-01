@@ -61,6 +61,20 @@ applications:
   - name: move-funds
     version: ">= 0.0.0-0"
     values:
+      acceptanceTest:
+        enable: true
+        env:
+          open:
+            ACCOUNT_MANAGEMENT_GRPC_HOST: account-management-service
+            ACCOUNT_MANAGEMENT_GRPC_PORT: 50051
+            EXTERNAL_FUNDS_GRPC_HOST: external-funds-service
+            EXTERNAL_FUNDS_GRPC_PORT: 50051
+            LEDGER_GRPC_HOST: ledger-service
+            LEDGER_GRPC_PORT: 50051
+            MOVE_FUNDS_GRPC_HOST: move-funds-service
+            MOVE_FUNDS_GRPC_PORT: 50051
+            SPENDING_RULE_GRPC_HOST: spending-rules-service
+            SPENDING_RULE_GRPC_PORT: 50051
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: devinternal_
