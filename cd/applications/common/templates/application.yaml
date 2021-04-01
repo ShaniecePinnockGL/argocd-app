@@ -28,19 +28,20 @@ spec:
     helm:
       releaseName: {{ $app.name }}-{{ $dest.namespace }}
       values: |
-        {{- if hasKey . "values" }}
+        {{- $values := $app.values | default dict }}
+        {{- if hasKey $app "values" }}
         {{- $regionValues := (index .values $dest.region) }}
         {{- $noRegionValues := omit $app.values "e1" "e2" }}
         {{- $values := merge $regionValues $noRegionValues }}
+        {{- end }}
         {{- $commonValues := $values }}
         {{- if $.Values.common }}
         {{- if $.Values.common.values }}
         {{- $commonValues = $.Values.common.values }}
         {{- end }}
         {{- end }}
-        {{- $merged := deepCopy $values | merge $commonValues }}
+        {{- $merged := merge $values $commonValues }}
         {{- toYaml $merged | trim | nindent 8 }}
-        {{- end }}
       parameters:
         - name: application
           value: {{ $app.name }}
