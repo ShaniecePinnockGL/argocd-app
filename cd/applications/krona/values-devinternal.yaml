@@ -98,7 +98,12 @@ applications:
     version: ">= 0.0.0-0"
     values:
       hooks:
-        acceptanceTest: true
+        acceptanceTest:
+          enable: true
+          env:
+            open:
+              STORE_MATCH_GRPC_HOST: store-match-service
+              STORE_MATCH_GRPC_PORT: 50051
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
