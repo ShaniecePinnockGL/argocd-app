@@ -96,6 +96,9 @@ applications:
     version: ">= 0.0.0-0"
   - name: store-match
     version: ">= 0.0.0-0"
+    values:
+      hooks:
+        acceptanceTest: true
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
