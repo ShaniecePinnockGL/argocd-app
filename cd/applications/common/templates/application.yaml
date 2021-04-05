@@ -29,11 +29,13 @@ spec:
       releaseName: {{ $app.name }}-{{ $dest.namespace }}
       values: |
         {{- $values := $app.values | default dict }}
+        {{- $commonValues := $values }}
         {{- if hasKey $app "values" }}
         {{- $regionValues := (index .values $dest.region) }}
         {{- $noRegionValues := omit $app.values "e1" "e2" }}
         {{- $values := merge $regionValues $noRegionValues }}
-        {{- $commonValues := $values }}
+        {{- $commonValues = $values }}
+        {{- end }}
         {{- if $.Values.common }}
         {{- if $.Values.common.values }}
         {{- $commonValues = $.Values.common.values }}
@@ -41,7 +43,6 @@ spec:
         {{- end }}
         {{- $merged := merge $values $commonValues }}
         {{- toYaml $merged | trim | nindent 8 }}
-        {{- end }}
       parameters:
         - name: application
           value: {{ $app.name }}
