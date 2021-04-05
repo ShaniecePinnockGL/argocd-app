@@ -99,7 +99,7 @@ applications:
           OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/adfs
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
   - name: reconciliation
-    version: "2.5.0-develop.15"
+    version: "2.5.0-develop.16"
     values:
       env:
         open:
