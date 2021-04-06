@@ -46,3 +46,16 @@ applications:
           ALERT_TRANSACTION_STABLE_HANDLER: me.greenlight.galileoproxy.service.RestRequestHandler
           ALERT_TRANSACTION_CANDIDATE_ENDPOINT: ""
           ALERT_TRANSACTION_CANDIDATE_HANDLER: ""
+  - name: sealed-secrets
+    version: ">= 0.0.0-0"
+    values:
+      e1:
+        sealedSecrets:
+          - name: galileo-proxy-secrets
+            encryptedData:
+              SENTRY_DSN: AgDFAQB18RXXOMkZepltQFAPJqBbYm2PVwcAaRnak0tMQbDodUCP2UG+FNUo9Y3Zc155mri25u+3YapV3JGCYHPjkFv7YY/3UerhS6feRccXIpJnnwmfaZmx7KR6yN98V/1z8Zf2ra49dHGZgOvo/nm+iH2LTLShYVq/6WMlMof1yhK1ML6kll0oBReBaawzLWIYVoN8aKO2yUDGixJAEnLsl5/ncN/e9YA7uTNfmmxsTXHwOPRTxxh+VBmXCXuv+O0n+rZ68mHujAXibtqfF6UK2bz2BDC954MX5SqD+Fx8Z9kZab34kAjQg8jD0CcALwReFlfZlok3+0N50IPCrKLdrlocESbit7Lgv/SkiN4QodDdZPdXYLo0GTsfsL/E8RP359Zdb0YztosI641+rm9Wiuouhm7Q3YEBYYke+UUMy9Nq9O3M3eaTI7507WSwnqg7+8bQuPqFOW1wZmr2n8iRDYXH05iMTD2hdTQIdTyUt1OJO7PinPEAz3fhVw8wZICRLKBDCq+sDqryXQVvlrOhHv1QN7FMj12YdZwYvQYmWjfUAsafx+wLH+ZLipoUsjEjhgApX6uoROv6UzPpW6XTAGlgQD2wtF34W+gAkWEPselxy5ism/giNKvpH8exQZpkjkeDRtTzlebXhuUSGgRg59iheZ9mmw1WSofqVJgCn1tq/YmX8TnsNXJeU99TsmmQDwNjyLyQklv95ULi0kVjubmWwNzX8Lqx2xSJp74RWkFrQgpKTGg90hrwqGE69Ma35Y4oQZEc+d05F6LOORoY/aovyiGfsgQ=
+      e2:
+        sealedSecrets:
+          - name: galileo-proxy-secrets
+            encryptedData:
+              SENTRY_DSN: AgBkoODYVMi7YulFi8/Ew45N39fE1Pk6T169e4+jJBfeCgJ49ASHwkA+E3QvM/9MqcATddMzOVt0T+QY+oVzkkupSuMf3Egb75NqsPEJBbgQzFPbEBS8R+6ZWtdFhID5CuvoGCau2QIbpOnXRZoazitDJh33LrJJbCGGkJ/QgpKHea6AqExFWidG3LdNvXosd13sxeQU0N9vk6jF1UdcwdJ45OHHu6LDxFYjBukj/f+HxSZ3UfVhqViYMftuKPR65fFvD6GWPYxxNlHaBIJ7e69kcojBFslPXkIpu6nINnwFzfWIPxuZWTQeSeojc669jKAERRoj3WGuyUQmAxQQ6vzB2KyRQrKX+gToMYV/O1OoEg8zs2RLlRgbjm4sEbihVpKyMFek6wopYCE41vH/Ri1JQrKaQ9vA1Dr+l9KDaMCW/UEqQttFcmtGfaWd9nAHVRXDtWgqPYVzjPgwAPijJv3ETzZHTijQC6LQksuEVlmfTZVuHhj9C/H664TLahSMS9hJ3oKkxglkRpWheYLYMXrqLBTAfliLkPP3rV0AuS+OsKN0Mo/2DeSeKYgBmJ3NV68quA+svR8GXYgawfK8B80ivgSQtfu/eomDv9a3NsWj2/3JdwHlBoKLzAmkjhHmcP2CyAw1qPHhTh36vDts07jwcy1GxOsQ7nXzhMH/bE2JZIF4SlqzRPQzh//Mh6MOPy0m1IVKaz+GtPDxqv7Okt4iqXBlAh7fPhEpnwbkF6GQ/GdfIR8uGWbGxUJYT5inOGslfAqSVNvbgdocj/vzXgTNcpODNQNJOk4=
