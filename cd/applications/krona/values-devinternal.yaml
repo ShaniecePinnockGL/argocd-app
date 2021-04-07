@@ -53,7 +53,7 @@ applications:
   - name: chores
     version: ">= 0.0.0-0"
   - name: cobrand-api
-    version: "1.22.0-develop.7"
+    version: ">= 0.0.0-0"
   - name: cobrand-healthz
     version: ">= 0.0.0-0"
   - name: cobrand-server-mock
