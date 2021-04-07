@@ -20,12 +20,19 @@ common:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
         LOG_LEVEL: debug
     hooks:
-      smokeTest:
+      postmanTest:
         enable: true
-        env:
-          open:
-            COLLECTION_ID: 6747130-d3142053-ba8e-4886-a24f-2374641f7db1
-            ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
+        collections:
+          - name: smoke
+            env:
+              open:
+                COLLECTION_ID: 6747130-d3142053-ba8e-4886-a24f-2374641f7db1
+                ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
+          - name: charge-general
+            env:
+              open:
+                COLLECTION_ID: 8154965-2ca50f6e-3e5a-4d54-8912-40ed2ef1fdd6
+                ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
 applications:
   - name: account-history
     version: ">= 0.0.0-0"
