@@ -51,7 +51,7 @@ applications:
   - name: charge
     version: ">= 0.0.0-0"
   - name: chores
-    version: ">= 0.0.0-0"
+    version: "v1.12.0-develop.7"
   - name: cobrand-api
     version: ">= 0.0.0-0"
   - name: cobrand-healthz
