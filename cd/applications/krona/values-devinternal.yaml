@@ -131,8 +131,8 @@ applications:
           enable: true
           env:
             open:
-              STORE_MATCH_GRPC_HOST: store-match-service
-              STORE_MATCH_GRPC_PORT: 50051
+              STORE_MATCH_GRPC_HOST: ambassador
+              STORE_MATCH_GRPC_PORT: 80
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
