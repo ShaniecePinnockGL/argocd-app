@@ -313,13 +313,6 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           STORE_MATCH_REDIS_POOL_ENABLED: "false"
-      resources:
-        limits:
-          cpu: 1500m
-          memory: 1Gi
-        requests:
-          cpu: 1000m
-          memory: 1Gi
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
