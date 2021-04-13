@@ -23,9 +23,10 @@ common:
     env:
       open:
         LOGGING_LEVEL_ME_GREENLIGHT: INFO
+        DD_ENV: production
 applications:
   - name: galileo-proxy
-    version: "0.1.0"
+    version: "0.2.0"
     values:
       loggingAgent: Datadog
       env:
