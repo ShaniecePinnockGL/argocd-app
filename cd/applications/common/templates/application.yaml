@@ -60,6 +60,10 @@ spec:
   {{- if hasKey $.Values "syncPolicy" }}
   syncPolicy:
     {{- toYaml $.Values.syncPolicy | trim | nindent 4 }}
+    {{- if not (hasKey $.Values.syncPolicy "retry") }}
+    retry:
+      limit: 0
+    {{- end }}
   {{- end }}
 {{- end }}
 {{- end }}
