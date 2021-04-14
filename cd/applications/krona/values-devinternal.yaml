@@ -11,12 +11,6 @@ destinations:
 syncPolicy:
   automated:
     prune: true
-annotations:
-  notifications.argoproj.io/subscribe:
-    on-sync-succeeded:
-      argo-cd-notification-tool-message-deploy: ""
-    on-sync-failed:
-      argo-cd-notification-tool-message-deploy: ""
 common:
   values:
     ambassador:
