@@ -4,8 +4,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  {{- if $.Values.lob }}
-  name: {{ $.Values.lob }}-{{ $app.name }}-{{ $dest.namespace }}-{{ $dest.region }}
+  {{- with $.Values.annotations }}
+  annotations:
+    {{- toYaml . | trim | nindent 4 }}
+  {{- end }}
+  {{- with $.Values.lob }}
+  name: {{ . }}-{{ $app.name }}-{{ $dest.namespace }}-{{ $dest.region }}
   {{- else }}
   name: {{ $app.name }}-{{ $dest.namespace }}-{{ $dest.region }}
   {{- end }}
@@ -18,8 +22,8 @@ metadata:
     namespace: {{ $dest.namespace }}
     region: {{ $dest.region }}
 spec:
-  {{- if $.Values.lob }}
-  project: {{ $.Values.lob }}-{{ $.Values.project }}
+  {{- with $.Values.lob }}
+  project: {{ . }}-{{ $.Values.project }}
   {{- else }}
   project: {{ $.Values.project }}
   {{- end }}
@@ -57,10 +61,10 @@ spec:
   destination:
     name: {{ $dest.cluster }}
     namespace: {{ $dest.namespace }}
-  {{- if hasKey $.Values "syncPolicy" }}
+  {{- with $.Values.syncPolicy }}
   syncPolicy:
-    {{- toYaml $.Values.syncPolicy | trim | nindent 4 }}
-    {{- if not (hasKey $.Values.syncPolicy "retry") }}
+    {{- toYaml . | trim | nindent 4 }}
+    {{- if not (hasKey . "retry") }}
     retry:
       limit: 0
     {{- end }}

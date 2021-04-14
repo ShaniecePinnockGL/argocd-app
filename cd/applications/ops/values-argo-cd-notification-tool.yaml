@@ -3,19 +3,19 @@ source:
   repo: https://greenlight.jfrog.io/artifactory/gl-helm-release
 destinations:
   - cluster: in-cluster
-    namespace: argo-cd-notification
+    namespace: argocd-notifications-tool
     region: e1
 syncPolicy:
   automated:
     prune: true
 applications:
-  - name: argo-cd-notification-tool
+  - name: argocd-notifications-tool
     version: ">= 0.0.0-0"
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
       sealedSecrets:
-        - name: argo-cd-notification-tool-secrets
+        - name: argocd-notifications-tool-secrets
           encryptedData:
             GITHUB_TOKEN: AgAGLV/mltN0QO1myTQzhKHeHCo59ZGweru4ZRCVUAbNUiKOg+MNXHn3E9nWJPTG7eBvoU0bRtXhvMMb1/khFLkvwZ9txUSkLxgKpEFmsu/We2n1FNVmYN7XRpZB+p6s7DFLmQPg7sh26TE7kxHpNDINnWV0ExFX/xAsW+KOMjk5FslC5LjI7DNXOBdeo7ydOV96GJiFc705D9Yt1iYirplaIGbueTM7Hcs9qu8iqJDFrbJx+8Agp3wTGw4AeGWKfer2qsbgvXdftv1EJc0LV02mjLeR9WKgh3enopCqx2Kt5AbRZ2F6rv2yDWlEpzlDymffQt2oXW8fJ7LfGT2/mTmlHyKYedsixV+s85ClUmyySAQTkyC9/Ez92Bk7iiYlfW8YQxM1+oe0Qi53F95SLatdYYQk9wMz2rnzwxXVt3/Ll7H+r7j8CE+7tjU5AyExYWTA+5QLhbSa2IkjHO4ce3FpnaW682JIZLQlTT+D1wMRg3HeD+ZePdJB9uVZsD8k7Lm5hcXja42ds/LdQ4bteU1hWV+VNTBn04YG6baia+HdCkwOEAEblagXlkPgP97UCpzDdq19q08My255x4gH64+NKhU08qRkp97ZLw2QsDus6is6azA/h5H5DuvUCUP0SESLunprfAnTc4u1gb8YmnOsOPREjk3V8U1e7pV8c6pN1OqCNxpunLAz0M21+CqJDk9xQg+9vXCJtiXWhIu92H5j3UcAKjEP9avtMQmC9Ie55N5IgSeCLADg
             SLACK_TOKEN: AgC95TEuDg1wYFSnaIx5mg6U/8uF+iqlAAV/RWYUeyqS17VxCTsUEHtH8b5f+SuhZe1ovMeubijLWStenaBNE8C0iRdUalwzXbRIKM4tRM9AT/zLby82yT6ACitASkNRq0bdvAxnKec9Q7sap5orpqp8PnIs2+8T0h8zTGyzuD4JG30+DWzwRz+v862dVe8Th31JfeNfQ37JvRH5/jt/yoMKQi/2ge/zjDd3APUpQAH7K4wcZWsuJNuybkqXLRDsoGOfkOrn6v37IS/o/0CJvKYbYCD+Qc+BKSw/ydlMwGHDhB0sXa4NgijRc593+QTQU2Lmqx4cxK/lvMTCyxKj9rkJW3r+iAz/tYafTwY13YR+zAyJj1OP2LD4yYiWIAMKa63ctGSpoc+mvaH1kW+REX7ZVE63dxgCnTz4dl0SbkkI8GampQJZz7zVZEm0rUmuG8rcbjbuT8yHnPOfD2WVRE8xzkbK7/9zlZJfwo1dwDb4dMKQXyJgc3kYKboNgkdVg0iTwedpOtMW8sj8Vrg0H9DRN5nEpsr2r/XxjwsxX+IVPsJlZzIu4t7Fn8E2yUa/tcBWr/hUXgWu9V0Z4QAAFnMk87lZ1pOWctg8GGjXKdlGoclk3tvnatjILBPRJwWSnh+yNCH8QUUDTrDPZVY8/JadHzbWQApbQcFLLVgHk0itkGrMyoDCKiEwQD59VemoKvTIh/Rkyo9pnUps4RbFnGToWwoYfHq+CzhVb7FnM11IJgO2v+VE6p1pIOx6pDE3BheARK8UKQ==

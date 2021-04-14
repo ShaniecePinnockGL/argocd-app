@@ -1,4 +1,2 @@
 argo:
   namespace: argocd
-common:
-  values:
