@@ -190,6 +190,13 @@ applications:
   - name: ledger
     version: ">= 0.0.0-0"
     values:
+      hooks:
+        acceptanceTest:
+          enable: true
+          env:
+            open:
+              LEDGER_GRPC_HOST: ambassador
+              LEDGER_GRPC_PORT: 80
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: devinternal_
