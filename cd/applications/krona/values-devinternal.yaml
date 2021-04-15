@@ -228,6 +228,9 @@ applications:
           OUTBOUND_AUTHENTICATION_GRPC_PORT: "80"
           SPENDING_RULE_GRPC_HOST: ambassador
           SPENDING_RULE_GRPC_PORT: "80"
+        awsConfigRef:
+          MOVE_FUNDS_AWS_SQS_QUEUES_LEDGER_NAME: "wrong_ledger_queue_name"
+          MOVE_FUNDS_AWS_SNS_TOPICS_MOVE_FUNDS_EVENTS_ARN: "wrong_move_funds_topic_arn"
   - name: notification
     version: ">= 0.0.0-0"
     values:
