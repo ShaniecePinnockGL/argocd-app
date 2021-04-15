@@ -229,8 +229,8 @@ applications:
           SPENDING_RULE_GRPC_HOST: ambassador
           SPENDING_RULE_GRPC_PORT: "80"
         awsConfigRef:
-          MOVE_FUNDS_AWS_SQS_QUEUES_LEDGER_NAME: "wrong_ledger_queue_name"
-          MOVE_FUNDS_AWS_SNS_TOPICS_MOVE_FUNDS_EVENTS_ARN: "wrong_move_funds_topic_arn"
+          MOVE_FUNDS_AWS_SQS_QUEUES_LEDGER_NAME: ledger-journal-ddb-table-name
+          MOVE_FUNDS_AWS_SNS_TOPICS_MOVE_FUNDS_EVENTS_ARN: ledger-journal-ddb-table-name
   - name: notification
     version: ">= 0.0.0-0"
     values:
