@@ -103,9 +103,6 @@ applications:
           LEDGER_GRPC_PORT: "80"
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
-        awsConfigRef:
-          CHARGE_AWS_SNS_TOPICS_CHARGE_EVENTS_ARN: chores-chore-ddb-table-name
-          CHARGE_AWS_SQS_QUEUES_CHARGE: chores-chore-ddb-table-name
   - name: chores
     version: ">= 0.0.0-0"
     values:
