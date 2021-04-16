@@ -19,10 +19,10 @@ applications:
       resources:
         limits:
           cpu: 2000m
-          memory: 7G
+          memory: 7Gi
         requests:
           cpu: 1000m
-          memory: 1G
+          memory: 1Gi
       hpa:
         minReplicas: 5
         maxReplicas: 10
