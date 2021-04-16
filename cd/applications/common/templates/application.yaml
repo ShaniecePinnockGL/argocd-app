@@ -1,5 +1,9 @@
 {{- range $dest := .Values.destinations }}
 {{- range $app := $.Values.applications }}
+{{- $namespace := $dest.namespace }}
+{{- with $app.namespace }}
+{{- $namespace = . }}
+{{- end }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -9,17 +13,17 @@ metadata:
     {{- toYaml . | trim | nindent 4 }}
   {{- end }}
   {{- with $.Values.lob }}
-  name: {{ . }}-{{ $app.name }}-{{ $dest.namespace }}-{{ $dest.region }}
+  name: {{ . }}-{{ $app.name }}-{{ $namespace }}-{{ $dest.region }}
   {{- else }}
-  name: {{ $app.name }}-{{ $dest.namespace }}-{{ $dest.region }}
+  name: {{ $app.name }}-{{ $namespace }}-{{ $dest.region }}
   {{- end }}
-  namespace: {{ $.Values.argo.namespace }}
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
     application: {{ $app.name }}
     cluster: {{ $dest.cluster }}
-    namespace: {{ $dest.namespace }}
+    namespace: {{ $namespace }}
     region: {{ $dest.region }}
 spec:
   {{- with $.Values.lob }}
@@ -30,7 +34,7 @@ spec:
   source:
     chart: {{ $app.name }}
     helm:
-      releaseName: {{ $app.name }}-{{ $dest.namespace }}
+      releaseName: {{ $app.name }}-{{ $namespace }}
       values: |
         {{- /* merge application and region specific values */}}
         {{- $values := $app.values | default dict }}
@@ -53,14 +57,14 @@ spec:
         - name: cluster
           value: {{ $dest.cluster }}
         - name: namespace
-          value: {{ $dest.namespace }}
+          value: {{ $namespace }}
         - name: region
           value: {{ $dest.region }}
     repoURL: {{ $.Values.source.repo }}
     targetRevision: {{ $app.version | quote }}
   destination:
     name: {{ $dest.cluster }}
-    namespace: {{ $dest.namespace }}
+    namespace: {{ $namespace }}
   {{- with $.Values.syncPolicy }}
   syncPolicy:
     {{- toYaml . | trim | nindent 4 }}
