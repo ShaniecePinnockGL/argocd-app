@@ -18,11 +18,11 @@ applications:
     values:
       resources:
         limits:
-          cpu: 1000m
-          memory: 768Mi
+          cpu: 2000m
+          memory: 7G
         requests:
           cpu: 1000m
-          memory: 768Mi
+          memory: 1G
       hpa:
         minReplicas: 5
         maxReplicas: 10
