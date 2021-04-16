@@ -12,9 +12,6 @@ applications:
   - name: actions-runner-linux-x64
     namespace: actions-runner
     version: ">= 0.0.0-0"
-  - name: argocd-notifications-tool
-    namespace: argocd-notifications-tool
-    version: ">= 0.0.0-0"
     values:
       resources:
         limits:
@@ -26,6 +23,9 @@ applications:
       hpa:
         minReplicas: 5
         maxReplicas: 10
+  - name: argocd-notifications-tool
+    namespace: argocd-notifications-tool
+    version: ">= 0.0.0-0"
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
