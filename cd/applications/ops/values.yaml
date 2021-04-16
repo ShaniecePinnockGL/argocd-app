@@ -15,6 +15,17 @@ applications:
   - name: argocd-notifications-tool
     namespace: argocd-notifications-tool
     version: ">= 0.0.0-0"
+    values:
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
+      hpa:
+        minReplicas: 5
+        maxReplicas: 10
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
