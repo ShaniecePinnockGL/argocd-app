@@ -9,20 +9,20 @@ syncPolicy:
   automated:
     prune: true
 applications:
-  - name: actions-runner-linux-x64
-    namespace: actions-runner
-    version: ">= 0.0.0-0"
-    values:
-      resources:
-        limits:
-          cpu: 2000m
-          memory: 7Gi
-        requests:
-          cpu: 1000m
-          memory: 1Gi
-      hpa:
-        minReplicas: 5
-        maxReplicas: 10
+#  - name: actions-runner-linux-x64
+#    namespace: actions-runner
+#    version: ">= 0.0.0-0"
+#    values:
+#      resources:
+#        limits:
+#          cpu: 2000m
+#          memory: 7Gi
+#        requests:
+#          cpu: 1000m
+#          memory: 1Gi
+#      hpa:
+#        minReplicas: 5
+#        maxReplicas: 10
   - name: argocd-notifications-tool
     namespace: argocd-notifications-tool
     version: ">= 0.0.0-0"
