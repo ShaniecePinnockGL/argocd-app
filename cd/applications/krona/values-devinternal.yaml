@@ -8,6 +8,9 @@ destinations:
   - cluster: krona-internal-e2
     namespace: devinternal
     region: e2
+annotations:
+  notifications.argoproj.io/subscribe.on-sync-succeeded.acntmd: ""
+  notifications.argoproj.io/subscribe.on-sync-failed.acntmd: ""
 syncPolicy:
   automated:
     prune: true
