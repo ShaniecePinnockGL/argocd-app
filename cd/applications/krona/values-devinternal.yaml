@@ -9,8 +9,8 @@ destinations:
     namespace: devinternal
     region: e2
 annotations:
-  notifications.argoproj.io/subscribe.on-sync-succeeded.acntmd: ""
-  notifications.argoproj.io/subscribe.on-sync-failed.acntmd: ""
+  notifications.argoproj.io/subscribe.on-sync-succeeded.act: ""
+  notifications.argoproj.io/subscribe.on-sync-failed.act: ""
 syncPolicy:
   automated:
     prune: true
