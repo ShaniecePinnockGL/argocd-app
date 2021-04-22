@@ -23,11 +23,41 @@ common:
     env:
       open:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+    loggingAgent: Datadog
 applications:
+  - name: account-history
+    version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          SPRING_PROFILES_ACTIVE: dbMode
+          SPRING_HIKARI_POOL_SIZE: "10"
+          SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
+          SPRING_HIKARI_MINIMUM_IDLE: "10"
+          SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          REPLICATION_SYNC_USE_SQS: false
+  - name: charge
+    version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          STORE_MATCH_GRPC_HOST: ambassador
+          STORE_MATCH_GRPC_PORT: "80"
   - name: galileo-proxy
     version: ">= 0.0.0-0"
     values:
-      loggingAgent: Datadog
       env:
         open:
           AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.dev.svc.cluster.local/auth/Authorization
@@ -48,6 +78,66 @@ applications:
           ALERT_TRANSACTION_CANDIDATE_HANDLER: ""
       nodePort:
         nodePort: 32323
+  - name: ledger
+    version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: platdev_
+          CLOUD_AWS_DYNAMODB_MAX_CONNECTIONS: "100"
+          CLOUD_AWS_DYNAMODB_CONNECTION_TIMEOUT: "300"
+          CLOUD_AWS_DYNAMODB_CLIENT_EXECUTION_TIMEOUT: "0"
+          CLOUD_AWS_DYNAMODB_REQUEST_TIMEOUT: "0"
+          CLOUD_AWS_DYNAMODB_SOCKET_TIMEOUT: "5000"
+  - name: reconciliation
+    version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: platform-platdev-reconciliation
+          CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: platdev-reconciliation-overage
+          CAMEL_CONFIG_AGGREGATE_TIMEOUT: "450000"
+          CAMEL_CONFIG_CONCURRENT_THREADS: "20"
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_AE_FOLDER: ReadyForProcessing/authexpire
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_CDF_FOLDER: ReadyForProcessing/ChaseRejectReport
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_LADF_FOLDER: ReadyForProcessing/LedgerAdjustmentReport
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_PT_FOLDER: ReadyForProcessing/postedtransactions
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_OUTGOING_FOLDER: ReconCache
+          CLOUD_AWS_S3_REGION: us-east-2
+          CLOUD_AWS_SQS_POLL_SIZE: "10"
+          RECONCILIATION_QUEUE_DELAY: "5"
+          SPRING_REDIS_ACCOUNT_AGGREGATE_TIMEOUT: "2000"
+          SPRING_REDIS_DELAY_INTERVAL: "2000"
+          SPRING_REDIS_MAX_DELAY: "30000"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          ACCOUNT_HISTORY_GRPC_HOST: ambassador
+          ACCOUNT_HISTORY_GRPC_PORT: "80"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+        awsConfigRef:
+          CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
+  - name: spending-rules
+    version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          SPRING_HIKARI_POOL_SIZE: "10"
+          SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
+          SPRING_HIKARI_MINIMUM_IDLE: "10"
+          SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+  - name: store-match
+    version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          STORE_MATCH_REDIS_POOL_ENABLED: "false"
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
