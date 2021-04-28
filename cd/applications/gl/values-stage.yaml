@@ -31,8 +31,8 @@ applications:
       loggingAgent: Datadog
       env:
         open:
-          REST_TEMPLATE_POOL_MAX_TOTAL: 200
-          REST_TEMPLATE_POOL_MAX_PER_ROUTE: 20
+          REST_TEMPLATE_POOL_MAX_TOTAL: 1000
+          REST_TEMPLATE_POOL_MAX_PER_ROUTE: 100
           AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.stage.svc.cluster.local/auth/Authorization
           AUTH_AUTHORIZATION_STABLE_HANDLER: RestRequestHandler
           AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT: ""
