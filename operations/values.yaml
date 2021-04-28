@@ -1,4 +1,4 @@
-project: ops
+project: operations
 source:
   repo: https://greenlight.jfrog.io/artifactory/gl-helm-release
 destinations:
