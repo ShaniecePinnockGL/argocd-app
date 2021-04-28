@@ -14,12 +14,10 @@ spec:
   syncPolicy:
     automated:
       prune: true
-    syncOptions:
-      - CreateNamespace=true
   source:
     repoURL: https://github.com/GreenlightMe/argo.git
     targetRevision: HEAD
-    path: app/{{ $domain.name }}
+    path: {{ $domain.name }}
     helm:
       valueFiles:
         - values-{{ $environment }}.yaml
@@ -41,12 +39,10 @@ spec:
   syncPolicy:
     automated:
       prune: true
-    syncOptions:
-      - CreateNamespace=true
   source:
     repoURL: https://github.com/GreenlightMe/argo.git
     targetRevision: HEAD
-    path: app/{{ $domain.name }}
+    path: {{ $domain.name }}
   destination:
     name: in-cluster
     namespace: argocd

@@ -14,7 +14,6 @@ jobs:
         run: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
       - name: Lint Helm files
         run: |
-          cd app/
           domains=(appofapp gl krona operations)
           for domain in "${domains[@]}"; do
               if ls $domain/values-*.yaml > /dev/null 2>&1; then

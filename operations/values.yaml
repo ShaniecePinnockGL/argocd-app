@@ -8,6 +8,8 @@ destinations:
 syncPolicy:
   automated:
     prune: true
+  syncOptions:
+    - CreateNamespace=true
 applications:
 #  - name: actions-runner-linux-x64
 #    namespace: actions-runner
