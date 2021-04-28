@@ -17,6 +17,6 @@ spec:
     targetRevision: HEAD
     path: apps/{{ $domain }}
   destination:
-    server: in-cluster
+    name: in-cluster
     namespace: argocd-apps-{{ $domain }}
 {{- end }}
