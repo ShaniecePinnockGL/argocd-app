@@ -15,7 +15,7 @@ spec:
   source:
     repoURL: https://github.com/GreenlightMe/argo.git
     targetRevision: HEAD
-    path: apps/{{ $domain }}
+    path: app/{{ $domain }}
   destination:
     name: in-cluster
     namespace: argocd-apps-{{ $domain }}
