@@ -15,7 +15,7 @@ spec:
     automated:
       prune: true
   source:
-    repoURL: https://github.com/GreenlightMe/argo.git
+    repoURL: https://github.com/GreenlightMe/argocd-app.git
     targetRevision: HEAD
     path: {{ $domain.name }}
     helm:
@@ -40,7 +40,7 @@ spec:
     automated:
       prune: true
   source:
-    repoURL: https://github.com/GreenlightMe/argo.git
+    repoURL: https://github.com/GreenlightMe/argocd-app.git
     targetRevision: HEAD
     path: {{ $domain.name }}
   destination:
