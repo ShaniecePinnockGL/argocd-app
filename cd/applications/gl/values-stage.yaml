@@ -28,6 +28,9 @@ applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"
     values:
+      hpa:
+          minReplicas: 3
+          maxReplicas: 4
       loggingAgent: Datadog
       env:
         open:
