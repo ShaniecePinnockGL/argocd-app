@@ -12,6 +12,8 @@ spec:
   syncPolicy:
     automated:
       prune: true
+    syncOptions:
+      - CreateNamespace=true
   source:
     repoURL: https://github.com/GreenlightMe/argo.git
     targetRevision: HEAD
