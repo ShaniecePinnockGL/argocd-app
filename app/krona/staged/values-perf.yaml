@@ -1,0 +1,168 @@
+project: perf
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm
+destinations:
+  - cluster: krona-perf-e1
+    namespace: perf
+    region: e1
+  - cluster: krona-perf-e2
+    namespace: perf
+    region: e2
+syncPolicy:
+  automated:
+    prune: true
+common:
+  values:
+    ambassador:
+      instanceId: perf
+applications:
+  - name: account-history
+    version: ""
+    values:
+      hpa:
+        minReplicas: 15
+        maxReplicas: 17
+  - name: account-management
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 6
+  - name: allowance
+    version: ""
+    values:
+      hpa:
+        minReplicas: 3
+        maxReplicas: 6
+  - name: authentication
+    version: ""
+    values:
+      hpa:
+        minReplicas: 2
+        maxReplicas: 6
+      env:
+        open:
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-perf
+          AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: true
+          AUTHENTICATION_USER_POOLS_SECONDARY_POOL_ID: krona-perf
+      e1:
+        env:
+          open:
+            AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-1
+            AUTHENTICATION_USER_POOLS_SECONDARY_REGION: us-east-2
+      e2:
+        env:
+          open:
+            AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-2
+            AUTHENTICATION_USER_POOLS_SECONDARY_REGION: us-east-1
+  - name: charge
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 10
+  - name: chores
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 8
+  - name: cobrand-api
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+  - name: cobrand-healthz
+    version: ""
+    values:
+      hpa:
+        minReplicas: 2
+        maxReplicas: 2
+  - name: cobrand-server-mock
+    version: ""
+    values:
+      hpa:
+        minReplicas: 1
+        maxReplicas: 1
+  - name: extauth
+    version: ""
+    values:
+      hpa:
+        minReplicas: 4
+        maxReplicas: 6
+  - name: graphql
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+      env:
+        open:
+          PROCESSOR: krona
+  - name: ledger
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: perf_
+  - name: move-funds
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: perf_
+          EXTERNAL_FUNDING_KRONA_RFP_URL: http://cobrand-server-mock-service/rfp/krona
+  - name: notification
+    version: ""
+    values:
+      hpa:
+        minReplicas: 3
+        maxReplicas: 6
+      env:
+        open:
+          NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: http://cobrand-server-mock-service/notification/krona
+  - name: outbound-authentication
+    version: ""
+    values:
+      hpa:
+        minReplicas: 3
+        maxReplicas: 6
+      env:
+        open:
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: jwt-audience
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_ISSUER: jwt-issuer
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_SUBJECT: jwt-subject
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_CLIENT_ID: data-client-id
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: data-resource-event
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: data-resource-rfp
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/adfs
+          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
+  - name: reconciliation
+    version: ""
+    values:
+      hpa:
+        minReplicas: 1
+        maxReplicas: 1
+      env:
+        open:
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-perf-reconciliation
+          CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: perf-reconciliation-overage
+  - name: spending-rules
+    version: ""
+    values:
+      hpa:
+        minReplicas: 7
+        maxReplicas: 15
+  - name: store-match
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 8

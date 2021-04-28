@@ -1,0 +1,22 @@
+{{- range $domain := .Values.domain }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $domain }}
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ $domain }}
+  syncPolicy:
+    automated:
+      prune: true
+  source:
+    repoURL: https://github.com/GreenlightMe/argo.git
+    targetRevision: HEAD
+    path: apps/{{ $domain }}
+  destination:
+    server: in-cluster
+    namespace: argocd-apps-{{ $domain }}
+{{- end }}

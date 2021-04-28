@@ -10,12 +10,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Helm 2
-        run: |
-          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
-          sudo ln -s /usr/local/bin/helm /usr/local/bin/helm2
+      - name: Setup Helm
+        run: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
       - name: Lint Helm files
         run: |
-          helm2 lint cd/applications/krona
-          helm2 lint cd/applications/gl
-          helm2 lint cd/applications/ops
+          cd app/
+          domains=(appofapp gl krona operations)
+          for domain in "${domains[@]}"; do
+              if ls $domain/values-*.yaml > /dev/null 2>&1; then
+                for env in $domain/values-*.yaml; do
+                    helm lint $domain --values $env
+                done
+              else
+                  helm lint $domain
+              fi
+          done

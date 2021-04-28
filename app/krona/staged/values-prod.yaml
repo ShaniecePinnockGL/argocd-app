@@ -1,0 +1,162 @@
+project: prod
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm-release
+destinations:
+  - cluster: krona-prod-e1
+    namespace: prod
+    region: e1
+  - cluster: krona-prod-e2
+    namespace: prod
+    region: e2
+syncPolicy:
+  automated:
+    prune: true
+common:
+  values:
+    ambassador:
+      instanceId: prod
+applications:
+  - name: account-history
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+  - name: account-management
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 6
+  - name: allowance
+    version: ""
+    values:
+      hpa:
+        minReplicas: 4
+        maxReplicas: 6
+  - name: authentication
+    version: ""
+    values:
+      hpa:
+        minReplicas: 3
+        maxReplicas: 6
+      env:
+        open:
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-prod
+          AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: true
+          AUTHENTICATION_USER_POOLS_SECONDARY_POOL_ID: krona-prod
+      e1:
+        env:
+          open:
+            AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-1
+            AUTHENTICATION_USER_POOLS_SECONDARY_REGION: us-east-2
+      e2:
+        env:
+          open:
+            AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-2
+            AUTHENTICATION_USER_POOLS_SECONDARY_REGION: us-east-1
+  - name: charge
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 10
+  - name: chores
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 8
+  - name: cobrand-api
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+  - name: cobrand-healthz
+    version: ""
+    values:
+      hpa:
+        minReplicas: 2
+        maxReplicas: 2
+  - name: extauth
+    version: ""
+    values:
+      hpa:
+        minReplicas: 4
+        maxReplicas: 6
+  - name: graphql
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+      env:
+        open:
+          PROCESSOR: krona
+  - name: ledger
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: prod_
+  - name: move-funds
+    version: ""
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: prod_
+          EXTERNAL_FUNDING_KRONA_RFP_URL: https://api2-ext.jpmchase.net/deposit-account/payments/wires-transfers/first-banking/request-for-payment/v1/payment-requests
+  - name: notification
+    version: ""
+    values:
+      hpa:
+        minReplicas: 3
+        maxReplicas: 6
+      env:
+        open:
+          NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: https://api2-ext.jpmchase.net/consumer-banking/servicing/alerts-notifications/v1/events
+  - name: outbound-authentication
+    version: ""
+    values:
+      hpa:
+        minReplicas: 2
+        maxReplicas: 4
+      env:
+        open:
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: https://ida.jpmorganchase.com/adfs/oauth2/token
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_ISSUER: CC-106059-R672683-38163-PROD
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_SUBJECT: CC-106059-R672683-38163-PROD
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_CLIENT_ID: CC-106059-R672683-38163-PROD
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: JPMC:URI:RS-103326-34062-VaderExternal-PROD
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: JPMC:URI:RS-84657-36767-DigitalGrammerRFPSvc-PROD
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: https://ida.jpmorganchase.com/adfs/oauth2/token
+          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: https://api2-ext-oauth.jpmchase.net/oauth/client-credentials/v1/token
+  - name: reconciliation
+    version: ""
+    values:
+      hpa:
+        minReplicas: 8
+        maxReplicas: 9
+      env:
+        open:
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-prod-reconciliation
+          CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: prod-reconciliation-overage
+  - name: spending-rules
+    version: ""
+    values:
+      hpa:
+        minReplicas: 7
+        maxReplicas: 15
+  - name: store-match
+    version: ""
+    values:
+      hpa:
+        minReplicas: 6
+        maxReplicas: 8

@@ -1,0 +1,3 @@
+{{- include "common.application" (list . "gl.application") -}}
+{{- define "gl.application" -}}
+{{- end -}}

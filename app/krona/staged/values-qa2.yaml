@@ -1,0 +1,88 @@
+project: qa2
+source:
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm
+destinations:
+  - cluster: krona-test-e2
+    namespace: qa2
+    region: e2
+syncPolicy:
+  automated:
+    prune: true
+common:
+  values:
+    ambassador:
+      instanceId: qa2
+applications:
+  - name: account-history
+    version: "2.9.1"
+  - name: account-management
+    version: "1.13.16-059b6b0"
+  - name: allowance
+    version: "2.4.24-125266b"
+  - name: authentication
+    version: "2.3.1-b18ad2e"
+    values:
+      env:
+        open:
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qa
+          AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-2
+          AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
+  - name: charge
+    version: "2.7.6-b7d02ba"
+  - name: chores
+    version: "1.9.0-develop.9"
+  - name: cobrand-api
+    version: "1.19.6-8972d5e"
+  - name: cobrand-healthz
+    version: "1.5.4-9813243"
+  - name: extauth
+    version: "2.5.0-rc.1"
+  - name: graphql
+    version: "1.44.4-676f181"
+    values:
+      env:
+        open:
+          PROCESSOR: krona
+  - name: ledger
+    version: "2.5.0-rc.0"
+    values:
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qa2_
+  - name: move-funds
+    version: "2.6.0-rc.2"
+    values:
+      env:
+        open:
+          CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qa2_
+          EXTERNAL_FUNDING_KRONA_RFP_URL: https://api2-ext-qa07.jpmchase.net/deposit-account/payments/wires-transfers/first-banking/request-for-payment/v1/payment-requests
+  - name: notification
+    version: "2.8.14-d3b1d6a"
+    values:
+      env:
+        open:
+          NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: https://api2-ext-qa07.jpmchase.net/consumer-banking/servicing/alerts-notifications/v1/events
+  - name: outbound-authentication
+    version: "1.6.0-develop.1"
+    values:
+      env:
+        open:
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: https://idad.jpmorganchase.com/adfs/oauth2/token
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_ISSUER: CC-106059-O728026-37735-QA
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_SUBJECT: CC-106059-O728026-37735-QA
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_CLIENT_ID: CC-106059-O728026-37735-QA
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: JPMC:URI:RS-103326-31661-VaderExternal-QA
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: JPMC:URI:RS-84657-36765-DigitalGrammerRFPSvc-QA
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: https://idad.jpmorganchase.com/adfs/oauth2/token
+          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: https://api2-ext-oauth-qa02.jpmchase.net/oauth/client-credentials/v1/token
+  - name: reconciliation
+    version: "2.2.69-5ce8874"
+    values:
+      env:
+        open:
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-qa2-reconciliation
+          CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: qa2-reconciliation-overage
+  - name: spending-rules
+    version: "2.3.23-72d2a0b"
+  - name: store-match
+    version: "2.5.10-e9da2ce"
