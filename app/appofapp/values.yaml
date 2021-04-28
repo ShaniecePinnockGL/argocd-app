@@ -1,4 +1,12 @@
 domain:
-  - gl
-  - krona
-  - operations
+  - name: gl
+    environment:
+      - dev
+      - platdev
+      - prod
+      - stage
+  - name: krona
+    environment:
+      - devinternal
+      - qainternal
+  - name: operations

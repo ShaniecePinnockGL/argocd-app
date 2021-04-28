@@ -1,3 +1,0 @@
-{{- include "common.application" (list . "operations.application") -}}
-{{- define "operations.application" -}}
-{{- end -}}

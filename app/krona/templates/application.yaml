@@ -1,3 +1,0 @@
-{{- include "common.application" (list . "krona.application") -}}
-{{- define "krona.application" -}}
-{{- end -}}

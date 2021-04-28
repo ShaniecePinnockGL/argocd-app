@@ -1,14 +1,16 @@
 {{- range $domain := .Values.domain }}
+{{- if hasKey $domain "environment" }}
+{{- range $environment := $domain.environment }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $domain }}-app
+  name: {{ $domain.name }}-{{ $environment }}-app
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: {{ $domain }}
+  project: {{ $domain.name }}-{{ $environment }}
   syncPolicy:
     automated:
       prune: true
@@ -17,8 +19,36 @@ spec:
   source:
     repoURL: https://github.com/GreenlightMe/argo.git
     targetRevision: HEAD
-    path: app/{{ $domain }}
+    path: app/{{ $domain.name }}
+    helm:
+      valueFiles:
+        - values-{{ $environment }}.yaml
   destination:
     name: in-cluster
-    namespace: argocd-app-{{ $domain }}
+    namespace: argocd
+{{- end }}
+{{- else }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $domain.name }}-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ $domain.name }}
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    repoURL: https://github.com/GreenlightMe/argo.git
+    targetRevision: HEAD
+    path: app/{{ $domain.name }}
+  destination:
+    name: in-cluster
+    namespace: argocd
+{{- end }}
 {{- end }}
