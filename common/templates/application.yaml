@@ -39,15 +39,19 @@ spec:
         {{- /* merge application and region specific values */}}
         {{- $values := $app.values | default dict }}
         {{- if hasKey $app "values" }}
-        {{- $regionValues := (index .values $dest.region) }}
+        {{- $regionValues := (index $app.values $dest.region) }}
         {{- $noRegionValues := omit $app.values "e1" "e2" }}
         {{- $values = merge $regionValues $noRegionValues }}
         {{- end }}
         {{- /* merge common and above values */}}
         {{- $merged := $values }}
-        {{- with $.Values.common }}
-        {{- with .values }}
-        {{- $merged = merge $values . }}
+        {{- if hasKey $.Values "common" }}
+        {{- if hasKey $.Values.common "values" }}
+        {{- $commonValues := $.Values.common.values }}
+        {{- $regionValues := (index $.Values.common.values $dest.region) }}
+        {{- $noRegionValues := omit $.Values.common.values "e1" "e2" }}
+        {{- $commonValues = merge $regionValues $noRegionValues }}
+        {{- $merged = merge $values $commonValues }}
         {{- end }}
         {{- end }}
         {{- toYaml $merged | trim | nindent 8 }}

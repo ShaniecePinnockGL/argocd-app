@@ -22,22 +22,23 @@ common:
       open:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
         LOG_LEVEL: debug
-    hooks:
-      postmanTest:
-        enable: true
-        collections:
-          - name: smoke
-            env:
-              open:
-                COLLECTION_ID: 6747130-d3142053-ba8e-4886-a24f-2374641f7db1
-                ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
-                DELAY_REQUEST: 2000
-          - name: charge-general
-            env:
-              open:
-                COLLECTION_ID: 8154965-2ca50f6e-3e5a-4d54-8912-40ed2ef1fdd6
-                ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
-                DELAY_REQUEST: 2000
+    e1:
+      hooks:
+        postmanTest:
+          enable: true
+          collections:
+            - name: smoke
+              env:
+                open:
+                  COLLECTION_ID: 6747130-d3142053-ba8e-4886-a24f-2374641f7db1
+                  ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
+                  DELAY_REQUEST: 2000
+            - name: charge-general
+              env:
+                open:
+                  COLLECTION_ID: 8154965-2ca50f6e-3e5a-4d54-8912-40ed2ef1fdd6
+                  ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
+                  DELAY_REQUEST: 2000
 applications:
   - name: account-history
     version: ">= 0.0.0-0"
@@ -55,7 +56,7 @@ applications:
           SPENDING_RULES_GRPC_PORT: "80"
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
-          REPLICATION_SYNC_USE_SQS: false
+          REPLICATION_SYNC_USE_SQS: "false"
   - name: account-management
     version: ">= 0.0.0-0"
     values:
@@ -88,10 +89,10 @@ applications:
     values:
       env:
         open:
-          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-devinternal
           AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-1
-          AUTHENTICATION_USER_POOLS_SECONDARY_POOL_ID: krona-devinternal
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-devinternal
           AUTHENTICATION_USER_POOLS_SECONDARY_REGION: us-east-2
+          AUTHENTICATION_USER_POOLS_SECONDARY_POOL_ID: krona-devinternal
           AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: "true"
   - name: charge
     version: ">= 0.0.0-0"
@@ -111,7 +112,6 @@ applications:
     values:
       env:
         open:
-          LOG_LEVEL: debug
           CHORES_AWS_SQS_WORKERS: "2"
           CHORES_AWS_DYNAMODB_MAX_IDLE_CONNECTIONS: "50"
           CHORES_AWS_DYNAMODB_IDLE_CONNECTION_TIMEOUT_DURATION: "90000"
@@ -122,16 +122,11 @@ applications:
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
     version: ">= 0.0.0-0"
-    values:
-      env:
-        open:
-          LOG_LEVEL: debug
   - name: cobrand-healthz
     version: ">= 0.0.0-0"
     values:
       env:
         open:
-          LOG_LEVEL: debug
           ACCOUNT_HISTORY_GRPC_HOST: account-history-service
           ACCOUNT_HISTORY_GRPC_PORT: "50051"
           ACCOUNT_MANAGEMENT_GRPC_HOST: account-management-service
@@ -172,7 +167,6 @@ applications:
     values:
       env:
         open:
-          LOG_LEVEL: info
           PROCESSOR: krona
           ACCOUNT_HISTORY_GRPC_HOST: ambassador
           ACCOUNT_HISTORY_GRPC_PORT: "80"
@@ -193,13 +187,14 @@ applications:
   - name: ledger
     version: ">= 0.0.0-0"
     values:
-      hooks:
-        acceptanceTest:
-          enable: true
-          env:
-            open:
-              LEDGER_GRPC_HOST: ambassador
-              LEDGER_GRPC_PORT: 80
+      e1:
+        hooks:
+          acceptanceTest:
+            enable: true
+            env:
+              open:
+                LEDGER_GRPC_HOST: ambassador
+                LEDGER_GRPC_PORT: 80
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: devinternal_
@@ -211,21 +206,22 @@ applications:
   - name: move-funds
     version: ">= 0.0.0-0"
     values:
-      hooks:
-        acceptanceTest:
-          enable: true
-          env:
-            open:
-              ACCOUNT_MANAGEMENT_GRPC_HOST: "ambassador"
-              ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
-              EXTERNAL_FUNDS_GRPC_HOST: "ambassador"
-              EXTERNAL_FUNDS_GRPC_PORT: "80"
-              LEDGER_GRPC_HOST: "ambassador"
-              LEDGER_GRPC_PORT: "80"
-              MOVE_FUNDS_GRPC_HOST: "ambassador"
-              MOVE_FUNDS_GRPC_PORT: "80"
-              SPENDING_RULE_GRPC_HOST: "ambassador"
-              SPENDING_RULE_GRPC_PORT: "80"
+      e1:
+        hooks:
+          acceptanceTest:
+            enable: true
+            env:
+              open:
+                ACCOUNT_MANAGEMENT_GRPC_HOST: "ambassador"
+                ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+                EXTERNAL_FUNDS_GRPC_HOST: "ambassador"
+                EXTERNAL_FUNDS_GRPC_PORT: "80"
+                LEDGER_GRPC_HOST: "ambassador"
+                LEDGER_GRPC_PORT: "80"
+                MOVE_FUNDS_GRPC_HOST: "ambassador"
+                MOVE_FUNDS_GRPC_PORT: "80"
+                SPENDING_RULE_GRPC_HOST: "ambassador"
+                SPENDING_RULE_GRPC_PORT: "80"
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: devinternal_
@@ -311,13 +307,14 @@ applications:
   - name: store-match
     version: ">= 0.0.0-0"
     values:
-      hooks:
-        acceptanceTest:
-          enable: true
-          env:
-            open:
-              STORE_MATCH_GRPC_HOST: ambassador
-              STORE_MATCH_GRPC_PORT: 80
+      e1:
+        hooks:
+          acceptanceTest:
+            enable: true
+            env:
+              open:
+                STORE_MATCH_GRPC_HOST: ambassador
+                STORE_MATCH_GRPC_PORT: 80
       env:
         open:
           LEDGER_GRPC_HOST: ambassador
@@ -337,14 +334,3 @@ applications:
               CLIENT_ID: AgBVwVT+cij9MORExoZdl5tsuotU/yI+6NKGTByE7hqWPpcHNFTMrn962/c3hjo1nE/p8mg9gVHhqv3kVtKuefra3P8h4WUYpFgkqfQEyoAjArsBGq8eYDydexuzLYukZnCt6T4UKEfmCylu2Vi/NCit7NenmqqVldQxDG+9XZ3LE2GkEyz9qmCucJP04SeHuKRD4YhMHesRaiR1k/uEl2DMqw2OZbtesFdfRhoj/bbBSDylw5ODV+1Pp5n+dfNI6iKJY0EbJrPKJLD1Wao5irtOYyaLcspR/ZQGUDc6bpm5d7hlguzubEexh9Ce8WOtSrlgpClgA538AqZdve274x1qUaQr8CD6KD2oxHKcyneNnZHxT4KOVLl+2JCrQWEV0wH/m1iTiy3R4PY6WlgMNGb5+mMiQJ+sIEc/XNxjDAAXcKYvr7g6iDB0ehffp4hjGGCbSBDQqK/yrcLObGg/vZ/e4sKBxKBuN+8Z/6hBFp4mM22jogdzlGC47XeBnWEhDswZFNaCUitaQQMRFnK4omZzI7t658ItqmrtxPYkv2xQyMD8oxUnSe1+qc6Ol+ASeV7RP++VByRNrrxINqMRINkcNJ7bODwB9pofftf5CUGM8Mn8iLiiRtmXv5KAXceQPuAZ0x6uez/9E8fTXYUGT2MqxuVtZgbbvOwBsS1amVaL/wjagfSo0kaJz+OxCYQsJCuRve0f2fCPMvDng+Yq/0A0FKrQQmLDrGducg==
               CLIENT_SECRET: AgCU7YCXZRyMWSyvdI9+Zz6aYld4spmf2XKhUkvkEODzCTTkp3AlAlcMKn6RH79JmjWcV0qCURtYfSfqzdV9odGISv4HA1MZnni9KX+SaIfwmqnHRKk7i30xBWd7ZNY/Z6/ajRIGwmiJQNy2KOczIgzhPR3KSin4nHsPTK5QUJ52UaWYM8ZGGcxAgLEYzijdrtYO+VBi7eSHY5oiEdPoUvg/uYp5SPET1K/POqmCP7bo3whA64dTVK7FAbr/bSGMSpPy+8toP8f3wjsdj4AkVOOHSoJpy5kDuJGb/cjuBdshGojXCO8M2VVPiSR1yb9oifjGUb+4+xRDETHoPsp/k+cAdnRtnMj9vkZzmhH9cg6Q6avlsrcrJFVsuAb5k7urxvJVXVZe48vHR7hL+bbLDAzVtNv0j10ZCQOQplCk0NHKEv02yVDgaURerp3dxQ9y8uv1aYzPCeiQacLuDesiVlW+sU2z1WmW8ZZR6S7EQ7Wu3fy1xB3y2BwwJdJlYmQb5UOJ5BvB224aG7DDfI4XvIVtACaF7aY6dtt+8B34mIbHNq+vWoy81tyVBYK5uAE71M9h2U08G+l1KOXx4cZIUq0vTce14VFiNfLFPj2xbts0bR4zCCGRFXc81oTbnZst/ghv3qtoAqcAK12bHXA2hzm6dbeBVzSTQifmtufkcvgI03Ft+yhJHL56h8jPoFfO8N6XHVlVvh6sjA1TYvFvRTNuvq22buCqxXKRgYkF1pbrrrHBYmBTPtebmRvl8qjwzKd8KEl4
               POSTMAN_TOKEN: AgCy8JiB9rZgpoJQ4LtpxRqRWDUVUA+LjMnjb4LoVBiZFxjcYQhxfmm9wqwyH/J6nxBUGLPVc3H+KNxmcR4drTr83tl/R1siX3xAghf+jfWQErSdIEX2B+ebS0iXHC6jSMv2OVFa8bmeiEPKTzY8KKWUzJA/jZxfwsQr30ch6KerjbZh0lB1gWhXDuRWt1MCBywQJXyRI+EGuFDKq1WJNJ6VG4QJimYL8n/qeBHn175y4c13WRx+BxftrsedLUbpKumwl8im2JhQYEA4vY4taKHFb0nv2oRwNk+22jg1hAJDR+guhBqGqG+Kl87uzT5Sa7C7mz9FKeGCaxCZKhreWs3SRd7NKtdJ8cd++CdfrRtgBBiJ1EQhGfkHZmWrslOhez7aB2JVzjec82iqDva2+c3lvOBeDQ0qph5xVt42Rj9IKxGcUmOYL+0CaZ0N4bzEn53zH5HctZj4kU+nQ+YOj5KDpvqXRHRI+jrJ9XddSE5uJ8cFD84ezh5uN6HawtRMCHaqXaGI0+D6KXR0GpYpXNRBGe6dr4HJeToZ1t9bV3TgaWlimeEweP6fz58JmBhDGUNrEssJB6LXVm2AkzLBvW/gpIykiiSz4/mEude+zISt+6H3qYPdwAsJOl5np8Ra5W7sCjWnNVfzObCg1OarPZD0vuTkeCBj30EfX/z2LhFnGOrpNqKulxoA10vFSOtEzqQhgJsFnm7ZyOSpUTtDCn7OPFzj3PAb0J+xeTIxIcj+k512QRRwYFvVGXvXPJnoYt/dxmuLHYgVIADEJCpRwavt
-      e2:
-        sealedSecrets:
-          - name: artifactory-secrets
-            encryptedData:
-              ARTIFACTORY_USERNAME: AgBcQuzcfrybOrE8PdW39TZ/KefsjVSqwr3HNECSG70Mrb5Mz1Kg2lTDtrUzCYN9t7TH58vCwjv8SluMfYZb7dClkPhuhqRCFDHzYId0nxlnWqRDLEuG/Z7g6jha3KzKv8zz1JkeBoTYOPZ1PyLbNo7ZGfXUKDnT4Lb+j1FpolomMpPl2pObDw59qUbMv6qkoyEifqxJqC1CW0v2PlyoSmJPNDhqtriE0lycm9SBwgAUl15909v6asozCO50rg0unsrnrfFm3e+OWT4ltXJnaA32SNLpNY+cCPfaczvy/C2giXew7YqpbJNYX+VmmKtY20CRuO4nR7OGUmLXqW3FN5IQzF5PspaEXqPtPa93t874pPaUol6/zxzb6TUdcaozoG6gY+HKDI8yfwhCXjov2iAXLeXVhkK/aA0Lj0tG5fz5qDsRfu8HC3GQHFWpR2un/LxZf4MZzS4l6nfoINhID/FjklvcI/OWXm1nt58CAEjMYWL/34BsMFyAToE1gpv4gi7TaZ+yz6gce+uRYIV0r+sWw/DC4B5js3wVARIZqv0pcMN7PuDwtT/cPZmbRRRGotsY0RYbTqlbtWPoSjMX589sY5IgcP/7S4JhNpZ8dsJEYJUqXT9iH28QVuUEnRWE6kYfFg8HODQ7U5Tt8vPc182DwOaIt9JQAR/DGDPQdx1pgUS5bZLinFl3DzndzZ2hN5slQYuIcvYHNCmrkObJ0cwcTuzVKh5vJpZhTdzdVA==
-              ARTIFACTORY_TOKEN: AgCipjOV6tdzwZ1JBrjE2lCxC5V/uwhp7I8vXGWoP1bEzbnZr1D28lfu6DCxLaN0f3NLWOT4n/EXtlPUF58HlGqkcH63b46Y5gwYxPA6CiLbHhY2ePwsk+HeMGUqHcsVF65Cc0LNeNpyrf06buBByZsIl2AJFCj4cXz4AeVt1zGiiUfXyloeTYom35UG6y4JxkuUBGwcB31tEXriLyh4FF3n3cW+hOVPD27mQq0iAJenk16GdmG/Yjie52JjLS2xbm4jpBFQXfEioCVFpbT+bP3N+A5rCS8l38pWzrmh9AyNxDzXTE3oIC6mKGWCMbGnFYQeSUE/Uytl8axDxeDRWHxoyRdpYw0oMAR5eo/kl9Z7PouS6mjLcl057TZ/moletV1kf3CpD8cRuDml8tsoV6sdtqGl3U64FSDVcMtIS9DbXDiAj0rmxC3xONDdiF2kQuSSA40I6y4YT6ireAJYsGsGR3C0GVDrAPNh452W5LF4H86fyoLYJfAVEakQbdUrKmAo44zdn1WrAQ1NLuCBOwTpeajlOSME19XoRtYg78YmV6lQiotZa91idmXUM8QwHHOVjYs9SZ6i6YzQnscvg1+QyS0sPUt3iFBoByMVuWXLEpVh7TrKoCRv0Xl4h4xo3cYgq704FJ/0ZbPYqmC9bUfsegSbpdDPfnmc+eZSpTbHQWMjKONYVWnl8EsqNExCudOMXP/ZQHrRzzBTSApUbQpRQ5lEFNueka/+QUV855Wn7JQpLsXkOXz+M4seGzCNLxczVT+0NeZBiYril47K/5Nvh41V8WANjHJw8jx7TT5nvn2FLGL3YnNwI3M2AJsZvV0+iBwhd2Z/O2Eo8cqi2ACuK5Dk3qwhqIjIudqXNWxifq6mJq3DHSirPQgX96YTzIRU+jrhA/KSNUgB4VKuKceHD7sJhTw01vokYijbwnamV32377BZgb8PcVJOfzaDBBTHnFvsbBohfV9NzlkIccy6GLtB4fohxDVRnF4zs8P67fG7AidWlzIDxArAjRVrPge3qL6WJZZcvsNS2LoI2tpQtefiS0x2hk9ngzDGrBRemOYYmxnMi5LwDe+MSM2mcrbU7JhtUA1cXV2x4Fdhvk+1EDJEZaHmIj/ZPp6bt2/G2H6N7+8Cc058kYlbXcXt5tnZXC/XXsJg2ixeln7aEChYgvrHwCstXrT29/h3UWFTLJZCOQrdoPfhWfg3OGnPm4JIcuI1RezX9TLzqL7SABlRCPb7BkK/oqpNnqS2HVoy/sZQ9jtzULV5bF8oWmizR5IzEhJhb4UAubMX+N4/EcufoDQcuatqbhxG1qr4j5s9UqS8wCgEu1pZB5OhrOAPnoi6E8EMHH1Jr1qTbCMqfeWcD2xWcOegfJzqzw4Mw8PravT9z5AS4/q+kIwB2CnCL8XkZu1o5DVb5DN0mIfKSyHCa1pNNoPMSGKL/M/smDYizkq9gmwk7yvfp766fdZUMYhgl9jBMOIVE4emvnAtEah15ABugvvmv3zI7zyzlSneejNwVrXEwNtwZStZ5hMhPYum2etaOyNlc/7MB7R4eko50pXXgdPaNp3ihp6IHqAYdzEEmnYoPwkdlPaX4A5NLNc0wt01CyOLRLrkD/ryX81OHM3at1+Biw5cFrPXR/9EOfL1O7d0VznavN8z0/eJCVScsHvrArKDMj9Xsuz1My0qE9JAjtAz1pbu5JWEdP6FATOd++gCqv/TkuCalazfVMGJ9hgbb7+RuRqWq5O/KLOdrPPT3FwSyDsy9wfklWO4bRswHFi05Np2plupiypka624KPMaFXExymsbxpSpSSQzrii7mq4=
-          - name: postman-secrets
-            encryptedData:
-              CLIENT_ID: AgBlD2hs/1Y+pyrMuq8rIbZe2wLjRPA10FNWg8mNh5fyw3vQkJT7zm+8hI0tB+8Y1/86doXeRpDStY4iSrK1v7ExB0LjQ2oEvq7OIjI+0zcW9gsvQi1tD4/W5MzwOHMs2wX8zrOE6lpiZJm8BwYQQraLFsHkk7+d2E/omQJ4x9bNUkdxaNQFeXDkwxFMe+Ou9s7iUFxHWnV7d5SEfdW5SGt4arl43FZe5sKm/js1M7VtuwaVSm9WN4zIHUOz9WiGh5rAQ2/ll42hKKzCqkCkQwOkXuJZEmXFGQCiLaddP1gyt9t4PYbqEy9vcoN9t+oxoZm/DTKE5UTeBATotUtnPGJHDsSuTPXNJlYB25yB4ZjvijmA8HFzraFN64jCN5GZil8UpK1D1oPosIP5wD2O/cx54K9n8Vww9PlareIkiNu/V3RmM379B/KeE7xVniL1Xq/tPOgIdQvj0NgCKEUiYOZKEdmx+6/BsVxkCZ9tFZ3XUq/klRMS7SeGveCgMpqB8mtM4u3AMCCC2D1vvMR40toOW9aRupvjREAlwoHzaX6KFAd9FmSI1d8YiMOEXYCn+ezHNLT8947aVzvXNh1VgItMHZE7JrVYxOPBOBKgBKF6o/545krynflFRcXke4obUG0VxI7hRW2OxJj3iTCrrOqyD1lGSrtVplGVuVPtTcjTwNxihAtY/TkbnlkmAOu90AVixeBqlHEcG9CowefyluRBfy7tJtN/BL7fjw==
-              CLIENT_SECRET: AgA80Xt2uBPTvzVsTSEebMbMdBIo23pSYMHeoUWYY1UGc7BUG+9lrOO9fjqmcLcIdbcs4iT05CSPxg9Qt4nhnfupWFHhQ/c2ML0mKZkkAmnaU6ukCo5yHSbS/AGpSyod0NJgnEjPpLCqtDXOgIGgLCrd6ZL1TYZkVayxjzzW8rN40QFvxvpCdV9Dnb6wQyQ4Jya6YaMDbX7uSXCOOn1H62jmx9yRMHXs8OOSC077bbIPwHGi1AYNXVfR5kYaes/4DBwLX8C8381z01Zqci/Uimiub1DAud6o06JYRVvN/S/i0Ury1Ndd3myrbNcWWyQeac1qJY/chmYf1Lv2wEV3X+ybDsa5LNxcyol2IFgvvZPpbE51Nfa9e2mcpG9paisUnjTK1DcccZ6qD+45AzR6RHYCcTucUsJrHHw67xvN1GWLWM1ayPn4ds/J03rYYOtShd1BGZl+6g7SCj9p8uGi67GuPZlVS8Ws9wu2iGYwhYSleh29MCv4p91bUOCEGzIfLvb7FUnEVPXitDTPRTNQsHFHM8ZnqXvqHBUYV+sb4xeB6kDhP2HK2J/v3pde0tLOtsHPciGqfJgoIXlOINqmS35cLgDyp4cL5+8LVYRYVMCPZtlTyW29aRl0jvwkaC1x+M3ElO3v3+xgwIBOkaMUugjz8vStRz1lSeqG2gx16eLHIFP0HFoh20IbGKaQtYzUVWIehYNlFTSbqYnLmeGE2xNXphvB4w9/hCuR5MhhV/9Q6k9/XduP1ATssE67ye8aFjcLlR2r
-              POSTMAN_TOKEN: AgB17zXOnzIEJf7yX0+zj+z8aWwOa1fZUGKvMyUm+HHtkgxLd3amugYHSJN33LRlBYItC+4e3OB8O5KQnN9mo5GpRN/qrLDrvblZ1BsW7KXvFHGrHBEQx6ELcvKButYdo+giucFj0kd6XPevEfJ2NS/3u12FBA8CRIJMQTHIYQWpZIKknrf7LcASxFAqnNVq2RKk4YWddDxU6AtPgAJDVg1+dGlfx0y2tXfhrT0jcZkTxBAU0luWb/o1CsytSLpcCiRvPkGmez6mUIjvKL/2yd0gTcjjXWAR+Zx9O71PRW1mHwgBtmECSgCR6xqMLg1jHPcOxhOjb6noQwlpB4uVrH0okFWbCzs+T2WqnU8RbXTWED7QeCTXJwYB2MFTK82r353VsYhZ0dr5YBwNX1WRwiReE8w5IbN4cBfAiHCEJ96uN5EE0jY7ov08fYhumA/WEUlgwSPyY1e8853qCeXbdV5E/lHqbmWGTFx1i7S6VMKUTPe021/ViPX1kjYkQKhkOox2jmXTokwsy+MNoiOOdfepgMhbcDOsKECc6T9S3FafnzxC9GX3sQpEW7T1x3s4nONxJ9zsKISozAo3YueOob+JqaxmNVB0gDLnaKug9WVCgcH3BCIxq8srvmNGsWFjJzfZrx/Zss9YVhioH+LIUglZzp0xiVw10J1Arqfy7EDjHnuZ6Y19zQt5fkya7JXVqoY8bN5ndLjBKuqjjixcNMT78XidCY25Za5PHa9yjYEAJHisRYPSPnEaXt1WmZ8GV48C95/Hd05G2QeSSRiTjPT4

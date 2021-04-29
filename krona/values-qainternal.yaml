@@ -22,42 +22,160 @@ common:
 applications:
   - name: account-history
     version: "2.10.0-rc.1"
+    values:
+      env:
+        open:
+          SPRING_PROFILES_ACTIVE: dbMode
+          SPRING_HIKARI_POOL_SIZE: "10"
+          SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
+          SPRING_HIKARI_MINIMUM_IDLE: "10"
+          SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          REPLICATION_SYNC_USE_SQS: "false"
   - name: account-management
     version: "1.14.0-rc.1"
+    values:
+      env:
+        open:
+          SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
+          SPRING_HIKARI_MINIMUM_IDLE: "10"
+          SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          ALLOWANCE_GRPC_HOST: ambassador
+          ALLOWANCE_GRPC_PORT: "80"
+          EXTAUTH_GRPC_HOST: ambassador
+          EXTAUTH_GRPC_PORT: "80"
+          CHORES_GRPC_HOST: ambassador
+          CHORES_GRPC_PORT: "80"
   - name: allowance
     version: "2.5.0-rc.0"
+    values:
+      env:
+        open:
+          MOVE_FUNDS_GRPC_HOST: ambassador
+          MOVE_FUNDS_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
   - name: authentication
     version: "2.5.0"
     values:
       env:
         open:
-          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qainternal
           AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-1
-          AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qainternal
+          AUTHENTICATION_USER_POOLS_SECONDARY_REGION: us-east-2
+          AUTHENTICATION_USER_POOLS_SECONDARY_POOL_ID: krona-qainternal
+          AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: "true"
   - name: charge
     version: "2.9.0-rc.1"
+    values:
+      env:
+        open:
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          STORE_MATCH_GRPC_HOST: ambassador
+          STORE_MATCH_GRPC_PORT: "80"
   - name: chores
     version: "1.10.0-rc.1"
+    values:
+      env:
+        open:
+          LOG_LEVEL: debug
+          CHORES_AWS_SQS_WORKERS: "2"
+          CHORES_AWS_DYNAMODB_MAX_IDLE_CONNECTIONS: "50"
+          CHORES_AWS_DYNAMODB_IDLE_CONNECTION_TIMEOUT_DURATION: "90000"
+          CHORES_AWS_DYNAMODB_CONNECTION_KEEP_ALIVE_DURATION: "60000"
+          CHORES_AWS_DYNAMODB_KEEP_WARM_PERIOD: "30000"
+          CHORES_AWS_DYNAMODB_KEEP_WARM_CONNECTIONS: "20"
+          MOVE_FUNDS_GRPC_HOST: ambassador
+          MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
     version: "1.20.0-rc.1"
   - name: cobrand-healthz
     version: "1.6.0"
+    values:
+      env:
+        open:
+          ACCOUNT_HISTORY_GRPC_HOST: account-history-service
+          ACCOUNT_HISTORY_GRPC_PORT: "50051"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: account-management-service
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "50051"
+          ALLOWANCE_GRPC_HOST: allowance-service
+          ALLOWANCE_GRPC_PORT: "50051"
+          CHARGE_GRPC_HOST: charge-service
+          CHARGE_GRPC_PORT: "50051"
+          CHORES_GRPC_HOST: chores-service
+          CHORES_GRPC_PORT: "50051"
+          EXTAUTH_GRPC_HOST: extauth-service
+          EXTAUTH_GRPC_PORT: "50051"
+          LEDGER_GRPC_HOST: ledger-service
+          LEDGER_GRPC_PORT: "50051"
+          MOVE_FUNDS_GRPC_HOST: move-funds-service
+          MOVE_FUNDS_GRPC_PORT: "50051"
+          OUTBOUND_AUTHENTICATION_GRPC_HOST: outbound-authentication-service
+          OUTBOUND_AUTHENTICATION_GRPC_PORT: "50051"
+          RECONCILIATION_GRPC_HOST: reconciliation-service
+          RECONCILIATION_GRPC_PORT: "50051"
+          SPENDING_RULES_GRPC_HOST: spending-rules-service
+          SPENDING_RULES_GRPC_PORT: "50051"
+          STORE_MATCH_GRPC_HOST: store-match-service
+          STORE_MATCH_GRPC_PORT: "50051"
   - name: cobrand-server-mock
     version: "0.21.0"
   - name: extauth
     version: "2.6.0-rc.0"
+    values:
+      env:
+        open:
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          EXTAUTH_USER_POOLS_PRIMARY: us-east-1_qiPLoKCk6
+          EXTAUTH_USER_POOLS_SECONDARY: us-east-2_KoXwIAzLe
   - name: graphql
     version: "1.45.0-rc.1"
     values:
       env:
         open:
           PROCESSOR: krona
+          ACCOUNT_HISTORY_GRPC_HOST: ambassador
+          ACCOUNT_HISTORY_GRPC_PORT: "80"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          ALLOWANCE_GRPC_HOST: ambassador
+          ALLOWANCE_GRPC_PORT: "80"
+          CHORES_GRPC_HOST: ambassador
+          CHORES_GRPC_PORT: "80"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          MOVE_FUNDS_GRPC_HOST: ambassador
+          MOVE_FUNDS_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          STORE_MATCH_GRPC_HOST: ambassador
+          STORE_MATCH_GRPC_PORT: "80"
   - name: ledger
     version: "2.6.0-rc.1"
     values:
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qainternal_
+          CLOUD_AWS_DYNAMODB_MAX_CONNECTIONS: "100"
+          CLOUD_AWS_DYNAMODB_CONNECTION_TIMEOUT: "300"
+          CLOUD_AWS_DYNAMODB_CLIENT_EXECUTION_TIMEOUT: "0"
+          CLOUD_AWS_DYNAMODB_REQUEST_TIMEOUT: "0"
+          CLOUD_AWS_DYNAMODB_SOCKET_TIMEOUT: "5000"
   - name: move-funds
     version: "2.7.0-rc.1"
     values:
@@ -65,12 +183,28 @@ applications:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: qainternal_
           EXTERNAL_FUNDING_KRONA_RFP_URL: http://cobrand-server-mock-service/rfp/krona
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          OUTBOUND_AUTHENTICATION_GRPC_HOST: ambassador
+          OUTBOUND_AUTHENTICATION_GRPC_PORT: "80"
+          SPENDING_RULE_GRPC_HOST: ambassador
+          SPENDING_RULE_GRPC_PORT: "80"
   - name: notification
     version: "2.9.0-rc.0"
     values:
       env:
         open:
           NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: http://cobrand-server-mock-service/notification/krona
+          NOTIFICATION_REST_KRONA_URL: http://cobrand-server-mock-service/notification/krona
+          NOTIFICATION_REST_KRONA_MAX_RETRY: "5"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          OUTBOUND_AUTHENTICATION_GRPC_HOST: ambassador
+          OUTBOUND_AUTHENTICATION_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
   - name: outbound-authentication
     version: "1.7.0-rc.0"
     values:
@@ -83,7 +217,9 @@ applications:
           OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: data-resource-event
           OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: data-resource-rfp
           OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/adfs
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_MAX_RETRY: "5"
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
+          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_MAX_RETRY: "5"
   - name: reconciliation
     version: "2.4.0-rc.1"
     values:
@@ -91,8 +227,45 @@ applications:
         open:
           CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-qainternal-reconciliation
           CLOUD_AWS_SQS_QUEUES_RECONCILIATION_OVERAGE: qainternal-reconciliation-overage
-          CLOUD_AWS_SQS_QUEUES_CHARGE: qainternal-charge
+          CAMEL_CONFIG_AGGREGATE_TIMEOUT: "450000"
+          CAMEL_CONFIG_CONCURRENT_THREADS: "20"
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_AE_FOLDER: ReadyForProcessing/authexpire
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_CDF_FOLDER: ReadyForProcessing/ChaseRejectReport
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_LADF_FOLDER: ReadyForProcessing/LedgerAdjustmentReport
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_INCOMING_PT_FOLDER: ReadyForProcessing/postedtransactions
+          CLOUD_AWS_S3_BUCKETS_RECONCILIATION_OUTGOING_FOLDER: ReconCache
+          CLOUD_AWS_S3_REGION: us-east-2
+          CLOUD_AWS_SQS_POLL_SIZE: "10"
+          RECONCILIATION_QUEUE_DELAY: "5"
+          SPRING_REDIS_ACCOUNT_AGGREGATE_TIMEOUT: "2000"
+          SPRING_REDIS_DELAY_INTERVAL: "2000"
+          SPRING_REDIS_MAX_DELAY: "30000"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_PORT: "80"
+          ACCOUNT_HISTORY_GRPC_HOST: ambassador
+          ACCOUNT_HISTORY_GRPC_PORT: "80"
+          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+        awsConfigRef:
+          CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
   - name: spending-rules
     version: "2.4.0-rc.0"
+    values:
+      env:
+        open:
+          SPRING_HIKARI_POOL_SIZE: "10"
+          SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
+          SPRING_HIKARI_MINIMUM_IDLE: "10"
+          SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
   - name: store-match
     version: "2.6.0-rc.0"
+    values:
+      env:
+        open:
+          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_PORT: "80"
+          STORE_MATCH_REDIS_POOL_ENABLED: "false"
