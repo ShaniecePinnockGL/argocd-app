@@ -9,4 +9,5 @@ domain:
     environment:
       - devinternal
       - qainternal
+      - dev
   - name: operations
