@@ -148,6 +148,8 @@ func main() {
 	switchContext(opts.Context)
 	validateNamespace(opts.Namespace)
 	validateArgoCdAuth()
+	validateRancherAuth(opts.RancherToken, opts.RancherContext)
+	validatePermissions(opts.Namespace)
 
 	var wg sync.WaitGroup
 
@@ -156,9 +158,7 @@ func main() {
 
 		go func(app string) {
 			validateArgoCdApp(opts.Force, opts.Namespace, app, opts.Region)
-			validateRancherAuth(opts.RancherToken, opts.RancherContext)
 			validateRancherApp(app, opts.Namespace)
-			validatePermissions(opts.Namespace)
 			deleteConfigMaps(opts.Namespace, app)
 			deleteRancherApp(app, opts.Namespace)
 			validateArgoCdApp(false, opts.Namespace, app, opts.Region)
