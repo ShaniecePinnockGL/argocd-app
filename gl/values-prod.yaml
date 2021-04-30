@@ -26,7 +26,7 @@ common:
         DD_ENV: production
 applications:
   - name: galileo-proxy
-    version: "0.8.0"
+    version: "0.9.0"
     values:
       loggingAgent: Datadog
       hpa:
@@ -40,18 +40,8 @@ applications:
           AUTH_AUTHORIZATION_STABLE_HANDLER: RestRequestHandler
           AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT: ""
           AUTH_AUTHORIZATION_CANDIDATE_HANDLER: ""
-          ALERT_ACCOUNT_EVENT_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/alert/AccountEvent
-          ALERT_ACCOUNT_EVENT_STABLE_HANDLER: RestRequestHandler
-          ALERT_ACCOUNT_EVENT_CANDIDATE_ENDPOINT: ""
-          ALERT_ACCOUNT_EVENT_CANDIDATE_HANDLER: ""
-          ALERT_SETTLEMENT_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/alert/Settlement
-          ALERT_SETTLEMENT_STABLE_HANDLER: RestRequestHandler
-          ALERT_SETTLEMENT_CANDIDATE_ENDPOINT: ""
-          ALERT_SETTLEMENT_CANDIDATE_HANDLER: ""
-          ALERT_TRANSACTION_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/alert/Transaction
-          ALERT_TRANSACTION_STABLE_HANDLER: RestRequestHandler
-          ALERT_TRANSACTION_CANDIDATE_ENDPOINT: ""
-          ALERT_TRANSACTION_CANDIDATE_HANDLER: ""
+          ALERT_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/alert/
+          ALERT_STABLE_HANDLER: RestRequestHandler
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/health
           DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
   - name: sealed-secrets
