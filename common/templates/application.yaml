@@ -1,5 +1,7 @@
 {{- range $dest := .Values.destinations }}
+{{- $syncCount := 0 }}
 {{- range $app := $.Values.applications }}
+{{- $syncCount = add $syncCount 1 }}
 {{- $namespace := $dest.namespace }}
 {{- with $app.namespace }}
 {{- $namespace = . }}
@@ -11,6 +13,9 @@ metadata:
   {{- with $.Values.annotations }}
   annotations:
     {{- toYaml . | trim | nindent 4 }}
+    {{- if $.Values.gradualRollout }}
+    argocd.argoproj.io/sync-wave: {{ $syncCount | quote }}
+    {{- end }}
   {{- end }}
   {{- with $.Values.domain }}
   name: {{ . }}-{{ $app.name }}-{{ $namespace }}-{{ $dest.region }}
