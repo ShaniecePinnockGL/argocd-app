@@ -135,7 +135,7 @@ applications:
   - name: cobrand-server-mock
     version: "0.21.0"
   - name: extauth
-    version: "2.6.0-rc.0"
+    version: "2.7.1-rc.1"
     values:
       env:
         open:
