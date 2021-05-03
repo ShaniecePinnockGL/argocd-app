@@ -21,7 +21,7 @@ common:
         LOG_LEVEL: debug
 applications:
   - name: account-history
-    version: "2.10.0-rc.1"
+    version: "2.12.0-develop.8"
     values:
       env:
         open:
@@ -38,7 +38,7 @@ applications:
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
   - name: account-management
-    version: "1.14.0-rc.1"
+    version: "1.16.0-develop.4"
     values:
       env:
         open:
@@ -56,7 +56,7 @@ applications:
           CHORES_GRPC_HOST: ambassador
           CHORES_GRPC_PORT: "80"
   - name: allowance
-    version: "2.5.0-rc.0"
+    version: "2.7.0-develop.10"
     values:
       env:
         open:
@@ -65,7 +65,7 @@ applications:
           SPENDING_RULES_GRPC_HOST: ambassador
           SPENDING_RULES_GRPC_PORT: "80"
   - name: authentication
-    version: "2.5.0"
+    version: "2.7.0-develop.4"
     values:
       env:
         open:
@@ -75,7 +75,7 @@ applications:
           AUTHENTICATION_USER_POOLS_SECONDARY_POOL_ID: krona-qainternal
           AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: "true"
   - name: charge
-    version: "2.9.0-rc.1"
+    version: "2.11.0-develop.6"
     values:
       env:
         open:
@@ -88,7 +88,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: chores
-    version: "1.10.0-rc.1"
+    version: "1.12.0-develop.9"
     values:
       env:
         open:
@@ -102,9 +102,9 @@ applications:
           MOVE_FUNDS_GRPC_HOST: ambassador
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
-    version: "1.20.0-rc.1"
+    version: "1.20.1-rc.74"
   - name: cobrand-healthz
-    version: "1.6.0"
+    version: "1.7.0-rc.0"
     values:
       env:
         open:
@@ -144,7 +144,7 @@ applications:
           EXTAUTH_USER_POOLS_PRIMARY: us-east-1_qiPLoKCk6
           EXTAUTH_USER_POOLS_SECONDARY: us-east-2_KoXwIAzLe
   - name: graphql
-    version: "1.45.0-rc.1"
+    version: "1.47.0-develop.18"
     values:
       env:
         open:
@@ -166,7 +166,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: ledger
-    version: "2.6.0-rc.1"
+    version: "2.8.0-develop.11"
     values:
       env:
         open:
@@ -177,7 +177,7 @@ applications:
           CLOUD_AWS_DYNAMODB_REQUEST_TIMEOUT: "0"
           CLOUD_AWS_DYNAMODB_SOCKET_TIMEOUT: "5000"
   - name: move-funds
-    version: "2.7.0-rc.1"
+    version: "2.8.2-rc.1"
     values:
       env:
         open:
@@ -192,7 +192,7 @@ applications:
           SPENDING_RULE_GRPC_HOST: ambassador
           SPENDING_RULE_GRPC_PORT: "80"
   - name: notification
-    version: "2.9.0-rc.0"
+    version: "2.11.0-develop.5"
     values:
       env:
         open:
@@ -206,7 +206,7 @@ applications:
           SPENDING_RULES_GRPC_HOST: ambassador
           SPENDING_RULES_GRPC_PORT: "80"
   - name: outbound-authentication
-    version: "1.7.0-rc.0"
+    version: "1.9.0-develop.7"
     values:
       env:
         open:
@@ -221,7 +221,7 @@ applications:
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_MAX_RETRY: "5"
   - name: reconciliation
-    version: "2.4.0-rc.1"
+    version: "2.6.0-develop.13"
     values:
       env:
         open:
@@ -251,7 +251,7 @@ applications:
         awsConfigRef:
           CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
   - name: spending-rules
-    version: "2.4.0-rc.0"
+    version: "2.5.0-develop.3"
     values:
       env:
         open:
@@ -262,7 +262,7 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
   - name: store-match
-    version: "2.6.0-rc.0"
+    version: "2.8.0-develop.19"
     values:
       env:
         open:
