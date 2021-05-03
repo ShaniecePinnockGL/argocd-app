@@ -23,6 +23,7 @@ common:
     env:
       open:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+        UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
     loggingAgent: Datadog
 applications:
   - name: account-history
