@@ -289,3 +289,18 @@ applications:
             encryptedData:
               UNLEASH_API_URL: AgBfjIR/6YHJ29LtcetHBuYfjTYGJ0/bwbTbyeXRZgFgcm3B8cmyQf83CpsvuvKYvs8bm9Gh9rMV7s78C9r3wGGwUSKN6r3ww9bX7Pb+SXfzPpT1qin5+IV8tEGwyHo+/wXBK7+eotKyC1DDvG8QQhK4+K7Xc0jlkss6dqsXxXzhIIR4yBaBZMFbPvnkLrMSx7RY2ZME+NEfzcAccMmohK3aDn6idMZkIGjfhoJZeAwaTmZvODtyo/DLUmk+3xsg3K6LyWIRR9MvwaEL500x8Aas7p73Wj8L5m2WEgKtP6ZjWtTPYEX1WJwpZMNQrS9Ubga+pZtBKST++LwxkQI6THq4f55rr5B7h19mV11kPm4R/BFcTXzCwnj7KQaGSqGVb86MU8bsXUYNsyriHhUWCdXCJEIM56riWXlOZzPmNrZQ6QEJ+cgr4fw6X2sRDJ9fsDGuRJSuqVtTCnTxm+I49/3d81I224T2djioSxORLlEsRReP/mfFhJp1CdwaEZgVNGW7N4vY0RSZvYEV0KLHiMSBve3fEQLFnWDMwEguiAAOPzKzM8LMf7MgkO7mSC2/5xIjUj23X/i6a8wrdX7TZJG9tGF3aA48/DpoLWpI1ywJeL18ySEpyyF69lor/nRM63IQQrW5XItxl0Oz23oGzYo9K2ToCuzAUJGYXEhpXi5EMP6YOKIiA+Eh/uoCb1B4JZC7ylB2rrg+7Arnx0g3AS+6IOFPMw0KxWZijFcZQzC3s0XxDf+9MA==
               UNLEASH_CLIENT_TOKEN: AgDApdz2Ne8d3e7bDx6LAF0JCBnyILKmSGQmFYvdN5wVH+ESYrH3gZSpjOvdms5L9UXYqbVWr/xHE2648vj3kyniamOsUOl7Q9abElqz63lGTqFBWVP3S9v94aV6YoLFSfk7ykBHMEQUXag7yBkmmWQLS+M6rCVO7Lv4xtZ2/g+nuPhZOa0KwMGKmPQw2H6eYoU4f/pqZ+SKi+qYYroGYS1A8xbJffsbwVFQhOS/RiZ5CzPnJqVpTS/3Cl6LdST2R5aKzQYASWBXqpsZ+frE4eE0xvOSEzZhgQ5jBgtWQFwMJ0sXWIa1GKrfs6q+O3SugMNvuGqWhPT2Mw3hgrU/Z9WdWECoJeULl/HQgQOligmEsmcbSX6YVR2F91wQwamAQA5JhOmT3nEOzXpW1deZAKnDVUeWQdLZtWYqvOrQ8vhvmHneOLpDNwDFZx4pLH0V+f248JjHidRgg0Dnx9nm+4CU6p4slUv51vTUn97YOQRqeR14V4x0rD/xhZIHxMPYvOXWuHtj/uQhFp3UIX9/k/RJK+hexfbbb1qx3nA+Wmg+EHk4DyXfCq+iSvhdkPIHyFKsUdNJ2m4c+Uw+wS18JoLm6beAavLtFlREja7C83w/isWLfUB4z29IcuQ7xt/vQUSSh7CTAXxM9G45tTe9yDmsXeU9d7wJUE9NfQtod0F2d2oVsR3oQYXKe9ndsLxV7KHk20Zw+Uqw39zU1+plwpKoCPUkqnpCuIRdKbQSfj464Q==
+  # TEMPORARY: until infra creates the env-config configmap in the platdev namespace through terraform (GLPI-1675)
+  - name: configmap
+    version: ">= 0.0.0-0"
+    values:
+      e1:
+        configMap:
+          - name: env-config
+            values:
+              REGION: us-east-1
+      e2:
+        configMap:
+          - name: env-config
+            values:
+              REGION: us-east-2
+
