@@ -171,7 +171,7 @@ applications:
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: dev_
-          EXTERNAL_FUNDING_KRONA_RFP_URL: https://api2-ext-qa02.jpmchase.net/deposit-account/payments/wires-transfers/first-banking/request-for-payment/v1/payment-requests
+          EXTERNAL_FUNDING_KRONA_RFP_URL: http://cobrand-server-mock-service/rfp/krona
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
@@ -186,7 +186,7 @@ applications:
       env:
         open:
           NOTIFICATION_COBRAND_SERVER_MOCK_REST_KRONA_URL: http://cobrand-server-mock-service/notification/krona
-          NOTIFICATION_REST_KRONA_URL: https://api2-ext-qa02.jpmchase.net/consumer-banking/servicing/alerts-notifications/v1/events
+          NOTIFICATION_REST_KRONA_URL: http://cobrand-server-mock-service/notification/krona
           NOTIFICATION_REST_KRONA_MAX_RETRY: "5"
           ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
@@ -199,15 +199,15 @@ applications:
     values:
       env:
         open:
-          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: https://idad.jpmorganchase.com/adfs/oauth2/token
-          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_ISSUER: CC-106059-O728026-37735-QA
-          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_SUBJECT: CC-106059-O728026-37735-QA
-          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_CLIENT_ID: CC-106059-O728026-37735-QA
-          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: JPMC:URI:RS-103326-31661-VaderExternal-QA
-          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: JPMC:URI:RS-84657-36765-DigitalGrammerRFPSvc-QA
-          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: https://idad.jpmorganchase.com/adfs/oauth2/token
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: jwt-audience
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_ISSUER: jwt-issuer
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_SUBJECT: jwt-subject
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_CLIENT_ID: data-client-id
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_EVENT: data-resource-event
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_DATA_RESOURCE_RFP: data-resource-rfp
+          OUTBOUND_AUTHENTICATION_ADFS_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/adfs
           OUTBOUND_AUTHENTICATION_ADFS_KRONA_MAX_RETRY: "5"
-          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: https://api2-ext-oauth-qa02.jpmchase.net/oauth/client-credentials/v1/token
+          OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_MAX_RETRY: "5"
   - name: reconciliation
     version: "2.6.0-rc.0"
