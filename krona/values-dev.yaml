@@ -62,7 +62,7 @@ applications:
     values:
       env:
         open:
-          AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-1
+          AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-2
           AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-dev
           AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: "false"
   - name: charge

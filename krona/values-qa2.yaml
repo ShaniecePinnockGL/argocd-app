@@ -24,8 +24,8 @@ applications:
     values:
       env:
         open:
-          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qa
           AUTHENTICATION_USER_POOLS_PRIMARY_REGION: us-east-2
+          AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qa
           AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
   - name: charge
     version: "2.7.6-b7d02ba"
