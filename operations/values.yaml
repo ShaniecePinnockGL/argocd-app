@@ -31,8 +31,8 @@ applications:
     values:
       env:
         open:
-          SLACK_CHANNEL_GL: "bot-testing"
-          SLACK_CHANNEL_KRONA: "bot-testing"
+          SLACK_CHANNEL_GL: "backend-release"
+          SLACK_CHANNEL_KRONA: "partner-krona-deploy"
           SLACK_CHANNEL_OPERATIONS: "bot-testing"
   - name: sealed-secrets
     version: ">= 0.0.0-0"
