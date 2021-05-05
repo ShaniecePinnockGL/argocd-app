@@ -28,6 +28,12 @@ applications:
   - name: argocd-tool
     namespace: argocd-tool
     version: ">= 0.0.0-0"
+    values:
+      env:
+        open:
+          SLACK_CHANNEL_GL: "bot-testing"
+          SLACK_CHANNEL_KRONA: "bot-testing"
+          SLACK_CHANNEL_OPERATIONS: "bot-testing"
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
