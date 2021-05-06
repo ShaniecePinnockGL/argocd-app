@@ -131,7 +131,7 @@ applications:
         open:
           ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
-          EXTAUTH_USER_POOLS_PRIMARY: us-east-2_z45dRxQi5
+          EXTAUTH_USER_POOLS_PRIMARY: us-east-2_N5BzFlWyt
   - name: graphql
     version: "1.46.0"
     values:
