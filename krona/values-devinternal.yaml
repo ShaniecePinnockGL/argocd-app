@@ -8,8 +8,6 @@ destinations:
   - cluster: krona-internal-e2
     namespace: devinternal
     region: e2
-annotations:
-  notifications.argoproj.io/subscribe.on-deployed.act: ""
 syncPolicy:
   automated:
     prune: true

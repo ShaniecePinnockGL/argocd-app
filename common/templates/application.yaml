@@ -12,6 +12,7 @@ kind: Application
 metadata:
   {{- with $.Values.annotations }}
   annotations:
+    notifications.argoproj.io/subscribe.on-deployed.act: ""
     {{- toYaml . | trim | nindent 4 }}
     {{- if $.Values.gradualRollout }}
     argocd.argoproj.io/sync-wave: {{ $syncCount | quote }}
