@@ -10,4 +10,6 @@ domain:
       - devinternal
       - qainternal
       - dev
+      - qa
+      - qa2
   - name: operations
