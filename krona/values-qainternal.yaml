@@ -102,7 +102,7 @@ applications:
           MOVE_FUNDS_GRPC_HOST: ambassador
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
-    version: "1.20.1-rc.74"
+    version: "1.22.0-develop.79"
   - name: cobrand-healthz
     version: "1.7.0-rc.0"
     values:
