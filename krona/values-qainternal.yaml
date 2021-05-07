@@ -21,7 +21,7 @@ common:
         LOG_LEVEL: debug
 applications:
   - name: account-history
-    version: "2.13.0-develop.1"
+    version: "2.13.0-develop.11"
     values:
       env:
         open:
