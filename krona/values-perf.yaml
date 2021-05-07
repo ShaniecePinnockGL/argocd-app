@@ -8,9 +8,7 @@ destinations:
   - cluster: krona-perf-e2
     namespace: perf
     region: e2
-syncPolicy:
-  automated:
-    prune: true
+syncPolicy: {}
 common:
   values:
     ambassador:

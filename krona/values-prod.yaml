@@ -8,9 +8,7 @@ destinations:
   - cluster: krona-prod-e2
     namespace: prod
     region: e2
-syncPolicy:
-  automated:
-    prune: true
+syncPolicy: {}
 common:
   values:
     ambassador:

@@ -8,9 +8,7 @@ destinations:
   - cluster: krona-uat-e2
     namespace: uat
     region: e2
-syncPolicy:
-  automated:
-    prune: true
+syncPolicy: {}
 common:
   values:
     ambassador:
