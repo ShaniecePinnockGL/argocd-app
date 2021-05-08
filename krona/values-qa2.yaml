@@ -210,7 +210,7 @@ applications:
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: https://api2-ext-oauth-qa07.jpmchase.net/oauth/client-credentials/v1/token
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_MAX_RETRY: "5"
   - name: reconciliation
-    version: "2.6.0-rc.0"
+    version: "2.7.0-develop.27"
     values:
       env:
         open:
