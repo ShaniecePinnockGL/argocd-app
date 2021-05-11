@@ -12,4 +12,5 @@ domain:
       - dev
       - qa
       - qa2
+      - perf
   - name: operations
