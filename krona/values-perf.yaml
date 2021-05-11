@@ -216,7 +216,7 @@ applications:
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: http://cobrand-server-mock-service/outbound-authentication/krona/oauth2
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_MAX_RETRY: "5"
   - name: reconciliation
-    version: 2.6.0-rc.0
+    version: 2.5.1-rc.2
     values:
       env:
         open:
