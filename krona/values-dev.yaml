@@ -125,7 +125,7 @@ applications:
   - name: cobrand-server-mock
     version: 0.21.0
   - name: extauth
-    version: 2.7.0-rc.1
+    version: 2.7.1-rc.1
     values:
       env:
         open:
@@ -240,7 +240,7 @@ applications:
         awsConfigRef:
           CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
   - name: spending-rules
-    version: 2.5.1-rc.1
+    version: 2.5.1-rc.2
     values:
       env:
         open:
