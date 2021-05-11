@@ -133,7 +133,7 @@ applications:
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
           EXTAUTH_USER_POOLS_PRIMARY: us-east-2_z45dRxQi5
   - name: graphql
-    version: 1.46.1-rc.1
+    version: 1.47.0-rc.1
     values:
       env:
         open:
