@@ -240,7 +240,7 @@ applications:
         awsConfigRef:
           CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
   - name: spending-rules
-    version: 2.5.1-rc.1
+    version: 2.5.1-rc.6
     values:
       env:
         open:
