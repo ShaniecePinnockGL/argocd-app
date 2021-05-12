@@ -92,7 +92,7 @@ applications:
           MOVE_FUNDS_GRPC_HOST: ambassador
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
-    version: 1.21.0-rc.3
+    version: 1.20.1-rc.74
   - name: cobrand-healthz
     version: 1.7.0-rc.0
     values:
@@ -133,7 +133,7 @@ applications:
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
           EXTAUTH_USER_POOLS_PRIMARY: us-east-2_N5BzFlWyt
   - name: graphql
-    version: 1.47.0-rc.1
+    version: 1.46.1-rc.1
     values:
       env:
         open:
