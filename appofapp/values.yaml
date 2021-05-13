@@ -13,4 +13,5 @@ domain:
       - qa
       - qa2
       - perf
+      - uat
   - name: operations
