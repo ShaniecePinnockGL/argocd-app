@@ -5,9 +5,9 @@ destinations:
   - cluster: krona-prod-e1
     namespace: prod
     region: e1
-  - cluster: krona-prod-e2
-    namespace: prod
-    region: e2
+  # - cluster: krona-prod-e2
+  #   namespace: prod
+  #   region: e2
 common:
   values:
     ambassador:
