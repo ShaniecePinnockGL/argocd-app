@@ -162,8 +162,8 @@ applications:
         open:
           ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
-          EXTAUTH_USER_POOLS_PRIMARY: us-east-1_pjeuwVOzi
-          EXTAUTH_USER_POOLS_SECONDARY: us-east-2_lm5DrsQFZ
+          EXTAUTH_USER_POOLS_PRIMARY: us-east-1_AxAmPRMVE
+          EXTAUTH_USER_POOLS_SECONDARY: us-east-2_K1wWbQuOq
   - name: graphql
     version: 1.46.1
     values:
@@ -260,8 +260,8 @@ applications:
     version: 2.5.0
     values:
       hpa:
-        minReplicas: 8
-        maxReplicas: 9
+        minReplicas: 12
+        maxReplicas: 20
       env:
         open:
           CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-prod-reconciliation
