@@ -69,10 +69,10 @@ applications:
           SPENDING_RULES_GRPC_PORT: "80"
   - name: authentication
     version: 2.6.0
-    hpa:
-      minReplicas: 3
-      maxReplicas: 6
     values:
+      hpa:
+        minReplicas: 3
+        maxReplicas: 6
       env:
         open:
           AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-prod
@@ -114,9 +114,10 @@ applications:
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
     version: 1.20.1
-    hpa:
-      minReplicas: 2
-      maxReplicas: 2
+    values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
   - name: cobrand-healthz
     version: 1.7.0
     values:
@@ -204,10 +205,10 @@ applications:
           CLOUD_AWS_DYNAMODB_SOCKET_TIMEOUT: "5000"
   - name: move-funds
     version: 2.8.2
-    hpa:
-      minReplicas: 10
-      maxReplicas: 12
     values:
+      hpa:
+        minReplicas: 10
+        maxReplicas: 12
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: prod_
