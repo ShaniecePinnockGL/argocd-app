@@ -252,8 +252,8 @@ applications:
     version: 1.8.0
     values:
       hpa:
-        minReplicas: 2
-        maxReplicas: 4
+        minReplicas: 3
+        maxReplicas: 3
       env:
         open:
           OUTBOUND_AUTHENTICATION_ADFS_KRONA_JWT_AUDIENCE: https://ida.jpmorganchase.com/adfs/oauth2/token
