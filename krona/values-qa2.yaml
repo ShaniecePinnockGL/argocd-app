@@ -66,7 +66,7 @@ applications:
           AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qa
           AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
   - name: charge
-    version: 2.11.0-rc.0
+    version: 2.11.0-rc.1
     values:
       env:
         open:
@@ -166,7 +166,7 @@ applications:
           CLOUD_AWS_DYNAMODB_REQUEST_TIMEOUT: "0"
           CLOUD_AWS_DYNAMODB_SOCKET_TIMEOUT: "5000"
   - name: move-funds
-    version: 2.8.3-rc.1
+    version: 2.9.0-rc.0
     values:
       env:
         open:
