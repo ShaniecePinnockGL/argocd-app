@@ -5,13 +5,15 @@ destinations:
   - cluster: krona-uat-e1
     namespace: uat
     region: e1
-#   - cluster: krona-uat-e2
-#     namespace: uat
-#     region: e2
+  - cluster: krona-uat-e2
+    namespace: uat
+    region: e2
 common:
   values:
     ambassador:
       instanceId: uat
+    e2:
+      jobs: {}
 gradualRollout: true
 applications:
   - name: account-history
