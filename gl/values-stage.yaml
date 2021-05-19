@@ -44,3 +44,32 @@ applications:
           ALERT_STABLE_HANDLER: RestRequestHandler
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.stage.svc.cluster.local/health
           DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
+  - name: inbound-authentication
+    version: ">= 0.0.0-0"
+    values:
+      hpa: 
+        minReplicas: "2"
+        maxReplicas: "2"
+      resources: 
+        limits: 
+          cpu: "1000m"
+          memory: "512Mi"
+        requests: 
+          cpu: "100m"
+          memory: "512Mi"
+      loggingAgent: "Datadog"
+      env: 
+        open: 
+          ACCOUNT_MANAGEMENT_GRPC_HOST: "stage-ambassador"
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          INBOUND_AUTHENTICATION_PROFILE: "DTC"
+          CACHE_TYPE: "redis"
+          CACHE_REDIS_SCHEMA: "3"
+          CACHE_REDIS_HOST: "redis-writer"
+          CACHE_REDIS_PORT: "6379"
+          SPRING_CACHE_REDIS_TIME_TO_LIVE: "1800"
+          DD_ENV: "staging"
+          SENTRY_ENVIRONMENT: "staging"
+      ambassador: 
+        instanceId: "default"
+        enableFilter: true
