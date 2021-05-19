@@ -1,6 +1,6 @@
 project: prod
 source:
-  repo: https://greenlight.jfrog.io/artifactory/gl-helm-release
+  repo: https://greenlight.jfrog.io/artifactory/gl-helm
 destinations:
   - cluster: gl-prod-e1
     namespace: prod
