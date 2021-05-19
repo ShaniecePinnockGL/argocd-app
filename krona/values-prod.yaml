@@ -5,15 +5,15 @@ destinations:
   - cluster: krona-prod-e1
     namespace: prod
     region: e1
-  # - cluster: krona-prod-e2
-  #   namespace: prod
-  #   region: e2
+  - cluster: krona-prod-e2
+    namespace: prod
+    region: e2
 common:
   values:
     ambassador:
       instanceId: prod
-    # Disables all cron jobs in us-east-2. 
-    # To enable them, change this to "e1" which will remove them in e2
+    # By default, disable all cron jobs in us-east-2.
+    # Switch to e1 when failover is in effect.
     e2:
       jobs: {}
 gradualRollout: true
@@ -273,9 +273,14 @@ applications:
   - name: reconciliation
     version: 2.5.0
     values:
-      hpa:
-        minReplicas: 12
-        maxReplicas: 20
+      e2:
+        hpa:
+          minReplicas: 0
+          maxReplicas: 0
+      e1:
+        hpa:
+          minReplicas: 12
+          maxReplicas: 20
       env:
         open:
           CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-prod-reconciliation
