@@ -8,9 +8,6 @@ destinations:
   - cluster: gl-prod-e2
     namespace: prod
     region: e2
-syncPolicy:
-  automated:
-    prune: true
 common:
   values:
     resources:
@@ -44,6 +41,34 @@ applications:
           ALERT_STABLE_HANDLER: RestRequestHandler
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/health
           DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
+  - name: inbound-authentication
+    version: 0.8.0-develop.12
+    values:
+      hpa: 
+        minReplicas: 10
+        maxReplicas: 20
+      resources: 
+        limits: 
+          cpu: "1000m"
+          memory: "1024Mi"
+        requests: 
+          cpu: "1000m"
+          memory: "1024Mi"
+      loggingAgent: "Datadog"
+      env: 
+        open: 
+          ACCOUNT_MANAGEMENT_GRPC_HOST: "ambassador"
+          ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          INBOUND_AUTHENTICATION_PROFILE: "DTC"
+          CACHE_TYPE: "redis"
+          CACHE_REDIS_SCHEMA: "3"
+          CACHE_REDIS_HOST: "redis-writer"
+          CACHE_REDIS_PORT: "6379"
+          SPRING_CACHE_REDIS_TIME_TO_LIVE: "60000"
+          DD_ENV: "production"
+      ambassador: 
+        instanceId: "default"
+        enableFilter: true
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
