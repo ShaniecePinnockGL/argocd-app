@@ -19,6 +19,8 @@ common:
       open:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
         LOG_LEVEL: debug
+    e2:
+      jobs: {}
 applications:
   - name: account-history
     version: 2.13.0-develop.11

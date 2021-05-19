@@ -12,6 +12,10 @@ common:
   values:
     ambassador:
       instanceId: prod
+    # Disables all cron jobs in us-east-2. 
+    # To enable them, change this to "e1" which will remove them in e2
+    e2:
+      jobs: {}
 gradualRollout: true
 applications:
   - name: account-history

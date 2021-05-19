@@ -36,6 +36,8 @@ common:
                   COLLECTION_ID: 8154965-2ca50f6e-3e5a-4d54-8912-40ed2ef1fdd6
                   ENVIRONMENT_ID: 10066548-8c857ebb-c7cb-4df4-8009-014b4cf57125
                   DELAY_REQUEST: 10000
+    e2:
+      jobs: {}
 applications:
   - name: account-history
     version: ">= 0.0.0-0"
