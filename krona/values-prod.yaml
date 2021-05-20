@@ -103,16 +103,17 @@ applications:
   - name: chores
     version: 1.11.0
     values:
-      # temp for matching production schedule
-      jobs:
-        - name: job-reminder
-          schedule: "0 13 * * *"
-          concurrency: Forbid
-          successHistory: 2
-          failedHistory: 3
-          activeDeadlineSeconds: 3600
-          command:
-            - ./job_reminder
+      e1:
+        # temp for matching production schedule
+        jobs:
+          - name: job-reminder
+            schedule: "0 13 * * *"
+            concurrency: Forbid
+            successHistory: 2
+            failedHistory: 3
+            activeDeadlineSeconds: 3600
+            command:
+              - ./job_reminder
       hpa:
         minReplicas: 6
         maxReplicas: 8
