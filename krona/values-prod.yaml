@@ -275,8 +275,8 @@ applications:
     values:
       e2:
         hpa:
-          minReplicas: 0
-          maxReplicas: 0
+          minReplicas: "0" # needs to be a string else it doesn't override the default values
+          maxReplicas: "0" #
       e1:
         hpa:
           minReplicas: 12
