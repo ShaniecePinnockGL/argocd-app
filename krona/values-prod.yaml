@@ -273,14 +273,9 @@ applications:
   - name: reconciliation
     version: 2.5.0
     values:
-      e2:
-        hpa:
-          minReplicas: "0" # needs to be a string else it doesn't override the default values
-          maxReplicas: "0" #
-      e1:
-        hpa:
-          minReplicas: 12
-          maxReplicas: 20
+      hpa:
+        minReplicas: 12
+        maxReplicas: 20
       env:
         open:
           CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-prod-reconciliation
