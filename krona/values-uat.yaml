@@ -16,7 +16,7 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: 2.11.0
+    version: 2.12.0
     values:
       env:
         open:
@@ -32,8 +32,9 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
+          REPLICATION_SYNC_SQS_DELAY_MS: 10
   - name: account-management
-    version: 1.15.0
+    version: 1.16.0
     values:
       env:
         open:
@@ -51,7 +52,7 @@ applications:
           CHORES_GRPC_HOST: ambassador
           CHORES_GRPC_PORT: "80"
   - name: allowance
-    version: 2.6.0
+    version: 2.7.0
     values:
       env:
         open:
@@ -60,7 +61,7 @@ applications:
           SPENDING_RULES_GRPC_HOST: ambassador
           SPENDING_RULES_GRPC_PORT: "80"
   - name: authentication
-    version: 2.6.0
+    version: 2.7.0
     values:
       env:
         open:
@@ -70,7 +71,7 @@ applications:
           AUTHENTICATION_USER_POOLS_SECONDARY_POOL_ID: krona-uat
           AUTHENTICATION_USER_POOLS_SECONDARY_REGION: us-east-2
   - name: charge
-    version: 2.10.0
+    version: 2.11.0
     values:
       env:
         open:
@@ -83,7 +84,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: chores
-    version: 1.11.0
+    version: 1.11.1
     values:
       env:
         open:
@@ -160,7 +161,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: ledger
-    version: 2.6.1
+    version: 2.8.0
     values:
       env:
         open:
@@ -171,7 +172,7 @@ applications:
           CLOUD_AWS_DYNAMODB_REQUEST_TIMEOUT: "0"
           CLOUD_AWS_DYNAMODB_SOCKET_TIMEOUT: "5000"
   - name: move-funds
-    version: 2.8.2
+    version: 2.9.0
     values:
       env:
         open:
@@ -186,7 +187,7 @@ applications:
           SPENDING_RULE_GRPC_HOST: ambassador
           SPENDING_RULE_GRPC_PORT: "80"
   - name: notification
-    version: 2.10.0
+    version: 2.11.0
     values:
       env:
         open:
@@ -200,7 +201,7 @@ applications:
           SPENDING_RULES_GRPC_HOST: ambassador
           SPENDING_RULES_GRPC_PORT: "80"
   - name: outbound-authentication
-    version: 1.8.0
+    version: 1.9.0
     values:
       env:
         open:
@@ -215,7 +216,7 @@ applications:
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_MAX_RETRY: "5"
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: https://api2-ext-oauth-cert.jpmchase.net/oauth/client-credentials/v1/token
   - name: reconciliation
-    version: 2.5.0
+    version: 2.6.0
     values:
       env:
         open:
@@ -245,7 +246,7 @@ applications:
         awsConfigRef:
           CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
   - name: spending-rules
-    version: 2.5.0
+    version: 2.6.0
     values:
       env:
         open:
@@ -256,7 +257,7 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
   - name: store-match
-    version: 2.7.0
+    version: 2.8.0
     values:
       env:
         open:
