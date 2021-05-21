@@ -53,8 +53,13 @@ func validateNamespace(namespace string) {
 func validateArgoCdAuth() {
 	_, _, err := runCommand("argocd", "app", "list")
 	if err != nil {
-		fmt.Printf("\u2718 failed to access argocd instance. please login using the command `argocd login argocd.external.glops.io --sso --grpc-web-root-path /`\n")
-		os.Exit(1)
+		fmt.Println("trying to log into Argo CD")
+		_, _, err = runCommand("argocd", "login", "argocd.external.glops.io", "--sso", "--grpc-web-root-path", "/")
+		time.Sleep(3 * time.Second)
+		if err != nil {
+			fmt.Printf("\u2718 failed to access argocd instance. please login using the command `argocd login argocd.external.glops.io --sso --grpc-web-root-path /`\n")
+			os.Exit(1)
+		}
 	}
 	fmt.Printf("\u2713 argocd authenticated\n")
 }
