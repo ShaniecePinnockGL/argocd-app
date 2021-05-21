@@ -16,7 +16,6 @@ common:
     # Switch to e1 when failover is in effect.
     e2:
       jobs: {}
-gradualRollout: true
 applications:
   - name: account-history
     version: 2.11.0

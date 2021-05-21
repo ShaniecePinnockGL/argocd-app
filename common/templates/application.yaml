@@ -13,9 +13,6 @@ metadata:
   {{- with $.Values.annotations }}
   annotations:
     {{- toYaml . | trim | nindent 4 }}
-    {{- if $.Values.gradualRollout }}
-    argocd.argoproj.io/sync-wave: {{ $syncCount | quote }}
-    {{- end }}
   {{- end }}
   {{- with $.Values.domain }}
   name: {{ . }}-{{ $app.name }}-{{ $namespace }}-{{ $dest.region }}
@@ -78,8 +75,7 @@ spec:
   syncPolicy:
     {{- toYaml . | trim | nindent 4 }}
     {{- if not (hasKey . "retry") }}
-    retry:
-      limit: 0
+    retry: {}
     {{- end }}
   {{- end }}
 {{- end }}

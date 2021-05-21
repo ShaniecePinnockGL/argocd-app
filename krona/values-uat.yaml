@@ -14,7 +14,6 @@ common:
       instanceId: uat
     e2:
       jobs: {}
-gradualRollout: true
 applications:
   - name: account-history
     version: 2.11.0
