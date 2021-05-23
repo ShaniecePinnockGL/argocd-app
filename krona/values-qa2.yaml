@@ -14,7 +14,7 @@ common:
       instanceId: qa2
 applications:
   - name: account-history
-    version: 2.12.0-rc.1
+    version: 2.12.1-rc.9
     values:
       env:
         open:
