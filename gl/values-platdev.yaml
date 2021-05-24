@@ -243,7 +243,7 @@ applications:
             encryptedData:
               SENTRY_DSN: AgA9D3uD20xockqnOpUeSyim9EDtMQM+I7Pve9c3hdFmfofTvvCiTImVVPKByxmNkyb1NkhvHJRVlu0aHACkff8urzyKanY0Ke4EVkqstli5HKyJHG7mHYW5Y0jGKXkZ+Qcm1Qm4tle/wVTHARPX1CFfcqu+U/W/zypSDR2JL+03+u466ksSxbjcvI6fYb53ESlzFniN8DNCp2M1YxTWCbVzAGNxkjVfiHSWDKO8kc5y6jdDK2s2S+akKUJAuHObGZxTGjC/NBe6985vVsvcp3gWkWQjvYQdFjt7/MbR5lRtIV4OVP0ZkZCGn4NrAZ8qfn0ONtmQIip9M2SN4ZIujoeI69KP6PF6muzeE0h3zjxV2mJBn7cvvlCCnzDF/clwV1g9AfM7N28iQZe4OL42pkK0yzWjB1eOEOvZow/NvL4wGYE8yqzR78n/zwYnHrdhg4NeSjxKEAz+7Ssq4uxF4YerLUuJau0G50bEyW1i21WjLy9grKc2QUDbgRzFltGB5b5fbSzuX0/ZmqPAy2zKXihKiBpbnCagPNRRpwN9zcr0ng7IRxnWFRif/FFKWyKtI/YybDE3RRMWXpO02vwKEmgw4Xd3J0Un9B28R0tOvFDxWNGZS5fO3qaDq4LSmADv9LcTnHZUt7PYeeooTbVWFpdpL2Io8Zx+0/l4JKKsQVNyPdoUUKFSiVI3GQd/R9ynadQ=
           - name: new-relic-secrets
-            encryptedData: 
+            encryptedData:
               NEW_RELIC_ENABLED: AgCuCPQZAm+Z1/yO7CcALon/kywg7CT7pLOutIqM9XfweAHVBVjG7zD8klpvAwnXTdRXA7IVKXamZNtVs4ye51RUUztGri0DGPQuBayuoC00FflqqG9+WKzcVDXhEND87JcB6RXA/nPOGCzwOfRoy6IXR739TX9+eTAk+lMdOLHODAPn98wckmNz4wTTMSyGOFdprVlOSZsJynuRNduUDzl1wlDpCrrZYYLJ34aSojeuIzQy7mYAMiPptOufaednELeAAwiHP5I2Fci6l6SzRFRrrW4bZKqEgytQa+wgntiOnL2djSOeuG7XdRYcQgl95Yr8Gu8lq1VjjbnIqiNq/LyW9xRA36DCzQKLzm6e+D5deCdDZJtKwl+l9BETk1hZEVOlkTIf+IB0l8rZr8VzHPAzAROwBtFR4QarkgEH9qaXE2OoCk1ZwKryXh50DHoRjpIHWVBvrdZ/fyYBvCx0VOwPN3mKMCABHqeDn0SvZEhx0lCY0DUdaDBCh6RUaMhDdm/J/hC9T1fQObPmH2i+o/yofr7a6idtK6/2aPUYK6JcKgAzfc1egY3HMQfK8IrICnD/Bm4tAhiBpzbG7XHtUR2gk3krKbImSOHVTj9jY/ZD/cGPKNzmznwBf6fKTd8lB2qSe22XQoYQQ3M7u5QkPRH3f6uZ1ApiTY3U3bQcY1UstukOlQSVs8/YwLhx4JU7RLWQShWz6Q==
           - name: reconciliation-secrets
             encryptedData:

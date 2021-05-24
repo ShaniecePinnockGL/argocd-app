@@ -11,20 +11,6 @@ syncPolicy:
   syncOptions:
     - CreateNamespace=true
 applications:
-#  - name: actions-runner-linux-x64
-#    namespace: actions-runner
-#    version: ">= 0.0.0-0"
-#    values:
-#      resources:
-#        limits:
-#          cpu: 2000m
-#          memory: 7Gi
-#        requests:
-#          cpu: 1000m
-#          memory: 1Gi
-#      hpa:
-#        minReplicas: 5
-#        maxReplicas: 10
   - name: argocd-tool
     namespace: argocd-tool
     version: ">= 0.0.0-0"
