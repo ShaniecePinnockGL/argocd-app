@@ -9,20 +9,6 @@ destinations:
     namespace: dev
     region: e2
 syncPolicy: {}
-common:
-  values:
-    resources:
-      limits:
-        cpu: 1000m
-        memory: 768Mi
-      requests:
-        cpu: 1000m
-        memory: 768Mi
-    env:
-      open:
-        LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
-        UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
-    loggingAgent: Datadog
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
@@ -30,6 +16,14 @@ applications:
   - name: account-history
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           SPRING_PROFILES_ACTIVE: dbMode
@@ -44,12 +38,22 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: false
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
   - name: card-webhooks
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
   - name: charge
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
@@ -60,6 +64,8 @@ applications:
           LEDGER_GRPC_PORT: "80"
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
   - name: commander
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
@@ -81,6 +87,14 @@ applications:
   - name: galileo-proxy
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.dev.svc.cluster.local/auth/Authorization
@@ -91,6 +105,8 @@ applications:
           ALERT_STABLE_HANDLER: RestRequestHandler
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.dev.svc.cluster.local/health
           DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
       nodePort:
         nodePort: 32323
   - name: gift-of-greenlight
@@ -108,17 +124,17 @@ applications:
   - name: inbound-authentication
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
       hpa:
         minReplicas: "2"
         maxReplicas: "2"
       resources:
         limits:
-          cpu: "1000m"
-          memory: "512Mi"
+          cpu: 1000m
+          memory: 768Mi
         requests:
-          cpu: "100m"
-          memory: "512Mi"
-      loggingAgent: "Datadog"
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           ACCOUNT_MANAGEMENT_GRPC_HOST: "dev-ambassador"
@@ -129,6 +145,8 @@ applications:
           CACHE_REDIS_HOST: "redis-writer"
           CACHE_REDIS_PORT: "6379"
           SPRING_CACHE_REDIS_TIME_TO_LIVE: "1800"
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
       ambassador:
         instanceId: "default"
         enableFilter: true
@@ -141,6 +159,14 @@ applications:
   - name: ledger
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           CLOUD_AWS_DYNAMODB_TABLE_NAME_PREFIX: dev_
@@ -149,6 +175,8 @@ applications:
           CLOUD_AWS_DYNAMODB_CLIENT_EXECUTION_TIMEOUT: "0"
           CLOUD_AWS_DYNAMODB_REQUEST_TIMEOUT: "0"
           CLOUD_AWS_DYNAMODB_SOCKET_TIMEOUT: "5000"
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
   - name: optimizely
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
@@ -158,6 +186,14 @@ applications:
   - name: reconciliation
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: gl-dev-reconciliation
@@ -183,6 +219,8 @@ applications:
           ACCOUNT_HISTORY_GRPC_PORT: "80"
           ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
         awsConfigRef:
           CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
         envConfigRef:
@@ -202,6 +240,14 @@ applications:
   - name: spending-rules
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           SPRING_HIKARI_POOL_SIZE: "10"
@@ -210,17 +256,29 @@ applications:
           SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
   - name: store-match
     version: ">= 0.0.0-0"
     values:
+      loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           STORE_MATCH_REDIS_POOL_ENABLED: "false"
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
