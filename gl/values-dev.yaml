@@ -56,6 +56,9 @@ applications:
           LEDGER_GRPC_PORT: "80"
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
+  - name: commander
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
+    version: ">= 0.0.0-0"
   - name: galileo-proxy
     version: ">= 0.0.0-0"
     values:
