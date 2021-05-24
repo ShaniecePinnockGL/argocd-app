@@ -8,9 +8,7 @@ destinations:
   - cluster: gl-stage-e2
     namespace: stage
     region: e2
-syncPolicy:
-  automated:
-    prune: true
+syncPolicy: {}
 common:
   values:
     resources:
