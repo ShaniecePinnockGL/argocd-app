@@ -98,12 +98,11 @@ applications:
       ambassador: 
         enabled: true
         mapping: 
-          host: "^(ft|featuretoggle)\\\\.dev\\\\.greenlight\\\\.gl-tech\\\\.io$"
+          host: "^(ft|featuretoggle)\\.dev\\.greenlight\\.gl-tech\\.io$"
           regex: true
       service: 
         port: "80"
-      dtc_deployment: false
-      replicaCount: "2"
+      dtc_deployment: true
       db: 
         name: "dev_unleash"
       baseUrl: "https://ft.dev.greenlight.gl-tech.io"
