@@ -84,6 +84,33 @@ applications:
   - name: external-funds-webhooks
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
+  - name: feature-toggles
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: ">= 0.0.0-0"
+    values:
+      resources: 
+        limits: 
+          cpu: "500m"
+          memory: "512Mi"
+        requests: 
+          cpu: "250m"
+          memory: "512Mi"
+      ambassador: 
+        enabled: true
+        mapping: 
+          host: "^(ft|featuretoggle)\\\\.dev\\\\.greenlight\\\\.gl-tech\\\\.io$"
+          regex: true
+      service: 
+        port: "80"
+      dtc_deployment: false
+      replicaCount: "2"
+      db: 
+        name: "dev_unleash"
+      baseUrl: "https://ft.dev.greenlight.gl-tech.io"
+      node_env: "dev"
+      datadog: 
+        enabled: true
+        metrics: true
   - name: galileo-proxy
     version: ">= 0.0.0-0"
     values:
