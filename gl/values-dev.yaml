@@ -206,9 +206,6 @@ applications:
   - name: optimizely
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
-  - name: plaid
-    repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
-    version: ">= 0.0.0-0"
   - name: reconciliation
     version: ">= 0.0.0-0"
     values:
