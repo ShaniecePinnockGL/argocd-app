@@ -231,6 +231,13 @@ applications:
   - name: registration-mapper
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
+    values:
+      e1:
+        database: 
+          initialization: 
+            enabled: "false"
+          migration: 
+            enabled: "false"
   - name: savings
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
