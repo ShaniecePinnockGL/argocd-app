@@ -11,6 +11,9 @@ syncPolicy:
   syncOptions:
     - CreateNamespace=true
 applications:
+  - name: argo-cd-oncall-escalator
+    namespace: argocd
+    version: ">= 0.0.0-0"
   - name: argocd-tool
     namespace: argocd-tool
     version: ">= 0.0.0-0"
