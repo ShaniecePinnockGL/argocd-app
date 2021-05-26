@@ -8,7 +8,9 @@ destinations:
   - cluster: gl-dev-e2
     namespace: dev
     region: e2
-syncPolicy: {}
+syncPolicy:
+  automated:
+    prune: true
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
