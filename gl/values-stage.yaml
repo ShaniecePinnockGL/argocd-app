@@ -9,19 +9,6 @@ destinations:
     namespace: stage
     region: e2
 syncPolicy: {}
-common:
-  values:
-    resources:
-      limits:
-        cpu: 1000m
-        memory: 768Mi
-      requests:
-        cpu: 1000m
-        memory: 768Mi
-    env:
-      open:
-        LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
-        DD_ENV: staging
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
@@ -81,18 +68,27 @@ applications:
           minReplicas: 3
           maxReplicas: 4
       loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       env:
         open:
-          REST_TEMPLATE_POOL_MAX_TOTAL: 1000
-          REST_TEMPLATE_POOL_MAX_PER_ROUTE: 200
-          AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.stage.svc.cluster.local/auth/Authorization
-          AUTH_AUTHORIZATION_STABLE_HANDLER: RestRequestHandler
-          AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT: ""
-          AUTH_AUTHORIZATION_CANDIDATE_HANDLER: ""
           ALERT_STABLE_ENDPOINT: http://card-webhooks-internal-service.stage.svc.cluster.local/alert/
           ALERT_STABLE_HANDLER: RestRequestHandler
+          AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT: ""
+          AUTH_AUTHORIZATION_CANDIDATE_HANDLER: ""
+          AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.stage.svc.cluster.local/auth/Authorization
+          AUTH_AUTHORIZATION_STABLE_HANDLER: RestRequestHandler
+          DD_ENV: staging
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.stage.svc.cluster.local/health
           DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
+          REST_TEMPLATE_POOL_MAX_PER_ROUTE: 200
+          REST_TEMPLATE_POOL_MAX_TOTAL: 1000
   - name: gift-of-greenlight
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: ">= 0.0.0-0"
@@ -110,24 +106,25 @@ applications:
         maxReplicas: "2"
       resources:
         limits:
-          cpu: "1000m"
-          memory: "512Mi"
+          cpu: 1000m
+          memory: 768Mi
         requests:
-          cpu: "100m"
-          memory: "512Mi"
+          cpu: 1000m
+          memory: 768Mi
       loggingAgent: "Datadog"
       env:
         open:
           ACCOUNT_MANAGEMENT_GRPC_HOST: "stage-ambassador"
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
-          INBOUND_AUTHENTICATION_PROFILE: "DTC"
           CACHE_TYPE: "redis"
           CACHE_REDIS_SCHEMA: "3"
           CACHE_REDIS_HOST: "redis-writer"
           CACHE_REDIS_PORT: "6379"
-          SPRING_CACHE_REDIS_TIME_TO_LIVE: "1800"
           DD_ENV: "staging"
+          INBOUND_AUTHENTICATION_PROFILE: "DTC"
+          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
           SENTRY_ENVIRONMENT: "staging"
+          SPRING_CACHE_REDIS_TIME_TO_LIVE: "1800"
       ambassador:
         instanceId: "default"
         enableFilter: true
