@@ -8,9 +8,7 @@ destinations:
   - cluster: gl-stage-e2
     namespace: stage
     region: e2
-syncPolicy:
-  automated:
-    prune: true
+syncPolicy: {}
 common:
   values:
     resources:
@@ -25,6 +23,57 @@ common:
         LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
         DD_ENV: staging
 applications:
+  - name: account-management-dtc
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: card-webhooks
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: commander
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: communication
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: drive-wealth
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: experimentation-id
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: external-funds
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: external-funds-webhooks
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: feature-toggles
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: ">= 0.0.0-0"
+    values:
+      resources: 
+        limits: 
+          cpu: "500m"
+          memory: "512Mi"
+        requests: 
+          cpu: "250m"
+          memory: "512Mi"
+      ambassador: 
+        enabled: true
+        mapping: 
+          host: "^staging-featuretoggle\\.greenlight\\.me$"
+          regex: true
+      service: 
+        port: "80"
+      dtc_deployment: true
+      replicaCount: "2"
+      db: 
+        name: "staging_unleash"
+      baseUrl: "https://staging-featuretoggle.greenlight.me"
+      node_env: "staging"
+      datadog: 
+        enabled: true
+        metrics: true
   - name: galileo-proxy
     version: ">= 0.0.0-0"
     values:
@@ -44,6 +93,15 @@ applications:
           ALERT_STABLE_HANDLER: RestRequestHandler
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.stage.svc.cluster.local/health
           DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
+  - name: gift-of-greenlight
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: gift-service
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: giving
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
   - name: inbound-authentication
     version: ">= 0.0.0-0"
     values:
@@ -73,6 +131,24 @@ applications:
       ambassador:
         instanceId: "default"
         enableFilter: true
+  - name: invest-profile
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: kyc-service
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: optimizely
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: registration
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: registration-mapper
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: savings
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
   - name: sealed-secrets
     version: ">= 0.0.0-0"
     values:
@@ -208,3 +284,18 @@ applications:
               # REDIS_PROTOCOL:
               # REDIS_SCHEMA:
               SENTRY_DSN: AgAH/7p0qqZR3Z9/NZN9XDXJ5EPoLDT5hDCaaCAyvaEkWg2MCKPUDB0Ka15qSVJbi+TZmRlMTJi6cIHvVl9ZfLeE3xyyGwZUhnjt/h9UXmwD7j2H65vS5KiWBVYXsJA1FibjUzXb/xDdmHjCwhCMvQQ89NgxlGknFNyMBTeCO+Gf+8/eshL/nF6bMQWAQJATkO8oMg037bxs0CarKQdMfMPN01xaT/Ih1YIIUthPXvCGU1EOMrkWMjmqTGNsyWR8CC4t8F54PiBDdGOUIpdEYInEzNkpkZohrtYT06cqiv2mt7eo5Fo8EFOVMdiwdof8xQ9+C4VBzzlBgJcmq70a3tjRMHbuq5snxdnkcqOZ4X1JSvrXwp4j7MHmZBmDs/tzbWJdZrVesR8wZ/JoQfLZfeXH6YZucb27u++dlaRBCX1/fXN3+ZglnhvKnVzoF3o+reXJG8eNsav2fVxI4QPCLnSMpW2Ge85DmKuM8z6rgc/wr/MLNe5TDSI1dy7MaFJR/Dc9taypbDjUPa7KlImpp6F/hDkA+jW6/urGjZGxbZD+8WQ8iNcfOcQ4Myi6xfEhu9P/A9R2aVCWDk02urfgqJwQoScau7J+D1LIrf13tiE5DVc3TBwvYRHRZ9BrnVguE+4bbQKdCM2TqEAi/Ox39EPgSZ52vwX5In2FTX3v0/NlPsLvGp+hrUa9KEUbYu4RcrA=
+  - name: server-api
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: stargateway
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: testaway
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: user-action
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
+  - name: webreg
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
+    version: ">= 0.0.0-0"
