@@ -1,1 +1,7 @@
-* @GreenlightMe/platform-services-team @GreenlightMe/sre-and-tools-team
+operations/values.yaml @GreenlightMe/sre-and-tools-team
+krona/values-prod.yaml @GreenlightMe/sre-and-tools-team
+krona/values-uat.yaml @GreenlightMe/sre-and-tools-team
+gl/values-prod.yaml @GreenlightMe/sre-and-tools-team
+appofapp/* @GreenlightMe/sre-and-tools-team
+common/* @GreenlightMe/sre-and-tools-team
+.github/* @GreenlightMe/sre-and-tools-team
