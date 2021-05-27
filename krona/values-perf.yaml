@@ -19,7 +19,7 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: 2.12.0-rc.9
+    version: 2.12.1-rc.9
     values:
       env:
         open:
