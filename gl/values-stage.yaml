@@ -13,6 +13,11 @@ applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: ">= 0.0.0-0"
+    values:
+      e1:
+        cronjobs:
+          cronjob2: # account-management-process-pricing-plan-changes
+            suspend: true
   - name: card-webhooks
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: ">= 0.0.0-0"
@@ -98,6 +103,11 @@ applications:
   - name: giving
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: ">= 0.0.0-0"
+    values:
+      e1:
+        cronjobs:
+          cronjob1: # giving-update-donations
+            suspend: true
   - name: identity-prefill
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: ">= 0.0.0-0"
