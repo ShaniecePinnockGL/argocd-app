@@ -9,6 +9,8 @@ destinations:
     namespace: stage
     region: e2
 syncPolicy: {}
+options:
+  ignoreStartupProbe: true
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage

@@ -82,5 +82,16 @@ spec:
     retry: {}
     {{- end }}
   {{- end }}
+  {{- with $.Values.options }}
+    {{- if .ignoreStartupProbe }}
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+      - /spec/template/spec/containers/0/startupProbe
+      - /spec/template/spec/containers/1/startupProbe
+      - /spec/template/spec/containers/2/startupProbe
+    {{- end}}
+  {{- end}}
 {{- end }}
 {{- end }}
