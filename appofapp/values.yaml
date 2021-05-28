@@ -4,6 +4,7 @@ domain:
       - dev
       - platdev
       - prod
+      - qa
       - stage
   - name: krona
     environment:
