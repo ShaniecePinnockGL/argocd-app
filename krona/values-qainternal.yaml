@@ -40,7 +40,7 @@ applications:
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
   - name: account-management
-    version: 1.16.0-develop.6
+    version: 1.17.0-develop.6
     values:
       env:
         open:
