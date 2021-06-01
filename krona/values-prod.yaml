@@ -275,8 +275,8 @@ applications:
     version: 2.6.0
     values:
       hpa:
-        minReplicas: 12
-        maxReplicas: 20
+        minReplicas: 16
+        maxReplicas: 24
       env:
         open:
           CLOUD_AWS_S3_BUCKETS_RECONCILIATION_NAME: krona-prod-reconciliation
