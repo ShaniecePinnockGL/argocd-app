@@ -1,4 +1,4 @@
-module github.com/GreenlightMe/argocd-app/migration
+module github.com/GreenlightMe/argocd-app/script
 
 go 1.16
 
