@@ -14,7 +14,7 @@ options:
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.294-46fbd54"
     values:
       e1:
         cronjobs:
@@ -22,27 +22,27 @@ applications:
             suspend: true
   - name: card-webhooks
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "3.8.96-25a8cf8"
   - name: commander
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "2.0.256-55f5ea8"
   - name: communication
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.4.0"
   - name: drive-wealth
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.8.0"
   - name: experimentation-id
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.54-738e722"
   - name: external-funds
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.240-ce92083"
   - name: external-funds-webhooks
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "0.0.42-83afae8"
   - name: galileo-proxy
-    version: ">= 0.0.0-0"
+    version: "0.11.0-develop.1"
     values:
       hpa:
           minReplicas: 3
@@ -71,13 +71,13 @@ applications:
           REST_TEMPLATE_POOL_MAX_TOTAL: 1000
   - name: gift-of-greenlight
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.116-f37e24b"
   - name: gift-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.109-24e594c"
   - name: giving
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.121-af7f775"
     values:
       e1:
         cronjobs:
@@ -85,9 +85,9 @@ applications:
             suspend: true
   - name: identity-prefill
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.16-dca4210"
   - name: inbound-authentication
-    version: ">= 0.0.0-0"
+    version: "0.8.0-develop.19"
     values:
       hpa:
         minReplicas: "2"
@@ -118,34 +118,34 @@ applications:
         enableFilter: true
   - name: invest-profile
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.23.0"
   - name: kyc-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.190-26d3078"
   - name: optimizely
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
-  - name: registration
-    repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.74-7e53324"
   - name: registration-mapper
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.150-d6ad0cb"
+  - name: registration
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
+    version: "1.16.0"
   - name: savings
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.6.0"
   - name: server-api
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "3.7.1331-790e43a"
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.676-05f180e"
   - name: testaway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.45-93d93b6"
   - name: user-action
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.15.0"
   - name: webreg
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: ">= 0.0.0-0"
+    version: "1.0.916-3efc27c"
