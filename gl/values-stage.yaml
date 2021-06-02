@@ -148,9 +148,6 @@ applications:
   - name: invest-profile
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.23.0"
-    values:
-      image:
-        tag: "1.0.451-9672445"
   - name: kyc-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.190-26d3078"
