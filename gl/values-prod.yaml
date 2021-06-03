@@ -61,7 +61,7 @@ applications:
       ambassador:
         enabled: true
         mapping:
-          host: ^(ft|featuretoggle)\\.greenlight\\.me$
+          host: "^(ft|featuretoggle)\\.greenlight\\.me$"
           regex: true
       baseUrl: https://ft.greenlight.me
       datadog:
