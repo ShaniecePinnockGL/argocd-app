@@ -176,9 +176,17 @@ applications:
   - name: registration
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.16.0"
+    values:
+      hpa:
+        minReplicas: 4
+        maxReplicas: 10
   - name: registration-mapper
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.0.150-d6ad0cb"
+    values:
+      hpa:
+        minReplicas: 4
+        maxReplicas: 10
   - name: savings
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.6.0"
