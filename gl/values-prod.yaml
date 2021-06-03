@@ -115,8 +115,6 @@ applications:
   - name: gift-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.0.111-9c87a44"
-    values:
-      replicaCount: "3"
   - name: giving
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.0.121-af7f775"
