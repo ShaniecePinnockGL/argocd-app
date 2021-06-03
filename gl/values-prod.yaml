@@ -59,17 +59,17 @@ applications:
     version: "1.0.33-61fa7cb"
     values:
       ambassador:
-        enabled: "true"
+        enabled: true
         mapping:
           host: ^(ft|featuretoggle)\\.greenlight\\.me$
-          regex: "true"
+          regex: true
       baseUrl: https://ft.greenlight.me
       datadog:
-        enabled: "true"
-        metrics: "true"
+        enabled: true
+        metrics: true
       db:
         name: production_unleash
-      dtc_deployment: "false"
+      dtc_deployment: true
       node_env: production
       replicaCount: "3"
       resources:
