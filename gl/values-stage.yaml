@@ -33,7 +33,7 @@ applications:
     version: "1.4.0"
   - name: drive-wealth
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.8.0"
+    version: "1.9.0"
   - name: experimentation-id
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.54-738e722"
