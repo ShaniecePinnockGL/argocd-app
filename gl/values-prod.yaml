@@ -129,7 +129,7 @@ applications:
             suspend: true
       e2:
         cronjobs:
-          cronjob1: # giving-update-donations
+          cronjob3: # giving-update-donation-totals
             suspend: false
 #   - name: identity-prefill
 #     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
