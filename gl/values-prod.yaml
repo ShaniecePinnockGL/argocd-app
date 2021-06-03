@@ -41,7 +41,7 @@ applications:
     version: "1.4.0"
   - name: drive-wealth
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
-    version: "1.8.0"
+    version: "1.9.0"
     values:
       ambassadorEdgeStack:
         use: "true"
