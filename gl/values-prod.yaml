@@ -127,6 +127,10 @@ applications:
         cronjobs:
           cronjob1: # giving-update-donations
             suspend: true
+      e2:
+        cronjobs:
+          cronjob1: # giving-update-donations
+            suspend: false
 #   - name: identity-prefill
 #     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
 #     version: "1.0.16-dca4210"
