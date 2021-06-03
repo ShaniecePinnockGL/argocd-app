@@ -10,29 +10,81 @@ destinations:
     region: e2
 options:
   ignoreStartupProbe: true
-common:
-  values:
-    resources:
-      limits:
-        cpu: 1000m
-        memory: 768Mi
-      requests:
-        cpu: 1000m
-        memory: 768Mi
-    env:
-      open:
-        LOGGING_LEVEL_ME_GREENLIGHT: INFO
-        DD_ENV: production
 applications:
+  - name: account-management-dtc
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.294-46fbd54"
+    values:
+      e1:
+        cronjobs:
+          cronjob2: # account-management-process-pricing-plan-changes
+            suspend: true
+  - name: card-webhooks
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "3.8.96-25a8cf8"
+  - name: commander
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "2.0.256-55f5ea8"
+  - name: communication
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.4.0"
+  - name: drive-wealth
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.8.0"
+  - name: experimentation-id
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.54-738e722"
+  - name: external-funds
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.240-ce92083"
+  - name: external-funds-webhooks
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "0.0.42-83afae8"
+  - name: feature-toggles
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.33-61fa7cb"
+    values:
+      resources: 
+        limits: 
+          cpu: "500m"
+          memory: "512Mi"
+        requests: 
+          cpu: "250m"
+          memory: "512Mi"
+      ambassador: 
+        enabled: true
+        mapping: 
+          host: "^(ft|featuretoggle)\\.greenlight\\.me$"
+          regex: true
+      service: 
+        port: "80"
+      dtc_deployment: true
+      replicaCount: "3"
+      db: 
+        name: "production_unleash"
+      baseUrl: "https://ft.greenlight.me"
+      node_env: "production"
+      datadog: 
+        enabled: true
+        metrics: true
   - name: galileo-proxy
     version: 0.10.0
     values:
       loggingAgent: Datadog
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+        requests:
+          cpu: 1000m
+          memory: 768Mi
       hpa:
         minReplicas: 6
         maxReplicas: 24
       env:
         open:
+          LOGGING_LEVEL_ME_GREENLIGHT: INFO
+          DD_ENV: production
           REST_TEMPLATE_POOL_MAX_TOTAL: 1000
           REST_TEMPLATE_POOL_MAX_PER_ROUTE: 200
           AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/auth/Authorization
@@ -43,6 +95,23 @@ applications:
           ALERT_STABLE_HANDLER: RestRequestHandler
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.prod.svc.cluster.local/health
           DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
+  - name: gift-of-greenlight
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.116-f37e24b"
+  - name: gift-service
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.109-24e594c"
+  - name: giving
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.121-af7f775"
+    values:
+      e1:
+        cronjobs:
+          cronjob1: # giving-update-donations
+            suspend: true
+  - name: identity-prefill
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.16-dca4210"
   - name: inbound-authentication
     version: 0.8.0-develop.12
     values:
@@ -59,6 +128,7 @@ applications:
       loggingAgent: "Datadog"
       env:
         open:
+          LOGGING_LEVEL_ME_GREENLIGHT: INFO
           ACCOUNT_MANAGEMENT_GRPC_HOST: "ambassador"
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
           INBOUND_AUTHENTICATION_PROFILE: "DTC"
@@ -71,8 +141,26 @@ applications:
       ambassador:
         instanceId: "default"
         enableFilter: true
+  - name: invest-profile
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.23.0"
+  - name: kyc-service
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.190-26d3078"
+  - name: optimizely
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.74-7e53324"
+  - name: registration
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.16.0"
+  - name: registration-mapper
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.150-d6ad0cb"
+  - name: savings
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.6.0"
   - name: sealed-secrets
-    version: ">= 0.0.0-0"
+    version: "1.1.0"
     values:
       e1:
         sealedSecrets:
@@ -84,3 +172,18 @@ applications:
           - name: galileo-proxy-secrets
             encryptedData:
               SENTRY_DSN: AgBkoODYVMi7YulFi8/Ew45N39fE1Pk6T169e4+jJBfeCgJ49ASHwkA+E3QvM/9MqcATddMzOVt0T+QY+oVzkkupSuMf3Egb75NqsPEJBbgQzFPbEBS8R+6ZWtdFhID5CuvoGCau2QIbpOnXRZoazitDJh33LrJJbCGGkJ/QgpKHea6AqExFWidG3LdNvXosd13sxeQU0N9vk6jF1UdcwdJ45OHHu6LDxFYjBukj/f+HxSZ3UfVhqViYMftuKPR65fFvD6GWPYxxNlHaBIJ7e69kcojBFslPXkIpu6nINnwFzfWIPxuZWTQeSeojc669jKAERRoj3WGuyUQmAxQQ6vzB2KyRQrKX+gToMYV/O1OoEg8zs2RLlRgbjm4sEbihVpKyMFek6wopYCE41vH/Ri1JQrKaQ9vA1Dr+l9KDaMCW/UEqQttFcmtGfaWd9nAHVRXDtWgqPYVzjPgwAPijJv3ETzZHTijQC6LQksuEVlmfTZVuHhj9C/H664TLahSMS9hJ3oKkxglkRpWheYLYMXrqLBTAfliLkPP3rV0AuS+OsKN0Mo/2DeSeKYgBmJ3NV68quA+svR8GXYgawfK8B80ivgSQtfu/eomDv9a3NsWj2/3JdwHlBoKLzAmkjhHmcP2CyAw1qPHhTh36vDts07jwcy1GxOsQ7nXzhMH/bE2JZIF4SlqzRPQzh//Mh6MOPy0m1IVKaz+GtPDxqv7Okt4iqXBlAh7fPhEpnwbkF6GQ/GdfIR8uGWbGxUJYT5inOGslfAqSVNvbgdocj/vzXgTNcpODNQNJOk4=
+  - name: server-api
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "3.7.1331-790e43a"
+  - name: stargateway
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.676-05f180e"
+  - name: testaway
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.45-93d93b6"
+  - name: user-action
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.15.0"
+  - name: webreg
+    repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
+    version: "1.0.916-3efc27c"
