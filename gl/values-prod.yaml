@@ -175,7 +175,7 @@ applications:
     version: "1.0.74-7e53324"
   - name: registration
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
-    version: "1.16.0"
+    version: "1.20.0"
     values:
       hpa:
         minReplicas: 4
