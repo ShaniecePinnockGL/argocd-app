@@ -41,34 +41,6 @@ applications:
   - name: external-funds-webhooks
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "0.0.42-83afae8"
-  - name: galileo-proxy
-    version: "0.11.0-develop.1"
-    values:
-      hpa:
-          minReplicas: 3
-          maxReplicas: 4
-      loggingAgent: Datadog
-      resources:
-        limits:
-          cpu: 1000m
-          memory: 768Mi
-        requests:
-          cpu: 1000m
-          memory: 768Mi
-      env:
-        open:
-          ALERT_STABLE_ENDPOINT: http://card-webhooks-internal-service.qa.svc.cluster.local/alert/
-          ALERT_STABLE_HANDLER: RestRequestHandler
-          AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT: ""
-          AUTH_AUTHORIZATION_CANDIDATE_HANDLER: ""
-          AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.qa.svc.cluster.local/auth/Authorization
-          AUTH_AUTHORIZATION_STABLE_HANDLER: RestRequestHandler
-          DD_ENV: staging
-          DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.qa.svc.cluster.local/health
-          DOWNSTREAM_HEALTH_EVENT_STABLE_HANDLER: RestRequestHandler
-          LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
-          REST_TEMPLATE_POOL_MAX_PER_ROUTE: 200
-          REST_TEMPLATE_POOL_MAX_TOTAL: 1000
   - name: gift-of-greenlight
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.0.116-f37e24b"
@@ -140,9 +112,6 @@ applications:
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.0.676-05f180e"
-  - name: testaway
-    repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "1.0.45-93d93b6"
   - name: user-action
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.15.0"
