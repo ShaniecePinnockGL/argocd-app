@@ -103,7 +103,7 @@ applications:
     version: "1.0.116-f37e24b"
   - name: gift-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.109-24e594c"
+    version: "1.0.111-9c87a44"
   - name: giving
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.121-af7f775"
