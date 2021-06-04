@@ -28,7 +28,7 @@ applications:
     version: "2.0.256-55f5ea8"
   - name: communication
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "1.4.0"
+    version: "1.5.0"
   - name: drive-wealth
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.8.0"
