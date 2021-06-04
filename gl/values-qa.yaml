@@ -8,7 +8,9 @@ destinations:
   - cluster: gl-stage-e2
     namespace: qa
     region: e2
-syncPolicy: {}
+syncPolicy:
+  automated:
+    prune: true
 options:
   ignoreStartupProbe: true
 applications:
