@@ -56,26 +56,27 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
-      jobs:
-      - name: "replication-sync"
-        schedule: "5 * * * *"
-        backoffLimit: 3
-        activeDeadlineSeconds: 1800
-        successHistory: 2
-        failedHistory: 5
-        env:
-          open:
-            SPRING_PROFILES_ACTIVE: job
-            REPLICATION_SYNC_HOURS_FROM_EPOCH:
-      - name: "migrate"
-        schedule: "0/15 * * * *"
-        backoffLimit: 3
-        activeDeadlineSeconds: 1800
-        successHistory: 2
-        failedHistory: 5
-        env:
-          open:
-            SPRING_PROFILES_ACTIVE: migrate
+      e1:
+        jobs:
+        - name: "replication-sync"
+          schedule: "5 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: job
+              REPLICATION_SYNC_HOURS_FROM_EPOCH:
+        - name: "migrate"
+          schedule: "0/15 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: migrate
   - name: account-management
     version: ">= 0.0.0-0"
     values:
