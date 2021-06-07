@@ -70,6 +70,7 @@ applications:
           STORE_MATCH_GRPC_PORT: "80"
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
           UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
+          CHARGE_PROFILE: dtc
   - name: commander
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
