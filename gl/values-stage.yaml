@@ -27,7 +27,7 @@ applications:
     version: "3.8.96-25a8cf8"
   - name: commander
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "2.0.260-54dbf01"
+    version: "2.0.265-deeed0b"
   - name: communication
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.4.0"
