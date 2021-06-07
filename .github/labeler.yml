@@ -1,0 +1,22 @@
+greenlight:
+- gl/*
+
+krona:
+- krona/*
+
+nonprod:
+- gl/values-dev.yaml
+- gl/values-platdev.yaml
+- gl/values-qa.yaml
+- gl/values-stage.yaml
+- krona/values-devinternal.yaml
+- krona/values-qainternal.yaml
+- krona/values-dev.yaml
+- krona/values-qa.yaml
+- krona/values-qa2.yaml
+- krona/values-perf.yaml
+
+prod:
+- gl/values-prod.yaml
+- krona/values-prod.yaml
+- krona/values-uat.yaml
