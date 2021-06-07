@@ -40,7 +40,7 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: ">= 0.0.0-0"
+    version: "2.13.0-develop.17" # pinning until the v2 table migration work is finished
     values:
       env:
         open:
@@ -68,15 +68,16 @@ applications:
             open:
               SPRING_PROFILES_ACTIVE: job
               REPLICATION_SYNC_HOURS_FROM_EPOCH:
-        - name: "migrate"
-          schedule: "0/15 * * * *"
-          backoffLimit: 3
-          activeDeadlineSeconds: 1800
-          successHistory: 2
-          failedHistory: 5
-          env:
-            open:
-              SPRING_PROFILES_ACTIVE: migrate
+#         reenable once v2 migration is done
+#         - name: "migrate"
+#           schedule: "0/15 * * * *"
+#           backoffLimit: 3
+#           activeDeadlineSeconds: 1800
+#           successHistory: 2
+#           failedHistory: 5
+#           env:
+#             open:
+#               SPRING_PROFILES_ACTIVE: migrate
   - name: account-management
     version: ">= 0.0.0-0"
     values:
