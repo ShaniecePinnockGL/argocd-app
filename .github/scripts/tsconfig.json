@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "ES2017",
         "module": "commonjs",
+        "lib": ["ES2020.Promise"],
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
     },

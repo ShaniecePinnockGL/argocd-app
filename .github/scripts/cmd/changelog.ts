@@ -4,7 +4,7 @@ import * as core from '@actions/core';
 
 import { getChangedFiles, readFileAtBase } from '../library/git';
 import { applicationNameToRepo, ENVIRONMENT_FILES_REGEX, IEnvironmentFile, readLocalFile, refFromVersion } from '../library/common';
-import { compareCommits, createComment, editComment, getAllComments, getUser } from '../library/github';
+import { compareCommits, createComment, editComment, getAllComments, getCommit, getUser } from '../library/github';
 
 enum ChangeType { ADDED, MODIFIED, DELETED }
 
@@ -77,38 +77,62 @@ async function main() {
 
     for (const change of changes) {
         if (change.type == ChangeType.ADDED) {
-            markdown += `#### :new: **${change.application} has been added**\n`
+            markdown += `#### :new: ${change.application} has been added\n`
         }
         else if (change.type == ChangeType.DELETED) {
-            markdown += `#### :no_entry: **${change.application} has been removed**\n`
+            markdown += `#### :no_entry: ${change.application} has been removed\n`
         }
         else if (change.type == ChangeType.MODIFIED) {
 
             const repo = `GreenlightMe/${await applicationNameToRepo(change.application)}`;
+            const fromRef = await refFromVersion(change.fromVersion);
+            const toRef = await refFromVersion(change.toVersion);
 
-            const { commits, html_url } = await compareCommits(
-                repo,
-                await refFromVersion(change.fromVersion),
-                await refFromVersion(change.toVersion)
-            )
+            try {
+                core.info(`Getting commits for ${repo} between ${change.fromVersion} to ${change.toVersion}`)
+                const { commits, html_url } = await compareCommits(
+                    repo,
+                    fromRef,
+                    toRef
+                )
 
-            markdown += `#### :checkered_flag: **${change.application} has been updated from \`${change.fromVersion}\` to \`${change.toVersion}\` ([${commits.length} changes](${html_url}))**\n`
+                markdown += `#### :checkered_flag: ${change.application} has been updated from \`${change.fromVersion}\` to \`${change.toVersion}\` ([${commits.length} changes](${html_url}))\n`
 
-            const commitsByAuthor = commits.reduce((a, c) => {
-                if (!a.has(c.author.login)) a.set(c.author.login, [])
-                a.set(c.author.login, a.get(c.author.login).concat(c))
-                return a;
-            }, new Map<string, typeof commits>())
+                const commitsByAuthor = commits.reduce((a, c) => {
+                    if (!a.has(c.author.login)) a.set(c.author.login, [])
+                    a.set(c.author.login, a.get(c.author.login).concat(c))
+                    return a;
+                }, new Map<string, typeof commits>())
 
-            for (const [author, commits] of commitsByAuthor.entries()) {
-                markdown += `* @${author} (${commits.length} changes):\n`
-                for (const commit of commits) {
-                    let message = commit.commit.message.split('\n', 1)[0]
-                    message = message.replace(/\(\#(\d+)\)/g, `([#$1](https://github.com/${repo}/pull/$1))`)
+                for (const [author, commits] of commitsByAuthor.entries()) {
+                    markdown += `* @${author} (${commits.length} changes):\n`
+                    for (const commit of commits) {
+                        let message = commit.commit.message.split('\n', 1)[0]
+                        message = message.replace(/\(\#(\d+)\)/g, `([#$1](https://github.com/${repo}/pull/$1))`)
 
-                    const commitLink = `[[${commit.sha.substring(0, 7)}](${commit.html_url})]`;
+                        const commitLink = `[[${commit.sha.substring(0, 7)}](${commit.html_url})]`;
 
-                    markdown += `  * ${commitLink} ${message}\n`
+                        markdown += `  * ${commitLink} ${message}\n`
+                    }
+                }
+            }
+            catch (e) {
+                markdown += `#### :warning: ${change.application} has been updated from \`${change.fromVersion}\` to \`${change.toVersion}\` (unknown changes) :warning:\n`
+                core.warning(`${change.application} had an error getting diff: ${e}`)
+
+                const [from, to] = await Promise.allSettled([
+                    getCommit(repo, fromRef),
+                    getCommit(repo, toRef)
+                ])
+
+                if (from.status == "rejected") {
+                    core.warning(`${fromRef} didn't exist: ${from.reason}`)
+                    markdown += `* \`${change.fromVersion}\` (${fromRef}) does not exist in ${repo}`;
+                }
+
+                if (to.status == "rejected") {
+                    core.warning(`${toRef} didn't exist: ${to.reason}`)
+                    markdown += `* \`${change.toVersion}\` (${toRef}) does not exist in ${repo}`;
                 }
             }
         }

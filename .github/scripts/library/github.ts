@@ -40,6 +40,16 @@ export async function compareCommits(repository: string, from: string, to: strin
     return results.data;
 }
 
+export async function getCommit(repository: string, ref: string) {
+    const [owner, repo] = repository.split('/', 2);
+    const results = await octokit.repos.getCommit({
+        owner,
+        repo,
+        ref
+    })
+    return results.data;
+}
+
 export async function getAllComments() {
     const response = await octokit.issues.listComments({
         owner: context.repo.owner,
