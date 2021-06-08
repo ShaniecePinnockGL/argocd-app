@@ -1,7 +1,7 @@
 import { context, getOctokit } from '@actions/github';
 import { getInput, setSecret, debug, setFailed } from '@actions/core';
 
-const token = getInput('token');
+const token = process.env.GREENLIGHTBOT_PAT
 setSecret(token); // mask it from any accidental output
 
 const rawOcto = getOctokit(token)
@@ -11,7 +11,9 @@ const currentPR = octokit.pulls.get({
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: context.issue.number,
-}).catch((e: Error) => {
+})
+
+currentPR.catch((e: Error) => {
     setFailed("Pull request not found. " + e.stack);
     process.exit(1)
 })

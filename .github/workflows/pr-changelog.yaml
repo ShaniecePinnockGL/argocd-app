@@ -1,11 +1,8 @@
 name: Pull Request Changelog
 on:
   pull_request:
-    types:
-      - opened
-      - edited
-      - reopened
-      - synchronize
+    branches:
+      - main
     paths:
       - gl/*.yaml
       - krona/*.yaml
@@ -14,11 +11,10 @@ jobs:
     name: Changelog
     runs-on: self-hosted
     steps:
-      - name: NPM Install
-        working-directory: .github/scripts
+      - uses: actions/checkout@v2
+      - working-directory: .github/scripts
         run: npm ci
-      - name: Run `npm run changelog`
-        working-directory: .github/scripts
+      - working-directory: .github/scripts
         run: npm run changelog
-        with:
-          token: ${{ secrets.GREENLIGHTBOT_PAT }}
+        env:
+          GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
