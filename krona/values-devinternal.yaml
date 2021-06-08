@@ -40,7 +40,7 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: "2.13.0-develop.17" # pinning until the v2 table migration work is finished
+    version: ">= 0.0.0-0"
     values:
       env:
         open:
