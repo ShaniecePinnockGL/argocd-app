@@ -116,7 +116,7 @@ applications:
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.16-dca4210"
   - name: inbound-authentication
-    version: "0.8.0-develop.19"
+    version: "0.8.0-develop.20"
     values:
       hpa:
         minReplicas: "2"
@@ -142,6 +142,7 @@ applications:
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
           SENTRY_ENVIRONMENT: "staging"
           SPRING_CACHE_REDIS_TIME_TO_LIVE: "1800"
+          CLOUD_AWS_COGNITO_POOL_ID: us-east-1_E2ALvd6Jx
       ambassador:
         instanceId: "default"
         enableFilter: true
