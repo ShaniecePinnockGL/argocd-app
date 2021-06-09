@@ -35,11 +35,11 @@ applications:
           SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
           SPRING_HIKARI_MINIMUM_IDLE: "10"
           SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
-          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_HOST: dev-ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
-          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_HOST: dev-ambassador
           SPENDING_RULES_GRPC_PORT: "80"
-          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_HOST: dev-ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: false
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
@@ -60,13 +60,13 @@ applications:
           memory: 768Mi
       env:
         open:
-          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_HOST: dev-ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
-          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_HOST: dev-ambassador
           SPENDING_RULES_GRPC_PORT: "80"
-          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_HOST: dev-ambassador
           LEDGER_GRPC_PORT: "80"
-          STORE_MATCH_GRPC_HOST: ambassador
+          STORE_MATCH_GRPC_HOST: dev-ambassador
           STORE_MATCH_GRPC_PORT: "80"
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
           UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
@@ -239,13 +239,13 @@ applications:
           SPRING_REDIS_ACCOUNT_AGGREGATE_TIMEOUT: "2000"
           SPRING_REDIS_DELAY_INTERVAL: "2000"
           SPRING_REDIS_MAX_DELAY: "30000"
-          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_HOST: dev-ambassador
           LEDGER_GRPC_PORT: "80"
-          SPENDING_RULES_GRPC_HOST: ambassador
+          SPENDING_RULES_GRPC_HOST: dev-ambassador
           SPENDING_RULES_GRPC_PORT: "80"
-          ACCOUNT_HISTORY_GRPC_HOST: ambassador
+          ACCOUNT_HISTORY_GRPC_HOST: dev-ambassador
           ACCOUNT_HISTORY_GRPC_PORT: "80"
-          ACCOUNT_MANAGEMENT_GRPC_HOST: ambassador
+          ACCOUNT_MANAGEMENT_GRPC_HOST: dev-ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
           UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
@@ -282,7 +282,7 @@ applications:
           SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
           SPRING_HIKARI_MINIMUM_IDLE: "10"
           SPRING_HIKARI_CONNECTION_TIMEOUT: "5000"
-          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_HOST: dev-ambassador
           LEDGER_GRPC_PORT: "80"
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
           UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
@@ -302,7 +302,7 @@ applications:
           memory: 768Mi
       env:
         open:
-          LEDGER_GRPC_HOST: ambassador
+          LEDGER_GRPC_HOST: dev-ambassador
           LEDGER_GRPC_PORT: "80"
           STORE_MATCH_REDIS_POOL_ENABLED: "false"
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
