@@ -157,7 +157,7 @@ applications:
     version: "1.0.74-7e53324"
   - name: registration
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.25.0"
+    version: "1.27.0"
   - name: registration-mapper
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.150-d6ad0cb"
@@ -313,4 +313,4 @@ applications:
     version: "1.15.0"
   - name: webreg
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.923-86bf21f"
+    version: "1.0.925-aa9d501"
