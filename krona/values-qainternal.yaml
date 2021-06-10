@@ -23,11 +23,11 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: 2.13.0-develop.17
+    version: 2.14.0-develop.3
     values:
       env:
         open:
-          SPRING_PROFILES_ACTIVE: dbMode
+          SPRING_PROFILES_ACTIVE: v1
           SPRING_HIKARI_POOL_SIZE: "10"
           SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
           SPRING_HIKARI_MINIMUM_IDLE: "10"
@@ -39,6 +39,27 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
+      e1:
+        jobs:
+        - name: "replication-sync"
+          schedule: "5 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: sync
+              REPLICATION_SYNC_HOURS_FROM_EPOCH:
+        - name: "migrate"
+          schedule: "0/15 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: migrate    
   - name: account-management
     version: 1.18.0-develop.2
     values:
@@ -90,7 +111,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: chores
-    version: 1.13.0-develop.7
+    version: 1.13.0-develop.14
     values:
       env:
         open:
@@ -104,7 +125,7 @@ applications:
           MOVE_FUNDS_GRPC_HOST: ambassador
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
-    version: 1.22.0-develop.86
+    version: 1.23.0-develop.16
   - name: cobrand-healthz
     version: 1.8.0-develop.1
     values:
@@ -146,7 +167,7 @@ applications:
           EXTAUTH_USER_POOLS_PRIMARY: us-east-1_qiPLoKCk6
           EXTAUTH_USER_POOLS_SECONDARY: us-east-2_KoXwIAzLe
   - name: graphql
-    version: 3.0.0-develop.39
+    version: 4.0.0-develop.20
     values:
       env:
         open:
