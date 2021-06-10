@@ -154,7 +154,7 @@ applications:
     version: "1.0.190-26d3078"
   - name: optimizely
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.74-7e53324"
+    version: "1.0.75-dbf8660"
   - name: registration
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.27.0"
