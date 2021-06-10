@@ -19,7 +19,7 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: 2.12.1
+    version: 2.14.0-develop.3
     values:
       env:
         open:
@@ -35,6 +35,17 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
+      e1:
+        jobs:
+        - name: "migrate"
+          schedule: "0/15 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: migrate    
   - name: account-management
     version: 1.16.0
     values:
@@ -99,7 +110,7 @@ applications:
           MOVE_FUNDS_GRPC_HOST: ambassador
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
-    version: 1.23.0-develop.14
+    version: 1.23.0-develop.15
   - name: cobrand-healthz
     version: 1.7.0
     values:
@@ -141,7 +152,7 @@ applications:
           EXTAUTH_USER_POOLS_PRIMARY: us-east-1_vPdXvjkV3
           EXTAUTH_USER_POOLS_SECONDARY: us-east-2_dLSCYFfk0
   - name: graphql
-    version: 4.0.0-develop.18
+    version: 4.0.0-develop.19
     values:
       env:
         open:
