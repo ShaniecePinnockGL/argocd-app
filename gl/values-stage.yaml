@@ -307,7 +307,7 @@ applications:
     version: "1.0.676-05f180e"
   - name: testaway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.47-81243bb"
+    version: "1.0.48-3a1f437"
   - name: user-action
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.15.0"
