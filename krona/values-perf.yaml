@@ -23,7 +23,7 @@ applications:
     values:
       env:
         open:
-          SPRING_PROFILES_ACTIVE: dbMode
+          SPRING_PROFILES_ACTIVE: v1
           SPRING_HIKARI_POOL_SIZE: "10"
           SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
           SPRING_HIKARI_MINIMUM_IDLE: "10"
@@ -37,6 +37,16 @@ applications:
           REPLICATION_SYNC_USE_SQS: "false"
       e1:
         jobs:
+        - name: "replication-sync"
+          schedule: "5 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: sync
+              REPLICATION_SYNC_HOURS_FROM_EPOCH:
         - name: "migrate"
           schedule: "0/15 * * * *"
           backoffLimit: 3
@@ -45,7 +55,7 @@ applications:
           failedHistory: 5
           env:
             open:
-              SPRING_PROFILES_ACTIVE: migrate    
+              SPRING_PROFILES_ACTIVE: migrate
   - name: account-management
     version: 1.16.0
     values:
