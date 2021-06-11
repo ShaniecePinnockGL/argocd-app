@@ -22,7 +22,9 @@ applications:
         open:
           LOG_LEVEL: debug
           SLACK_CHANNEL_GL: greenlight-monitor
+          SLACK_CHANNEL_GL_PROD: sprintliveaction
           SLACK_CHANNEL_KRONA: partner-krona-feed
+          SLACK_CHANNEL_KRONA_PROD: partner-krona-deploy
           SLACK_CHANNEL_OPERATIONS: bot-testing
   - name: sealed-secrets
     version: ">= 0.0.0-0"
