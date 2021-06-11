@@ -11,8 +11,6 @@ destinations:
 syncPolicy:
   automated:
     prune: true
-options:
-  ignoreStartupProbe: true
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
