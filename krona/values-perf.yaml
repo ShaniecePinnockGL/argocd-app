@@ -107,7 +107,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: chores
-    version: 1.13.0-develop.14
+    version: v1.14.0-develop.3
     values:
       env:
         open:
