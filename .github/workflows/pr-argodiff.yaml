@@ -1,0 +1,30 @@
+name: Pull Request ArgoCD Diff
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  argodiff:
+    name: ArgoCD Diff
+    runs-on: self-hosted
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - working-directory: .github/scripts
+        run: |
+          mkdir -p ./external-tools
+          curl --silent --location https://github.com/homeport/dyff/releases/download/v1.4.2/dyff_1.4.2_linux_amd64.tar.gz > ./external-tools/dyff.tar.gz
+          (cd ./external-tools; tar -xf ./dyff.tar.gz; chmod +x ./dyff)
+          npm ci
+      - working-directory: .github/scripts
+        name: ArgoCD Diff Tool
+        run: |
+          export PATH=$PATH:./external-tools
+          npm run argodiff
+        env:
+          GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
+          HELM_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+          HELM_PASSWORD: ${{ secrets.ARTIFACTORY_TOKEN }}
+          ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}

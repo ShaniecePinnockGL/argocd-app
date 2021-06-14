@@ -4,7 +4,7 @@ import * as core from '@actions/core';
 
 import { getChangedFiles, readFileAtBase } from '../library/git';
 import { applicationNameToRepo, ENVIRONMENT_FILES_REGEX, IEnvironmentFile, readLocalFile, refFromVersion } from '../library/common';
-import { compareCommits, createComment, editComment, getAllComments, getCommit, getUser } from '../library/github';
+import { compareCommits, createOrUpdateCommentWithFooter, getCommit } from '../library/github';
 
 enum ChangeType { ADDED, MODIFIED, DELETED }
 
@@ -139,20 +139,7 @@ async function main() {
         markdown += `\n`
     }
 
-    markdown += footer
-
-    core.info("Getting all comments to see if I should create a new one or edit an existing one")
-    const allComments = await getAllComments();
-    const possiblyExistingComment = allComments.find((c) => c.body.includes(footer));
-
-    if (possiblyExistingComment && (await getUser()).id == possiblyExistingComment.user.id) {
-        core.info("Found existing comment to edit (" + possiblyExistingComment.id + ")")
-        await editComment(possiblyExistingComment.id, markdown)
-    }
-    else {
-        core.info("Creating new comment")
-        await createComment(markdown)
-    }
+    await createOrUpdateCommentWithFooter(markdown, footer);
 }
 
 main().catch((err: Error) => {

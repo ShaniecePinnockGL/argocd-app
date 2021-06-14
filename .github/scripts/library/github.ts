@@ -1,5 +1,5 @@
 import { context, getOctokit } from '@actions/github';
-import { getInput, setSecret, debug, setFailed } from '@actions/core';
+import { getInput, setSecret, debug, setFailed, info } from '@actions/core';
 
 const token = process.env.GREENLIGHTBOT_PAT
 setSecret(token); // mask it from any accidental output
@@ -58,6 +58,21 @@ export async function getAllComments() {
     });
 
     return response.data;
+}
+
+export async function createOrUpdateCommentWithFooter(markdown: string, footer: string) {
+    info("Getting all comments to see if I should create a new one or edit an existing one")
+    const allComments = await getAllComments();
+    const possiblyExistingComment = allComments.find((c) => c.body.includes(footer));
+
+    if (possiblyExistingComment && (await getUser()).id == possiblyExistingComment.user.id) {
+        info("Found existing comment to edit (" + possiblyExistingComment.id + ")")
+        await editComment(possiblyExistingComment.id, markdown + footer)
+    }
+    else {
+        info("Creating new comment")
+        await createComment(markdown + footer)
+    }
 }
 
 export async function createComment(body: string) {
