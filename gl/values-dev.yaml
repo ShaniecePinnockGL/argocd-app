@@ -60,8 +60,8 @@ applications:
         open:
           ACCOUNT_MANAGEMENT_GRPC_HOST: dev-ambassador
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
-          SPENDING_RULES_GRPC_HOST: dev-ambassador
-          SPENDING_RULES_GRPC_PORT: "80"
+          SPENDING_RULES_GRPC_HOST: spending-rules-service.dev.svc.cluster.local
+          SPENDING_RULES_GRPC_PORT: "50051"
           LEDGER_GRPC_HOST: dev-ambassador
           LEDGER_GRPC_PORT: "80"
           STORE_MATCH_GRPC_HOST: dev-ambassador
