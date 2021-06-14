@@ -19,7 +19,7 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: 2.14.0-develop.3
+    version: 2.15.0-develop.1
     values:
       env:
         open:
