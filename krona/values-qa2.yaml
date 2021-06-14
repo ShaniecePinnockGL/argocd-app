@@ -14,11 +14,11 @@ common:
       instanceId: qa2
 applications:
   - name: account-history
-    version: 2.12.1-rc.9
+    version: 2.14.0-rc.0
     values:
       env:
         open:
-          SPRING_PROFILES_ACTIVE: dbMode
+          SPRING_PROFILES_ACTIVE: v1
           SPRING_HIKARI_POOL_SIZE: "10"
           SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
           SPRING_HIKARI_MINIMUM_IDLE: "10"
@@ -30,8 +30,29 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
+      e2:
+        jobs:
+        - name: "replication-sync"
+          schedule: "5 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: sync
+              REPLICATION_SYNC_HOURS_FROM_EPOCH:
+        - name: "migrate"
+          schedule: "0/15 * * * *"
+          backoffLimit: 3
+          activeDeadlineSeconds: 1800
+          successHistory: 2
+          failedHistory: 5
+          env:
+            open:
+              SPRING_PROFILES_ACTIVE: migrate    
   - name: account-management
-    version: 1.17.0-rc.0
+    version: 1.18.0-rc.0
     values:
       env:
         open:
@@ -49,7 +70,7 @@ applications:
           CHORES_GRPC_HOST: ambassador
           CHORES_GRPC_PORT: "80"
   - name: allowance
-    version: 2.8.0-rc.0
+    version: 2.9.0-rc.0
     values:
       env:
         open:
@@ -58,7 +79,7 @@ applications:
           SPENDING_RULES_GRPC_HOST: ambassador
           SPENDING_RULES_GRPC_PORT: "80"
   - name: authentication
-    version: 2.8.0-rc.0
+    version: 2.9.0-rc.0
     values:
       env:
         open:
@@ -66,7 +87,7 @@ applications:
           AUTHENTICATION_USER_POOLS_PRIMARY_POOL_ID: krona-qa
           AUTHENTICATION_USER_POOLS_SECONDARY_ENABLED: false
   - name: charge
-    version: 2.12.0-rc.0
+    version: 2.13.0-rc.0
     values:
       env:
         open:
@@ -79,7 +100,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: chores
-    version: 1.12.0-rc.0
+    version: 1.13.0-rc.0
     values:
       env:
         open:
@@ -92,7 +113,7 @@ applications:
           MOVE_FUNDS_GRPC_HOST: ambassador
           MOVE_FUNDS_GRPC_PORT: "80"
   - name: cobrand-api
-    version: 1.20.1-rc.74
+    version: 1.23.0-rc.0
   - name: cobrand-healthz
     version: 1.8.0-rc.0
     values:
@@ -125,7 +146,7 @@ applications:
   - name: cobrand-server-mock
     version: 0.21.0
   - name: extauth
-    version: 2.8.0-rc.0
+    version: 2.9.0-rc.0
     values:
       env:
         open:
@@ -133,7 +154,7 @@ applications:
           ACCOUNT_MANAGEMENT_GRPC_PORT: "80"
           EXTAUTH_USER_POOLS_PRIMARY: us-east-2_N5BzFlWyt
   - name: graphql
-    version: 1.46.1-rc.1
+    version: 4.0.0-rc.0
     values:
       env:
         open:
@@ -155,7 +176,7 @@ applications:
           STORE_MATCH_GRPC_HOST: ambassador
           STORE_MATCH_GRPC_PORT: "80"
   - name: ledger
-    version: 2.9.0-rc.0
+    version: 2.10.0-rc.0
     values:
       env:
         open:
@@ -181,7 +202,7 @@ applications:
           SPENDING_RULE_GRPC_HOST: ambassador
           SPENDING_RULE_GRPC_PORT: "80"
   - name: notification
-    version: 2.12.0-rc.0
+    version: 2.13.0-rc.0
     values:
       env:
         open:
@@ -195,7 +216,7 @@ applications:
           SPENDING_RULES_GRPC_HOST: ambassador
           SPENDING_RULES_GRPC_PORT: "80"
   - name: outbound-authentication
-    version: 1.10.0-rc.0
+    version: 1.11.0-rc.0
     values:
       env:
         open:
@@ -210,7 +231,7 @@ applications:
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_REST_URL: https://api2-ext-oauth-qa07.jpmchase.net/oauth/client-credentials/v1/token
           OUTBOUND_AUTHENTICATION_OAUTH_KRONA_MAX_RETRY: "5"
   - name: reconciliation
-    version: 2.6.0-rc.2
+    version: 2.7.0-rc.0
     values:
       env:
         open:
@@ -240,7 +261,7 @@ applications:
         awsConfigRef:
           CLOUD_AWS_SQS_QUEUES_CHARGE: charge-fifo-sqs-queue-name
   - name: spending-rules
-    version: 2.6.0-rc.0
+    version: 2.7.0-rc.0
     values:
       env:
         open:
@@ -251,7 +272,7 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
   - name: store-match
-    version: 2.9.0-rc.0
+    version: 2.10.0-rc.0
     values:
       env:
         open:
