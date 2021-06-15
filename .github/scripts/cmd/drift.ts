@@ -93,7 +93,7 @@ async function computeDrift(domain: Domain, leadEnvironment: string, laggingEnvi
 
 async function main() {
     const drift = await computeDrift(Domain.Greenlight, 'dev', 'prod')
-    // await postMessage('backend-release', )
+    await postMessage('backend-release', drift)
     console.log(drift);
 }
 
