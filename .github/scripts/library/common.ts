@@ -57,6 +57,7 @@ export async function readLocalFile(file: string) {
 
 export async function applicationNameToRepo(applicationName: string) {
     switch (applicationName) {
+        case "sealed-secrets": return null;
         case "commander": return "commander-api";
         case "experimentation-id": return "experimentation-id-service";
         default: return applicationName;

@@ -22,4 +22,4 @@ prod:
 - krona/values-uat.yaml
 
 ci:
-- .github/
+- .github/**/*

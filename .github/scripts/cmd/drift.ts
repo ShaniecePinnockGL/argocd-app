@@ -31,36 +31,48 @@ async function computeDrift(domain: Domain, leadEnvironment: string, laggingEnvi
         if (!change.leadingVersion) {
             return { ...change, changes: null };
         }
-        const repo = `GreenlightMe/${await applicationNameToRepo(change.application)}`;
+        const repo = await applicationNameToRepo(change.application)
+        if (!repo) {
+            return null;
+        }
+
+        const fullPathRepo = `GreenlightMe/${repo}`;
 
         let fromRef = await refFromVersion(change.laggingVersion);
         let toRef = await refFromVersion(change.leadingVersion);
-        
+
         if (change.laggingVersion == LATEST_SELECTOR || change.leadingVersion == LATEST_SELECTOR) {
-            const repository = await getRepository(repo);
-            if (change.laggingVersion == LATEST_SELECTOR) fromRef = repository.default_branch
-            if (change.leadingVersion == LATEST_SELECTOR) toRef = repository.default_branch
+            try {
+                const repository = await getRepository(fullPathRepo);
+                if (change.laggingVersion == LATEST_SELECTOR) fromRef = repository.default_branch
+                if (change.leadingVersion == LATEST_SELECTOR) toRef = repository.default_branch
+            }
+            catch (e) {
+                core.warning('Could not get repository for ' + fullPathRepo + ' - ' + e.stackTrace);
+            }
         }
 
         try {
-            const commits = await compareCommits(repo, fromRef, toRef);
+            const commits = await compareCommits(fullPathRepo, fromRef, toRef);
             return {
                 ...change,
                 changes: commits
             }
         }
         catch (e) {
-            core.warning(`Error getting commits for ${repo}: ${fromRef}...${toRef}`)
+            core.warning(`Error getting commits for ${fullPathRepo}: ${fromRef}...${toRef}`)
             return { ...change, changes: null };
         }
     }))
 
-    if (changesWithCommits.length == 0) {
+    const filteredChangesWithCommits = changesWithCommits.filter((c) => c != null)
+
+    if (filteredChangesWithCommits.length == 0) {
         return null;
     }
 
-    let markdown = `\`${laggingEnvironment}\` has ${changesWithCommits.length} services that are behind \`${leadEnvironment}\`\n`
-    for (const changeWithCommits of changesWithCommits) {
+    let markdown = `\`${laggingEnvironment}\` has ${filteredChangesWithCommits.length} services that are behind \`${leadEnvironment}\`\n`
+    for (const changeWithCommits of filteredChangesWithCommits) {
         if (changeWithCommits.changes) {
             if (changeWithCommits.changes.status == 'ahead') {
                 markdown += `* *${changeWithCommits.application}* is behind by <${changeWithCommits.changes.html_url}|${changeWithCommits.changes.ahead_by} changes>.\n`
@@ -80,7 +92,9 @@ async function computeDrift(domain: Domain, leadEnvironment: string, laggingEnvi
 }
 
 async function main() {
-    await postMessage('backend-release', await computeDrift(Domain.Greenlight, 'dev', 'prod'))
+    const drift = await computeDrift(Domain.Greenlight, 'dev', 'prod')
+    // await postMessage('backend-release', )
+    console.log(drift);
 }
 
 main().catch((err: Error) => {
