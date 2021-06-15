@@ -310,7 +310,7 @@ applications:
     version: "1.0.48-3a1f437"
   - name: user-action
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.18.0"
+    version: "1.19.0"
   - name: webreg
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.931-55002e9"
