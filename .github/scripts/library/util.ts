@@ -12,10 +12,10 @@ export function writeToTemp(suffix: string, contents: string) {
   return tmp;
 }
 
-export async function diffYAMLResource(oldResource: string, newResource: string) {
+export async function diffYAMLResource(oldResource: string, newResource: string, color?: boolean) {
   const oldFile = writeToTemp('-old.yaml', oldResource);
   const newFile = writeToTemp('-new.yaml', newResource);
-  return (await shell(`dyff between --omit-header -c on ${oldFile} ${newFile}`)).stdout.trim();
+  return (await shell(`dyff between --omit-header -c ${color ? "on" : "off"} -t off ${oldFile} ${newFile}`)).stdout.trim();
 }
 
 export async function shellNoErr(cmd: string, opts?: cp.ExecOptions) {
