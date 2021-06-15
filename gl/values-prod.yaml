@@ -214,7 +214,7 @@ applications:
     version: "1.15.0"
   - name: webreg
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
-    version: "1.0.916-3efc27c"
+    version: "1.0.931-55002e9"
     values:
       ambassadorEdgeStack:
         use: "true"
