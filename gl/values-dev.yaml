@@ -91,26 +91,26 @@ applications:
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: ">= 0.0.0-0"
     values:
-      resources: 
-        limits: 
+      resources:
+        limits:
           cpu: "500m"
           memory: "512Mi"
-        requests: 
+        requests:
           cpu: "250m"
           memory: "512Mi"
-      ambassador: 
+      ambassador:
         enabled: true
-        mapping: 
+        mapping:
           host: "^(ft|featuretoggle)\\.dev\\.greenlight\\.gl-tech\\.io$"
           regex: true
-      service: 
+      service:
         port: "80"
       dtc_deployment: true
-      db: 
+      db:
         name: "dev_unleash"
       baseUrl: "https://ft.dev.greenlight.gl-tech.io"
       node_env: "dev"
-      datadog: 
+      datadog:
         enabled: true
         metrics: true
   - name: galileo-proxy
@@ -162,7 +162,7 @@ applications:
           cpu: 1000m
           memory: 768Mi
         requests:
-          cpu: 1000m
+          cpu: 50m
           memory: 768Mi
       env:
         open:
@@ -176,6 +176,7 @@ applications:
           SPRING_CACHE_REDIS_TIME_TO_LIVE: "1800"
           LOGGING_LEVEL_ME_GREENLIGHT: DEBUG
           UNLEASH_API_URL: "" #TEMPORARY: until unleash client exists in gl-dev
+          CLOUD_AWS_COGNITO_POOL_ID: us-east-1_y0gonPT2J
       ambassador:
         instanceId: "default"
         enableFilter: true
