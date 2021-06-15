@@ -5,6 +5,11 @@ import { parse } from 'yaml';
 
 export const ENVIRONMENT_FILES_REGEX = () => /^(?<domain>krona|gl)\/values-(?<project>\w+)\.yaml$/g
 
+export enum Domain {
+    Greenlight = 'gl',
+    Krona = 'krona'
+}
+
 export interface IEnvironmentFile {
     project: string,
     source: {

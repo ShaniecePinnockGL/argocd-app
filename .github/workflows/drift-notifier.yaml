@@ -1,0 +1,19 @@
+name: Weekly Drift Notifier
+on:
+  schedule:
+    - cron: 0 13 * * 1 # 9:00 EDT on Mondays
+  workflow_dispatch:
+    inputs: {}
+jobs:
+  drift:
+    name: Drift
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - working-directory: .github/scripts
+      run: npm ci
+    - working-directory: .github/scripts
+      run: npm run drift
+      env:
+        GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
+        SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}

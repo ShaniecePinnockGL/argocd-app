@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "changelog": "ts-node cmd/changelog.ts",
+    "drift": "ts-node cmd/drift.ts",
     "argodiff": "ts-node cmd/argodiff.ts"
   },
   "dependencies": {

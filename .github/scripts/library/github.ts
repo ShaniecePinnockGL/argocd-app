@@ -1,5 +1,6 @@
 import { context, getOctokit } from '@actions/github';
-import { getInput, setSecret, debug, setFailed, info } from '@actions/core';
+import { setSecret, debug, setFailed, info } from '@actions/core';
+import { RestEndpointMethodTypes } from '@octokit/rest';
 
 const token = process.env.GREENLIGHTBOT_PAT
 setSecret(token); // mask it from any accidental output
@@ -7,19 +8,25 @@ setSecret(token); // mask it from any accidental output
 const rawOcto = getOctokit(token)
 const octokit = rawOcto.rest;
 
-const currentPR = octokit.pulls.get({
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    pull_number: context.issue.number,
-})
+let _currentPR: Promise<RestEndpointMethodTypes["pulls"]["get"]["response"]>;
+function currentPR() {
+    if (_currentPR) return _currentPR;
 
-currentPR.catch((e: Error) => {
-    setFailed("Pull request not found. " + e.stack);
-    process.exit(1)
-})
+    _currentPR = octokit.pulls.get({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        pull_number: context.issue.number,
+    })
+    _currentPR.catch((e: Error) => {
+        setFailed("Pull request not found. " + e.stack);
+        process.exit(1)
+    })
+
+    return _currentPR;
+}
 
 export async function getCurrentPR() {
-    const response = await currentPR
+    const response = await currentPR()
     return response.data;
 }
 
@@ -99,5 +106,11 @@ export async function editComment(commentId: number, body: string) {
 
 export async function getUser() {
     const response = await rawOcto.request('GET /user')
+    return response.data
+}
+
+export async function getRepository(repository: string) {
+    const [owner, repo] = repository.split('/', 2);
+    const response = await octokit.repos.get({ owner, repo })
     return response.data
 }

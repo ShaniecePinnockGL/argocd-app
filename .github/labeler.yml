@@ -20,3 +20,6 @@ prod:
 - gl/values-prod.yaml
 - krona/values-prod.yaml
 - krona/values-uat.yaml
+
+ci:
+- .github/
