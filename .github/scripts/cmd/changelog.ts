@@ -4,7 +4,7 @@ import * as core from '@actions/core';
 
 import { getChangedFiles, readFileAtBase } from '../library/git';
 import { applicationNameToRepo, ENVIRONMENT_FILES_REGEX, getAllEnvironmentFiles, IEnvironmentFile, readLocalFile, refFromVersion } from '../library/common';
-import { compareCommits, createOrUpdateCommentWithFooter, getCommit } from '../library/github';
+import { compareCommits, createOrUpdateCommentWithFooter, deleteCommentWithFooterIfExists, getCommit } from '../library/github';
 
 enum ChangeType { ADDED, MODIFIED, DELETED }
 
@@ -25,6 +25,7 @@ async function main() {
 
     if (changedEnvironmentFiles.length == 0) {
         core.info('No changed environment files.');
+        await deleteCommentWithFooterIfExists(footer);
         return;
     }
 
@@ -72,6 +73,7 @@ async function main() {
 
     if (changes.length == 0) {
         core.info("No changes to report");
+        await deleteCommentWithFooterIfExists(footer);
         return;
     }
 

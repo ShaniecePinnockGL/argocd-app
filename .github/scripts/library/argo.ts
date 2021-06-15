@@ -1,6 +1,5 @@
-import { shell, shellNoErr, writeToTemp } from "./util";
+import { shellNoErr, writeToTemp } from "./util";
 import * as yaml from 'yaml';
-import * as fs from 'fs';
 import got from 'got';
 import { fetchHelmChart } from "./helm";
 

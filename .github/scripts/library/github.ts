@@ -82,6 +82,20 @@ export async function createOrUpdateCommentWithFooter(markdown: string, footer: 
     }
 }
 
+export async function deleteCommentWithFooterIfExists(footer: string) {
+    info("Getting all comments to see if there's a comment to delete")
+    const allComments = await getAllComments();
+    const possiblyExistingComment = allComments.find((c) => c.body.includes(footer));
+
+    if (possiblyExistingComment && (await getUser()).id == possiblyExistingComment.user.id) {
+        info("Found existing comment to delete (" + possiblyExistingComment.id + ")")
+        await deleteComment(possiblyExistingComment.id);
+    }
+    else {
+        info("No Comment to Delete")
+    }
+}
+
 export async function createComment(body: string) {
     const response = await octokit.issues.createComment({
         owner: context.repo.owner,
@@ -102,6 +116,15 @@ export async function editComment(commentId: number, body: string) {
     })
 
     return response.data;
+}
+
+export async function deleteComment(commentId: number) {
+    await octokit.issues.deleteComment({
+        owner: context.repo.owner,
+        issue_number: context.issue.number,
+        repo: context.repo.repo,
+        comment_id: commentId,
+    });
 }
 
 export async function getUser() {

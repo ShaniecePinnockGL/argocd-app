@@ -4,7 +4,7 @@ import yaml from 'yaml';
 import * as deepDiff from 'deep-object-diff';
 import { diffYAMLResource } from '../library/util';
 import { buildEnvironmentList, buildAppsForEnvironment, getArgoLiveManifests, renderArgoApp, IArgoApp } from '../library/argo';
-import { createOrUpdateCommentWithFooter } from '../library/github';
+import { createOrUpdateCommentWithFooter, deleteCommentWithFooterIfExists } from '../library/github';
 
 
 // 65535 minus a 5000 character buffer.
@@ -46,7 +46,7 @@ async function getArgoDiff(env: IArgoApp, localApp: IArgoApp, remoteApp: IArgoAp
 
   const diff = deepDiff.diff(oldResourcesByName, newResourcesByName) as any;
   const diffs = await Promise.all(Object.keys(diff).map(async key => {
-    const colorDiff = await diffYAMLResource(oldResourcesByName[key] || '', newResourcesByName[key] || true);
+    const colorDiff = await diffYAMLResource(oldResourcesByName[key] || '', newResourcesByName[key] || '', true);
     const diff = await diffYAMLResource(oldResourcesByName[key] || '', newResourcesByName[key] || '', false);
     let toReturn = {
       resource: key,
@@ -101,7 +101,7 @@ async function main() {
   markdown += `[Click Here for a Detailed List of Changes](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})\n\n`
   let markdownBody = '';
 
-  const envDiffs = await Promise.all((await buildEnvironmentList()).map(async env => {
+  let envDiffs = await Promise.all((await buildEnvironmentList()).map(async env => {
     try {
       const appDiffs = await processEnv(env);
       return { envName: env.metadata.name, appDiffs: appDiffs };
@@ -113,7 +113,17 @@ async function main() {
     }
   }))
 
-  envDiffs.sort((env1, env2) => env1.envName.localeCompare(env2.envName));
+  // filter out envs with no changes, and sort the ones that remain.
+  envDiffs = envDiffs.filter(env => env.appDiffs.length > 0).sort((env1, env2) => env1.envName.localeCompare(env2.envName));
+
+  if (envDiffs.length === 0) {
+    core.info('No Kubernetes Changes Detected');
+    await deleteCommentWithFooterIfExists(footer);
+    return;
+  } else {
+    core.info('Kubernetes Changes Found');
+  }
+
   for (const envDiff of envDiffs) {
     envDiff.appDiffs.sort((app1, app2) => app1.appName.localeCompare(app2.appName));
     if (envDiff.appDiffs.length > 0) {
