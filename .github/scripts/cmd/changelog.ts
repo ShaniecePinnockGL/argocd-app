@@ -101,11 +101,15 @@ async function main() {
                 )
 
                 markdown += `#### :checkered_flag: ${change.application} has been updated from \`${change.fromVersion}\` to \`${change.toVersion}\` ([${commits.length} changes](${html_url}))\n`
-                markdown += `> ${allEnvironmentFiles.map(([{ domain, project }, f]) => {
-                    const version = f.applications.find((a) => a.name == change.application)?.version
-                    if (!version) return null;
-                    else return `\`${version}\` is deployed to \`${domain}/${project}\``
-                }).filter((l) => l != null).join(', ')}\n`
+                markdown += `> ${allEnvironmentFiles
+                    .filter(([, f]) => f.project != environmentFile.project)
+                    .map(([{ domain, project }, f]) => {
+                        const version = f.applications.find((a) => a.name == change.application)?.version
+                        if (!version) return null;
+                        else return `\`${version}\` is deployed to \`${domain}/${project}\``
+                    })
+                    .filter((l) => l != null)
+                    .join(', ')}\n`
 
                 const commitsByAuthor = commits.reduce((a, c) => {
                     if (!a.has(c.author.login)) a.set(c.author.login, [])
