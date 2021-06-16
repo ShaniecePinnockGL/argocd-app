@@ -304,7 +304,7 @@ applications:
     version: "3.7.1372-afd07f7"
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.676-05f180e"
+    version: "1.0.685-6a514fd"
   - name: testaway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.48-3a1f437"
