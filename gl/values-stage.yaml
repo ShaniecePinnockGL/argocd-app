@@ -76,8 +76,8 @@ applications:
     version: "0.11.0-develop.1"
     values:
       hpa:
-          minReplicas: 3
-          maxReplicas: 4
+        minReplicas: 3
+        maxReplicas: 4
       loggingAgent: Datadog
       resources:
         limits:
@@ -118,7 +118,7 @@ applications:
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.16-dca4210"
   - name: inbound-authentication
-    version: "0.8.0-develop.20"
+    version: "0.8.0-develop.22"
     values:
       hpa:
         minReplicas: "2"
