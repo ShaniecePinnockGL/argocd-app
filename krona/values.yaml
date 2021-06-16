@@ -1,1 +1,3 @@
 domain: krona
+annotations:
+  notifications.argoproj.io/subscribe.on-deployed.act: ""

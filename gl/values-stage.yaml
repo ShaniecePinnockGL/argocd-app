@@ -13,6 +13,8 @@ syncPolicy:
     prune: true
 options:
   ignoreStartupProbe: true
+annotations:
+  notifications.argoproj.io/subscribe.on-deployed.act: ""
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
@@ -47,27 +49,27 @@ applications:
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.0.34-7931b38"
     values:
-      resources: 
-        limits: 
+      resources:
+        limits:
           cpu: "500m"
           memory: "512Mi"
-        requests: 
+        requests:
           cpu: "250m"
           memory: "512Mi"
-      ambassador: 
+      ambassador:
         enabled: true
-        mapping: 
+        mapping:
           host: "^staging-featuretoggle\\.greenlight\\.me$"
           regex: true
-      service: 
+      service:
         port: "80"
       dtc_deployment: true
       replicaCount: "2"
-      db: 
+      db:
         name: "staging_unleash"
       baseUrl: "https://staging-featuretoggle.greenlight.me"
       node_env: "staging"
-      datadog: 
+      datadog:
         enabled: true
         metrics: true
   - name: galileo-proxy

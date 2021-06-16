@@ -10,6 +10,8 @@ syncPolicy:
     prune: true
   syncOptions:
     - CreateNamespace=true
+annotations:
+  notifications.argoproj.io/subscribe.on-deployed.act: ""
 applications:
   - name: argo-cd-oncall-escalator
     namespace: argocd

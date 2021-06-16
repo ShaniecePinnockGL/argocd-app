@@ -10,6 +10,8 @@ destinations:
     region: e2
 options:
   ignoreStartupProbe: true
+annotations:
+  notifications.argoproj.io/subscribe.on-deployed.act: ""
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
