@@ -68,7 +68,7 @@ async function computeDrift(domain: Domain, leadEnvironment: string, laggingEnvi
     return changesWithCommits.filter((c) => c != null);
 }
 
-function toMarkdown(laggingEnvironment: string, leadEnvironment: string, filteredChangesWithCommits: {
+function toMarkdown(leadEnvironment: string, laggingEnvironment: string, filteredChangesWithCommits: {
     application: string;
     laggingVersion?: string;
     leadingVersion?: string;
