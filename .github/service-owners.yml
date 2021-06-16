@@ -1,0 +1,17 @@
+teams:
+  netflix:
+    channel: team-netflix
+    services:
+      - experimentation-id
+      - optimizely
+      - registration
+      - registration-mapper
+      - webreg
+      - identity-prefill
+  jupiter:
+    channel: team-jupiter-monitor
+    services:
+      - user-action
+      - savings
+      - communication
+      - allowance

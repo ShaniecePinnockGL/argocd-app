@@ -65,37 +65,52 @@ async function computeDrift(domain: Domain, leadEnvironment: string, laggingEnvi
         }
     }))
 
-    const filteredChangesWithCommits = changesWithCommits.filter((c) => c != null)
+    return changesWithCommits.filter((c) => c != null);
+}
 
-    if (filteredChangesWithCommits.length == 0) {
-        return null;
-    }
-
-    let markdown = `\`${laggingEnvironment}\` has ${filteredChangesWithCommits.length} services that are behind \`${leadEnvironment}\`\n`
+function toMarkdown(laggingEnvironment: string, leadEnvironment: string, filteredChangesWithCommits: {
+    application: string;
+    laggingVersion?: string;
+    leadingVersion?: string;
+    changes: { status: 'ahead' | 'behind' | 'diverged' | 'identical', html_url: string, ahead_by?: number, behind_by?: number }
+}[]) {
+    const numChanges = filteredChangesWithCommits.filter((c) => c.changes && c.changes.status !== 'identical').length
+    let markdown = `\`${laggingEnvironment}\` has ${numChanges} services that are behind \`${leadEnvironment}\`\n`;
     for (const changeWithCommits of filteredChangesWithCommits) {
         if (changeWithCommits.changes) {
             if (changeWithCommits.changes.status == 'ahead') {
-                markdown += `* *${changeWithCommits.application}* is behind by <${changeWithCommits.changes.html_url}|${changeWithCommits.changes.ahead_by} changes>.\n`
+                markdown += `* *${changeWithCommits.application}* is behind by <${changeWithCommits.changes.html_url}|${changeWithCommits.changes.ahead_by} changes>.\n`;
             }
             else if (changeWithCommits.changes.status == 'behind') {
-                markdown += `* *${changeWithCommits.application}* is ahead by <${changeWithCommits.changes.html_url}|${changeWithCommits.changes.behind_by} changes>.\n`
+                markdown += `* *${changeWithCommits.application}* is ahead by <${changeWithCommits.changes.html_url}|${changeWithCommits.changes.behind_by} changes>.\n`;
             }
             else if (changeWithCommits.changes.status == 'diverged') {
-                markdown += `* *${changeWithCommits.application}* has <${changeWithCommits.changes.html_url}|diverged history>.\n`
+                markdown += `* *${changeWithCommits.application}* has <${changeWithCommits.changes.html_url}|diverged history>.\n`;
             }
         }
         else {
-            markdown += `* *${changeWithCommits.application}* is on \`${changeWithCommits.laggingVersion}\` in \`${laggingEnvironment}\` and \`${changeWithCommits.leadingVersion}\` in \`${leadEnvironment}\`\n`
+            markdown += `* *${changeWithCommits.application}* is on \`${changeWithCommits.laggingVersion}\` in \`${laggingEnvironment}\` and \`${changeWithCommits.leadingVersion}\` in \`${leadEnvironment}\`\n`;
         }
     }
     return markdown;
 }
 
 async function main() {
+    const serviceOwners = parse(await readLocalFile('.github/service-owners.yml')) as { teams: { [teamName: string]: { channel: string, services: Array<string> } } }
+
     const drift = await computeDrift(Domain.Greenlight, 'dev', 'prod')
-    const response = await postMessage('backend-release', drift)
-    console.log(drift);
-    console.log('slack response:', response)
+
+    const responses = await Promise.all([
+        postMessage('backend-release', toMarkdown('dev', 'prod', drift)),
+        Object.values(serviceOwners.teams).map(({ channel, services }) =>
+            postMessage(channel,
+                toMarkdown('dev', 'prod', drift.filter((d) =>
+                    services.includes(d.application)
+                ))
+            )
+        )
+    ])
+    console.log('slack responses:', responses)
 }
 
 main().catch((err: Error) => {
