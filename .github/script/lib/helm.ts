@@ -8,8 +8,12 @@ export async function fetchHelmChart(
   version: string
 ): Promise<string> {
   const tmpDir = fs.mkdtempSync(os.tmpdir() + '/helm');
-  await shellNoErr(
-    `helm pull --username "${process.env.HELM_USERNAME}" --password "${process.env.HELM_PASSWORD}" --repo "${repo}" "${chart}" --version "${version}" --untar --destination ${tmpDir}`
-  );
+  let cmd = 'helm pull';
+  if (repo.startsWith('https://greenlight.jfrog.io/artifactory/')) {
+    cmd +=
+      ' --username "${process.env.HELM_USERNAME}" --password "${process.env.HELM_PASSWORD}"';
+  }
+  cmd += ` --repo "${repo}" "${chart}" --version "${version}" --untar --destination ${tmpDir}`;
+  await shellNoErr(cmd);
   return tmpDir + `/${chart}`;
 }

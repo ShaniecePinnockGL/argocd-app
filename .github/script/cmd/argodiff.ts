@@ -209,7 +209,7 @@ async function main() {
     MAX_COMMENT_SIZE
   ) {
     markdown +=
-      '**There were too many changes to view inline. Use the link above to view the full output.**';
+      '**There were too many changes to view inline. Use the link above to view the full output.**\n';
   } else {
     markdown += markdownBody;
   }
