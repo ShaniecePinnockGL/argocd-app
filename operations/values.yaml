@@ -13,17 +13,15 @@ syncPolicy:
 annotations:
   notifications.argoproj.io/subscribe.on-deployed.act: ""
 applications:
-  - name: jfrog-platform
+  - name: artifactory
     repo: https://charts.jfrog.io
     namespace: jfrog
-    version: "0.4.1"
+    version: ">= 0.0.0-0"
     values:
-      artifactory-ha:
-        enabled: true
-        artifactory:
-          license:
-            secret: jfrog-art-license
-            dataKey: art.lic
+      artifactory:
+        license:
+          secret: jfrog-art-license
+          dataKey: art.lic
   - name: argo-cd-oncall-escalator
     namespace: argocd
     version: ">= 0.0.0-0"
