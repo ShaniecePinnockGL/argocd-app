@@ -24,7 +24,8 @@ jobs:
         with:
           node-version: 16.3.0
       - name: Setup npm
-        run: ./.github/script/script/setup_npm.sh
+        working-directory: .github/script
+        run: ./setup_npm.sh
         env:
           ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
           ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
