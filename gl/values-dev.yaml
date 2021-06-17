@@ -11,6 +11,8 @@ destinations:
 syncPolicy:
   automated:
     prune: true
+annotations:
+  notifications.argoproj.io/subscribe.on-deployed.github: ""
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
