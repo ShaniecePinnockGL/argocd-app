@@ -169,7 +169,7 @@ applications:
           STORE_MATCH_GRPC_HOST: store-match-service
           STORE_MATCH_GRPC_PORT: "50051"
   - name: cobrand-server-mock
-    version: "0.21.0"
+    version: ">= 0.0.0-0"
   - name: extauth
     version: ">= 0.0.0-0"
     values:
