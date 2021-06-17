@@ -1,9 +1,9 @@
 import { parse } from 'yaml';
 import * as core from '@actions/core';
 
-import { compareCommits, getRepository } from '../library/github'
-import { postMessage } from '../library/slack'
-import { applicationNameToRepo, Domain, IEnvironmentFile, readLocalFile, refFromVersion } from '../library/common'
+import { compareCommits, getRepository } from '../lib/github'
+import { postMessage } from '../lib/slack'
+import { applicationNameToRepo, Domain, IEnvironmentFile, readLocalFile, refFromVersion } from '../lib/common'
 
 const LATEST_SELECTOR = '>= 0.0.0-0';
 

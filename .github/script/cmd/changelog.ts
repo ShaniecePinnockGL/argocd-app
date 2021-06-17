@@ -2,9 +2,9 @@ import { parse } from 'yaml';
 import { setFailed } from '@actions/core';
 import * as core from '@actions/core';
 
-import { getChangedFiles, readFileAtBase } from '../library/git';
-import { applicationNameToRepo, ENVIRONMENT_FILES_REGEX, getAllEnvironmentFiles, IEnvironmentFile, readLocalFile, refFromVersion } from '../library/common';
-import { compareCommits, createOrUpdateCommentWithFooter, deleteCommentWithFooterIfExists, getCommit } from '../library/github';
+import { getChangedFiles, readFileAtBase } from '../lib/git';
+import { applicationNameToRepo, ENVIRONMENT_FILES_REGEX, getAllEnvironmentFiles, IEnvironmentFile, readLocalFile, refFromVersion } from '../lib/common';
+import { compareCommits, createOrUpdateCommentWithFooter, deleteCommentWithFooterIfExists, getCommit } from '../lib/github';
 
 enum ChangeType { ADDED, MODIFIED, DELETED }
 

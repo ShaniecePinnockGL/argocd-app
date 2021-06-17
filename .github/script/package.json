@@ -1,5 +1,5 @@
 {
-  "name": "scripts",
+  "name": "script",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -16,5 +16,8 @@
     "got": "^11.8.2",
     "ts-node": "^10.0.0",
     "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2"
   }
 }

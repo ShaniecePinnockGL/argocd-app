@@ -6,5 +6,7 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
     },
-    "include": ["cmd/**/*.ts","library/**/*.ts"]
+    "include": ["cmd/**/*.ts",
+      "lib/**/*.ts"
+    ]
 }

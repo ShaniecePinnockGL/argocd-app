@@ -2,9 +2,9 @@ import * as core from '@actions/core';
 import yaml from 'yaml';
 //@ts-ignore There's no typings for deep-object-diff
 import * as deepDiff from 'deep-object-diff';
-import { diffYAMLResource } from '../library/util';
-import { buildEnvironmentList, buildAppsForEnvironment, getArgoLiveManifests, renderArgoApp, IArgoApp } from '../library/argo';
-import { createOrUpdateCommentWithFooter, deleteCommentWithFooterIfExists } from '../library/github';
+import { diffYAMLResource } from '../lib/util';
+import { buildEnvironmentList, buildAppsForEnvironment, getArgoLiveManifests, renderArgoApp, IArgoApp } from '../lib/argo';
+import { createOrUpdateCommentWithFooter, deleteCommentWithFooterIfExists } from '../lib/github';
 
 
 // 65535 minus a 5000 character buffer.

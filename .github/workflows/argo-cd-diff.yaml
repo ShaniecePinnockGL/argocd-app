@@ -1,30 +1,47 @@
-name: Pull Request ArgoCD Diff
+name: Argo CD Diff
 on:
   pull_request:
     branches:
       - main
 jobs:
-  argodiff:
-    name: ArgoCD Diff
+  argo-cd-diff:
+    name: Run Argo CD Diff
     runs-on: self-hosted
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - working-directory: .github/scripts
+      - name: Build cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.npm
+          restore-keys: ${{ runner.os }}-node-
+      - name: Setup build tools
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.3.0
+      - name: Setup npm
+        run: ./.github/script/script/setup_npm.sh
+        env:
+          ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
+          ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+      - name: Download dependencies
+        working-directory: .github/script
         run: |
           mkdir -p ./external-tools
-          
+
           curl --silent --location https://github.com/homeport/dyff/releases/download/v1.4.2/dyff_1.4.2_linux_amd64.tar.gz > ./external-tools/dyff.tar.gz
           (cd ./external-tools; tar -xf ./dyff.tar.gz dyff; chmod +x ./dyff)
 
           curl --silent --location https://get.helm.sh/helm-v3.6.0-linux-amd64.tar.gz > ./external-tools/helm.tar.gz
           (cd ./external-tools; tar -xf ./helm.tar.gz --strip 1 linux-amd64/helm; chmod +x ./helm)
-          
+
           npm ci
-      - working-directory: .github/scripts
-        name: ArgoCD Diff Tool
+      - name: Run Argo CD Diff Tool
+        working-directory: .github/script
         run: |
           export PATH=./external-tools:$PATH
           npm run argodiff

@@ -1,25 +1,32 @@
 greenlight:
-- gl/*
+  - gl/*
 
 krona:
-- krona/*
+  - krona/*
+
+operations:
+  - operations/values.yaml
 
 nonprod:
-- gl/values-dev.yaml
-- gl/values-platdev.yaml
-- gl/values-qa.yaml
-- gl/values-stage.yaml
-- krona/values-devinternal.yaml
-- krona/values-qainternal.yaml
-- krona/values-dev.yaml
-- krona/values-qa.yaml
-- krona/values-qa2.yaml
-- krona/values-perf.yaml
+  - gl/values.yaml
+  - gl/values-dev.yaml
+  - gl/values-platdev.yaml
+  - gl/values-qa.yaml
+  - gl/values-stage.yaml
+  - krona/values.yaml
+  - krona/values-devinternal.yaml
+  - krona/values-qainternal.yaml
+  - krona/values-dev.yaml
+  - krona/values-qa.yaml
+  - krona/values-qa2.yaml
+  - krona/values-perf.yaml
 
 prod:
-- gl/values-prod.yaml
-- krona/values-prod.yaml
-- krona/values-uat.yaml
+  - gl/values.yaml
+  - gl/values-prod.yaml
+  - krona/values.yaml
+  - krona/values-uat.yaml
+  - krona/values-prod.yaml
 
 ci:
-- .github/**/*
+  - .github/**/*

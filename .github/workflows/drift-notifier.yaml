@@ -6,14 +6,32 @@ on:
     inputs: {}
 jobs:
   drift:
-    name: Drift
+    name: Run Drift Notifier
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
-    - working-directory: .github/scripts
-      run: npm ci
-    - working-directory: .github/scripts
-      run: npm run drift
-      env:
-        GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
-        SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.npm
+          restore-keys: ${{ runner.os }}-node-
+      - name: Setup build tools
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.3.0
+      - name: Setup npm
+        run: ./.github/script/script/setup_npm.sh
+        env:
+          ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
+          ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+      - name: Download dependencies
+        working-directory: .github/script
+        run: npm ci
+      - name: Run Drift Notifier
+        working-directory: .github/script
+        run: npm run drift
+        env:
+          GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
