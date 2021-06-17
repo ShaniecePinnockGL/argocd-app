@@ -33,7 +33,7 @@ jobs:
           ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
       - name: Download dependencies
         working-directory: .github/script
-        run: npm ci
+        run: npm ci --production
       - name: Run Request Changelog
         working-directory: .github/script
         run: npm run changelog
