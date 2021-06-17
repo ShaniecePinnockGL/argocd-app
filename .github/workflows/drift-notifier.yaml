@@ -15,7 +15,7 @@ jobs:
         uses: actions/cache@v2
         with:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          path: ~/.npm
+          path: .github/script/node_modules
           restore-keys: ${{ runner.os }}-node-
       - name: Setup build tools
         uses: actions/setup-node@v2
