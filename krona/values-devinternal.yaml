@@ -8,6 +8,9 @@ destinations:
   - cluster: krona-internal-e2
     namespace: devinternal
     region: e2
+syncPolicy:
+  automated:
+    prune: true
 common:
   values:
     ambassador:
