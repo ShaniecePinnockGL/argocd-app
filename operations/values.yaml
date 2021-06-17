@@ -14,7 +14,7 @@ annotations:
   notifications.argoproj.io/subscribe.on-deployed.act: ""
 applications:
   - name: jfrog-platform
-    repo: https://charts.jfrog.io/
+    repo: https://charts.jfrog.io
     namespace: jfrog
     version: "0.4.1"
     values:
