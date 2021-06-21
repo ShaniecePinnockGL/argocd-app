@@ -130,8 +130,8 @@ applications:
         open:
           AUTH_AUTHORIZATION_STABLE_ENDPOINT: http://card-webhooks-internal-service.dev.svc.cluster.local/auth/Authorization
           AUTH_AUTHORIZATION_STABLE_HANDLER: RestRequestHandler
-          AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT: ""
-          AUTH_AUTHORIZATION_CANDIDATE_HANDLER: ""
+          AUTH_AUTHORIZATION_CANDIDATE_ENDPOINT: dev-ambassador:80
+          AUTH_AUTHORIZATION_CANDIDATE_HANDLER: ChargeRequestHandler
           ALERT_STABLE_ENDPOINT: http://card-webhooks-internal-service.dev.svc.cluster.local/alert/
           ALERT_STABLE_HANDLER: RestRequestHandler
           DOWNSTREAM_HEALTH_STABLE_ENDPOINT: http://card-webhooks-internal-service.dev.svc.cluster.local/health
