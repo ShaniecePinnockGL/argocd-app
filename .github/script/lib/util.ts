@@ -29,6 +29,21 @@ export async function diffYAMLResource(
   ).stdout.trim();
 }
 
+export function createSanitizer(...toRemove:string[]) {
+  return (input:string) =>{
+    return toRemove.reduce((str,itemToRem)=>{
+      return str.split(itemToRem).join('<...>');
+    }, input);
+  }
+}
+
+export const defaultSanitizer = createSanitizer(
+  process.env.ARGOCD_TOKEN!,
+  process.env.GREENLIGHTBOT_PAT!,
+  process.env.HELM_PASSWORD!,
+  process.env.SLACK_TOKEN!
+);
+
 export async function shellNoErr(cmd: string, opts?: cp.ExecOptions) {
   return await shell(cmd, opts).catch();
 }

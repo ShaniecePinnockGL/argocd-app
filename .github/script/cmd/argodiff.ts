@@ -1,7 +1,7 @@
 import * as core from '@actions/core';
 import * as yaml from 'yaml';
 import * as deepDiff from 'deep-object-diff';
-import {diffYAMLResource} from '../lib/util';
+import {diffYAMLResource, defaultSanitizer} from '../lib/util';
 import {
   buildAppsForEnvironment,
   buildEnvironmentList,
@@ -145,6 +145,7 @@ async function main() {
   let markdown = '## Kubernetes Resource Changes for PR:\n';
   markdown += `[Click Here for a Detailed List of Changes](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})\n\n`;
   let markdownBody = '';
+  let hadError = false;
 
   let envDiffs = await Promise.all(
     (
@@ -156,10 +157,9 @@ async function main() {
       } catch (e) {
         console.error(e);
         core.error(`Failed to process env: ${env.metadata.name}`);
-        markdown += `:exclamation: **${env.metadata.name}**: ${
-          (e as Error).message
-        }\n`;
-        return {envName: env.metadata.name, appDiffs: []};
+        hadError = true;
+        markdown += `:exclamation: **${env.metadata.name}**: [${e.name}] ${e.message}\n`;
+        return { envName: env.metadata.name, appDiffs: [] };
       }
     })
   );
@@ -169,7 +169,7 @@ async function main() {
     .filter(env => env.appDiffs.length > 0)
     .sort((env1, env2) => env1.envName.localeCompare(env2.envName));
 
-  if (envDiffs.length === 0) {
+  if (envDiffs.length === 0 && !hadError) {
     core.info('No Kubernetes Changes Detected');
     await deleteCommentWithFooterIfExists(footer);
     return;
@@ -213,6 +213,7 @@ async function main() {
   } else {
     markdown += markdownBody;
   }
+  markdown = defaultSanitizer(markdown);
   await createOrUpdateCommentWithFooter(markdown, footer);
 }
 

@@ -1,5 +1,5 @@
 import {context, getOctokit} from '@actions/github';
-import {setSecret, debug, setFailed, info} from '@actions/core';
+import {setSecret, debug, info} from '@actions/core';
 import {RestEndpointMethodTypes} from '@octokit/rest';
 
 const token = process.env.GREENLIGHTBOT_PAT ?? '';

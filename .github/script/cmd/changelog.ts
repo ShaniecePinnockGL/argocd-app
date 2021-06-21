@@ -1,5 +1,4 @@
 import {parse} from 'yaml';
-import {setFailed} from '@actions/core';
 import * as core from '@actions/core';
 
 import {getChangedFiles, readFileAtBase} from '../lib/git';
@@ -17,7 +16,7 @@ import {
   deleteCommentWithFooterIfExists,
   getCommit,
 } from '../lib/github';
-
+import { defaultSanitizer } from '../lib/util';
 enum ChangeType {
   ADDED,
   MODIFIED,
@@ -203,7 +202,7 @@ async function main() {
     }
     markdown += '\n';
   }
-
+  markdown = defaultSanitizer(markdown);
   await createOrUpdateCommentWithFooter(markdown, footer);
 }
 

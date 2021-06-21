@@ -77,7 +77,6 @@ export async function renderArgoApp(
 export async function buildAppsForEnvironment(
   env: IArgoApp
 ): Promise<IArgoApp[]> {
-  const envName = env.metadata?.name;
   const path = env.spec.source.path;
   const helmValueFiles = env.spec.source.helm?.valueFiles;
 
