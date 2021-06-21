@@ -157,7 +157,7 @@ async function main() {
         const commitsByAuthor = commits.reduce((a, c) => {
           if (c.author) {
             if (!a.has(c.author.login)) {
-              a.set(c.author.login, []);
+              a.set(c.author.login, [c]);
             } else {
               a.set(c.author.login, a.get(c.author.login)!.concat(c));
             }
