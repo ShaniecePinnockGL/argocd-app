@@ -50,15 +50,15 @@ applications:
               SPRING_PROFILES_ACTIVE: sync
               REPLICATION_SYNC_HOURS_FROM_EPOCH:
         - name: "migrate"
-          schedule: "0/3 * * * *"
+          schedule: "0/5 * * * *"
           backoffLimit: 3
-          activeDeadlineSeconds: 1800
+          activeDeadlineSeconds: 1200
           successHistory: 2
           failedHistory: 5
           env:
             open:
               SPRING_PROFILES_ACTIVE: migrate
-              MIGRATION_BATCH_SIZE: 2000
+              MIGRATION_BATCH_SIZE: 10000
   - name: account-management
     version: 1.18.0
     values:
