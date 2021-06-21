@@ -13,18 +13,12 @@ syncPolicy:
 annotations:
   notifications.argoproj.io/subscribe.on-deployed.act: ""
 applications:
-  - name: artifactory-ha
+  - name: artifactory
     repo: https://charts.jfrog.io
     namespace: jfrog
     version: ">= 0.0.0-0"
     values:
       artifactory:
-        masterKey:
-          secret: rt-masterKey
-          dataKey: master-key
-        joinKey:
-          secret: rt-joinKey
-          dataKey: join-key
         license:
           secret: jfrog-art-license
           dataKey: art.lic
@@ -52,16 +46,6 @@ applications:
             - jfrog
           encryptedData:
             art.lic: AgBJg/Y5akGOnSORVyhtykGPIZFlWmevJrShfS7m3SZDvtGflUjbm1QVHIWjFBwdyfktH1WiR8ZyD4D7T4JGG57R/3mxyZAHlDNn3RLkvoZFfkbbepmj5xu55+pjt3ca1ob+kgcZL5lbWI43/+l5OC6fWpuariwIPiFt5bW7NKpSvFx/2kT1YC7ikIMLdyV9vhVskNdjfVrOEJIu7lYFR7bRBp/LoFZhZdvl9aIpP0rrRoDpZN+S/b5ZAzhYmixlrTIK+zxCKNVzM0iFI9uHdRvSutqqA+LW38gx072n51p0DZ2D6EJ+cFxBJljFDu+sxc84uhQfojoK4xOMP9i9ASeuwe/PiQoJxLFUaA5j/Zl4f6Av9uRStTrMcrYn4D8zDL8mRzIVOyIiiJ8zB4LQOGLAAN+nsLgTFDWSM0yIIXh0Hbg2YzPZ8fN51Way2XPICiIMJe6HBpF98sOboh7Dw0Hom6j+oIGu6COXi2jmcb8M0CJrXCrgSka+mvIxiUcPkkkKsbyQGLO6O2KqzBJqRBdmODkH83PU/cO9YqzVfdh+Or9+ANhEhUnJY4m+HSG3a/rLCF3sNDAhY00eHfeGZ5s5jsSm/28od3Bm3DcEpMM20fMqs2ZaeIzEfcSwpxknGyqUWAVAk+her+VpVipJ2lqLn2bHb5322V0Yt2d3vsk3e8Pnum8sDalCL8MbCKqE9om5tTliWlH3g+OF5R9OaNItJtNqdXFtRE5KU7TT/k5bb6HcsTG1LHA3XzTbUDs8o95EJqMVWRiGcvNH6gYQxN8JnYewTUhYovCx+5ZgRYISGWDRSnR8wR8tUQGy93FzhQS8+OwU7++aDu/ZBgvSbsqElyyDWItLPM0xypTao1bEMS+Tfs5+4L4J1lkOvDsyamgkWePUuYPkumSUy3p+nX3hKmBbog0vv8Yk5Nb7Y8t13pPOSjPiDWCGiXDJgFaODQzu5+rFbTN25Cx2WlQnQTOrUZygM2DsTCkY4YdfoE7hBGgBAz5DRtCZNrgiQmBDQvtromZge4Po/RhBViBwTheAWqdKZlZby+H/8bqfPejKl7mKdJn84wYO7bP4RXwYZ90KOibAP3UcVU8RtvZPB7UNQTgKPQ0QI96fHvFoOz4RkCi3EXN2hebIkonQysvBteF/DhW80pr2HpFWNpAk0i5YTRCgXHevKbJX5k9Ru/h/jW7iqPM5vO5Ep8MMxREsSvqpWaEMbWPmE8joWlRERmausf3ZTojEVymzGPDp0s4jTRXXKRf37rhpxS8RTbAewwaA0vICRuYr4lrDTtatx9ybsqv/00obYZ/A/4TjvplXPfskPzG7MEg56RpXgHX6yPXMANxUBclw6ayFOL5+7lIwcUz+qpb0WQ6BQKdXdGXexSwbrekhlEMrI9PtVMs5HvKYXNTAoyEQVjuFiBV/2/EaCEHX+dyHrGo9kplq/KWH2Qb7KU9hsV8BXrsuNfXktsdqawtDCuvqpqBMlp7rw3l3hNkPvB6jrczRSdzIy2c8/pFsmZkR8TY4CQaVSeM5P0tDGoWbs1DinJ9RT49bjIGjDu+ZtCtbt8hnveYELlqAvUxDGu/xgaG9M05XTlFmPh6MR1+d7ihOHt/mZtGoGicVqsyxneOvsAre3qcmJoDFlldBpqX1H7urPqrfjdm96UZ15M699GB2lfpb6rRVL95ry/DOAQOfPw+dFNbMe643vhRYXS6/qFCgcrQX2JeVvj4tl4zWeenvTSgU6U4J9osUFEIpc+17lWSHMO2J0bjmrSK9c36+3LlaxFoB+orvMp7HIZiXUBCX8rDnWrr9FYti3193mecWzVDE1nAVYpfjtFY3+QFhQSdHeaA1WkpfNmXnFYVWZHVUBg1qHCgXo9ZFDkuxkmgK0xKz43H+p+3xXMdPpzTQhzTJoA==
-        - name: rt-masterKey
-          namespace:
-            - jfrog
-          encryptedData:
-            master-key: AgAlnj98Guu5Kofl2QOkET3EWXrmT9oMPuwJKC/WtMF3xBzWYDJ7J8laxvKmTBTSD2qMLOIwpvR8V8arKAZ4TFL+lgOpQsBxaUiAwsWymuQCt3tV+SuMLloLvkagAAj1QeDCtZuRmrAWhlHGXjfn6iSJ5tX9z6urn5aExLKZ2tHmGghIMYqqEsadHPZqNeq2EBgzS7R9LUYgzVoPaGpqHTPVqz8tZ5d4unc+sLyy+eqFK7nOPCu9q+66OD2niVUun5GNfKaQaEPA8R7fLvbUV+eouFbbE3sSsaQkk6jARmrC2kqMih38bdZkJx572HcYEdUGAKWCGbckgMDpWlAC2BouPC/iHyaOmxr/YwYPY4xJK7JM3txhTc3Da/7PfmmmHt+LgIsXSK7PO5Unzj12KBZ8IwqYREhzpg1kV2uXcFY7aPjWTm1qhP4X0leXWIdmrFwoNxKQLfy0CXlEsePKAOMHDDj2rQP4VPc3qdmCLIs7DE5AFb3HKbWRy2W1jMHQ47ZNqwtt88O9ZMioZMCAn+a0FUIUVMEHSdbFQjuD0nUp6Q9bP78AtQMpgAsN8kK6W7COrM3eMutxxEYA18IMVjC/YGhBkUe9DbiObZZe+uVOoiTnnnOE0Kj5XPpazc+Z5QUih5ddVOZnfOqCjonc0jmZ7SkTHQ/oN0EWqTU+JU4ydBI2+zd6qUPXpT9Io4jeW5GkhVghzXLMMXZ9tSRH0RcUpxq41KkSGhv6EL/OuPn7+XrlVMUkIVKeNFJTLjfo/68uxgpZW/mJEl35aLYZ9SWskg==  
-        - name: rt-joinKey
-          namespace:
-            - jfrog
-          encryptedData:
-            join-key: AgAfyZxCFr8jOPZphyrgZmthfqOtOUw5BisAcjf7p2hDqgDaRfCv/dT2n9RlnYWbVFTxieh1Hzs2pJsvOpmLtDLy/qCxFkW6MB2plK5Sc7IDrL3/2pjnf5r1Hx8+xXeZUIHp55hS23ev5qUi0agS9+RDyh6Pxw6JwFam51d7ElT8jUrCoVenM17H28vH96j+zYH2iLqEXxUZeD0zX46/ABc6bp+zvPD53/rezvietgbs6bAufpp6MzcFUzKboXWhpymfor1HfaVeiqRoTQxSMYnDyI9RMKw/2ryKgwKV/jvjm2ZOKSaTefEugzHp3ZiEZyyLAl3aSX6ewVY6nTcLFcrFVILR5UkDJISa8rk0DQOUDKWZaEVtcTlRwUsqNlswTHl0vMoq7lHncpkVjick4QVBKUiqSuodTW8H9aPHniO7QWgWwnUxAWA5CWAnPLelDX1UiMhYytGocibsgo8Q7Qsp64qWBuRzCOk0kEL1HYlSl+bYU97Lb5aNhIEX3HQeesqCPpXsQH2wxJ9LwVXAb+wIxqhZdpnjAJVhcHOSEkCgd47jwBxnzx7/VT6qS90dsFNBwEEPD+uNtHjoxPXzvz3zfOqmhsjcgRIC4lGghGSH9GAmEgDvamTWb2pBwn/K29OGp7cMGi+IOu2hbkLFnBiA2r7wFIjySCxYPJjYsDtcHO0b8PAfJCgbiSukJvM/T5dovqQtQ3bHB8g6Iw6IOZZbbuOKJ+jhleOpBgnPV2XnyHPK4UnkUn4hK1REM7q4sYAhZypk/DSjwTUb7WQXHxCgmQ==                
         - name: argo-cd-oncall-escalator-secrets
           namespace:
             - argocd
