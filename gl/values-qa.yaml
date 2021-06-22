@@ -27,7 +27,7 @@ applications:
     version: "3.8.96-25a8cf8"
   - name: commander
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "2.0.281-7291c8c"
+    version: "2.0.284-fc22d4f"
   - name: communication
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.5.0"
@@ -110,7 +110,7 @@ applications:
     version: "1.6.0"
   - name: server-api
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "3.7.1385-87a1393"
+    version: "3.7.1386-1869d14"
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.0.676-05f180e"
