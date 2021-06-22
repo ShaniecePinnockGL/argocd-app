@@ -85,7 +85,7 @@ applications:
           SPENDING_RULES_GRPC_HOST: ambassador
           SPENDING_RULES_GRPC_PORT: "80"
   - name: authentication
-    version: 2.9.0.-rc.0
+    version: 2.9.0-rc.0
     values:
       env:
         open:
