@@ -50,7 +50,7 @@ applications:
               SPRING_PROFILES_ACTIVE: sync
               REPLICATION_SYNC_HOURS_FROM_EPOCH:
         - name: "migrate"
-          schedule: "*/5 1,2,3,4,5,6,12,13,14,15,16,17,18,19,20,21,22,23 * * *"
+          schedule: "*/5 * * * *"
           backoffLimit: 3
           activeDeadlineSeconds: 1200
           successHistory: 2
