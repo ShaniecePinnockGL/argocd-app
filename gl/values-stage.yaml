@@ -114,6 +114,19 @@ applications:
         cronjobs:
           cronjob1: # giving-update-donations
             suspend: true
+  - name: gremlin
+    repo: https://helm.gremlin.com
+    version: "0.2.2"
+    namespace: gremlin
+    values:
+      gremlin:
+        hostPID: true
+        collect:
+          processes: true
+        secret:
+          managed: false
+          name: gremlin-team-secret
+          type: secret
   - name: identity-prefill
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.16-dca4210"
@@ -191,6 +204,13 @@ applications:
           - name: charge-secrets
             encryptedData:
               SENTRY_DSN: AgBxlchraeWFSnCemWaC9TABo9OJlvipPMPwnv1jUoMJFdOtGNVl/efRvcOS2pJRS18RF07y7X6XUZHiKbgXZSrGwL5I8eMqKFTRqcYuhnXIzncXgI9Nw+CQT4sPr0wQGizuGtW/cZ4MTq9Qv2gf/rsrGbuhdWywwLi/raxU9/Cvah6F0a2mVFK+nflMdh/4fc6KLf24b1cDa3wsfLg+N9i0yplkOrlhNsFFd+YxiNE7RJbjctbGnhWSycg38Zo2MynpsB5mZPbco0Ulg0zBWnnmvKLW4GL2ySBTVLR/V1lKi2y1yCIMKsWiaOaAM+cjn54+4RJr0XHiKN8LKxXsq4KzkyiOtM3WuUcBZD011oYTW07jqTvVC1fdUdLTDPjH/3Vw8uY9L2YxTOwD/JQSERbhe60Am3nAh01+FHo5/sOh+2gDAVdCp/NZCGqKi/11tUtZLrYn5OzlgkaGZxdJrnneYehNLnRWguwCsjqcVnWfnHDyg7tyr5MphOIse8ajNRhh1CtUg0iBk210GfZX7Zyw7mxqcziSRIsn2FTGHZD7Nw5xAjCKl0b8y7d9eFt4cIwXCwBFL0fySaRX1Scawv7YLpyPpUPDu/HDN69C1iHriFeUud5A6OHhO9qOqDEX/Y8hnYPkjEAUQ3fYFwK32YBx/9Cn4GZo9iQuvOR4E6H8jaq91d1nGZzckkZr6DSBFEo=
+          - name: gremlin-team-secret
+            namespace:
+            - gremlin
+            encryptedData:
+              GREMLIN_TEAM_ID: AgBWDf4AMa+pY9fTV2UQySTLpci5YfeTmTEsohis6t+TLLRDJ/mf0cZFTCkZGT8oRlv/0L6nr68XFM/j7KZxefP0hpAdUxEAX+zbMmpQ9YA3VoLLt8/Y8UUHNHwRExkMMhk2A3QIdWL5vqtn244/QuZZMQYrQV+wU1fJ0PkrsYmmBncl1vNAwL7qnm1HXHSuo0NwA0B3/szzV+wbPrQB5oyniDGJdxVkWaUCK8MakycBtqk5wSonzznJpsEQHDtaDAQ+pJs1E/eHYqsdfsIMkutxdpO0R8+CJkZ/nxCCOPGUAoT7r1FUHnfH/mNNldYPYG8ejxZzAHPE2oMTjz71DRC7PH4TtqsltEhZrXHBKQjvLSiw8D4fOFEVie8aSS/PRoJeNpLHXtBvC/ICWMuAdYxCzqQDTgaUkimItakWmth+AHw0WOHZYdK/QXV6sV6G4v+XqTSLbAvy0U9et//HGWj7CGTrQhISdwDqjCj4/g8C0mhAgTFSlf7QFjHem8Tg/yMtn1Ek5EBATXgD0vsQ0xvj5EQOcp6YiO1GSc6Jq3Z3el6q5bK7dxgLE9z92vIyAVAQXd1r7o8dsX4qJQIODGOae1Tvxy8f3MsPse3ywa1WapvBNUj53n6nuW7z+4J7Z4beMtHJNLSGejPARrxuhIdQetaaRi4ZiYxY7pdSQhhC+SWAa4UWsfu8b/8jXRc+1mFj50uJ/9TS0/2fG2Nvk2lfSjM5NHISaSwQwn37ewuRqy6BMYo=
+              GREMLIN_TEAM_SECRET: AgCcrLsUoDOnk9bGIwwOWt5L6BMTEU/Z7ahkgBxrfhWwdQ/wAjI7X2IMFTL9J1VOt71AKUxKd6InVkYOY4gP83gehp607UpaN1MSL3rO70VkibzjUtXkSHV8IcOme3eBRF0FU/gxJfqQbQwZU7wpZzoeyLKnMVvNuUtJG8J1AqYx+nAHosj/6NtbZWJATCk/O04HFllQA6EjRJqNbbt85lyCfMgIJfqwxfU3ImWNHsFO7N8nyujSbz3NBpUOHotyebTISbVugsdV+cFsjupsjD4oH7FKhddvetczAkGymmMEh07On7TxzVfjxUkZ5TBio6MFhVhkPlb0EIU6uw/iIb2VZGHOdZKG2EQ7CBYhwBHeKZ8PcOVvT4Q1X6QuOfiFIG0Z0seJfUphtgVbhzBdtBl4nKtrubqZtHJOKTUFmnObJiOYbMJ4FKqhl417VWWue5cVyrj57JYXghhnHatKGSmSW5DxaaXvIsTD20fMlLbalY8t4rAzdXT1axgKGlsxLHisyT9Zjv2OJKs8OGJXvQHAjc5YsrzdjdQI90qcBfIhaIsXpnop/llroB4Zq7H5bPIwYGYHlolcph88vRra2Q71zBysA6DkMRXH/foAFF6kJltnII3J6f4zVb6XvXrlALS0Uc8r4dwLTOJfELewoogaZ7Qffg6BdvGOAknYj7hVld0Z5Cxkl3gKmL3Bfi3gppbrksfzOMKvervFEKLFTLVdb77SORtpVuBl5ybGPLMYU/hcmCM=
+              GREMLIN_CLUSTER_ID: AgANAkbseV2rN15uIWDtLZhZ6qKAUkQkzfYrHAtDDECsVABF6b+u8pClAqCw1WxJ4UanL9VF5s2GsApukKyc3RPN4G3Af+dRt6VFjkiouqwlR/g2YDGa/cArW2Ux0kJLpW0aI8R21UYHjSsOTdCHvqkJGbnr1fyYjPFwoQRQb0JB5ock3IZz7zXvyrFytMMWuMCCkbsI115tRzT9sko/rXsx+I4LTayrmJYE4jdukTeCnBDQMieM+lZa7fLQ1hh+E9CvaDkgNRjao2RVgPv8pcWToNLEw0G4TpAbphxFUWPdtSCL13WIhRp2MA/Co7CdcGar1Ii85qtyDWxF/m79qy4mOqpJUQC8x7WuQoIbnHDoJqifOealUClTO5gRWY0ZixahAQji9OISUsDW+dtXd6u0rTC+B7ve9SbekjmMygAaSBbdQOx3KM8wqIMRqPh1Cn2mj6gpK+CDzo1qTIS/met2e5hnyMFS5Y+uqyzRCq5CUIAv0qKL63m/zk5ZXy2nxwp2PJJD64ZRFTxwd8EB7XsXOhJsPexYUaBNA4Z32Xi/rhPcvIr0/O5b0rRkSzOllQbDM5ENia7CJm8HVz0PgO8NL37ni3jih/KqJCg/vsmAPQZe6XmHSKVjNrjLTe9wDc8gI3HBq4byCubxzYY2rV8bZGfErvmo3xul3LcNHZOL1hG25wteKTIABJMDQatPpY7iXDsFzMXndc17ew==
           - name: ledger-secrets
             encryptedData:
               SENTRY_DSN: AgBxlchraeWFSnCemWaC9TABo9OJlvipPMPwnv1jUoMJFdOtGNVl/efRvcOS2pJRS18RF07y7X6XUZHiKbgXZSrGwL5I8eMqKFTRqcYuhnXIzncXgI9Nw+CQT4sPr0wQGizuGtW/cZ4MTq9Qv2gf/rsrGbuhdWywwLi/raxU9/Cvah6F0a2mVFK+nflMdh/4fc6KLf24b1cDa3wsfLg+N9i0yplkOrlhNsFFd+YxiNE7RJbjctbGnhWSycg38Zo2MynpsB5mZPbco0Ulg0zBWnnmvKLW4GL2ySBTVLR/V1lKi2y1yCIMKsWiaOaAM+cjn54+4RJr0XHiKN8LKxXsq4KzkyiOtM3WuUcBZD011oYTW07jqTvVC1fdUdLTDPjH/3Vw8uY9L2YxTOwD/JQSERbhe60Am3nAh01+FHo5/sOh+2gDAVdCp/NZCGqKi/11tUtZLrYn5OzlgkaGZxdJrnneYehNLnRWguwCsjqcVnWfnHDyg7tyr5MphOIse8ajNRhh1CtUg0iBk210GfZX7Zyw7mxqcziSRIsn2FTGHZD7Nw5xAjCKl0b8y7d9eFt4cIwXCwBFL0fySaRX1Scawv7YLpyPpUPDu/HDN69C1iHriFeUud5A6OHhO9qOqDEX/Y8hnYPkjEAUQ3fYFwK32YBx/9Cn4GZo9iQuvOR4E6H8jaq91d1nGZzckkZr6DSBFEo=
@@ -257,6 +277,13 @@ applications:
           - name: charge-secrets
             encryptedData:
               SENTRY_DSN: AgAH/7p0qqZR3Z9/NZN9XDXJ5EPoLDT5hDCaaCAyvaEkWg2MCKPUDB0Ka15qSVJbi+TZmRlMTJi6cIHvVl9ZfLeE3xyyGwZUhnjt/h9UXmwD7j2H65vS5KiWBVYXsJA1FibjUzXb/xDdmHjCwhCMvQQ89NgxlGknFNyMBTeCO+Gf+8/eshL/nF6bMQWAQJATkO8oMg037bxs0CarKQdMfMPN01xaT/Ih1YIIUthPXvCGU1EOMrkWMjmqTGNsyWR8CC4t8F54PiBDdGOUIpdEYInEzNkpkZohrtYT06cqiv2mt7eo5Fo8EFOVMdiwdof8xQ9+C4VBzzlBgJcmq70a3tjRMHbuq5snxdnkcqOZ4X1JSvrXwp4j7MHmZBmDs/tzbWJdZrVesR8wZ/JoQfLZfeXH6YZucb27u++dlaRBCX1/fXN3+ZglnhvKnVzoF3o+reXJG8eNsav2fVxI4QPCLnSMpW2Ge85DmKuM8z6rgc/wr/MLNe5TDSI1dy7MaFJR/Dc9taypbDjUPa7KlImpp6F/hDkA+jW6/urGjZGxbZD+8WQ8iNcfOcQ4Myi6xfEhu9P/A9R2aVCWDk02urfgqJwQoScau7J+D1LIrf13tiE5DVc3TBwvYRHRZ9BrnVguE+4bbQKdCM2TqEAi/Ox39EPgSZ52vwX5In2FTX3v0/NlPsLvGp+hrUa9KEUbYu4RcrA=
+          - name: gremlin-team-secret
+            namespace:
+            - gremlin
+            encryptedData:
+              GREMLIN_TEAM_ID: AgCHQm8goXlMKZcxi5/p2Y8TgOty+M3JDCXOqDmJPiW8NYAzP4QTgkACBZ82AZmnlFM/jki9zaWz3+WMoEZ46xvTU87WVLRD7btbSNKzKVtexOJTx02fL5zO8oHZ0oM2i9DelUtMNXyWjD4DhBcIEFVVc4KP8pSuIIACA3HworCLVHslQ/hSvz6UgBAZ3cWVx8lyvIDs1j8wLPtNR0OYCkJSN9q8UnAFkUnUGSFPwbiQB1nI472nmgB9V0pkvsh913laSTrNb2T+lK8eMAnMT3UeBWIwdB+PqYMTCR/o2mAQX1H6SnCJQj4RRli45Qi6w23D3xglo1FPMQt4iIUCt2oGaNbtjBYHhAyHrA8LtyEupSfoPS/5c3cTw5DAYAd3pr6pU5jOT93XD8ApjKvPQWF6KGmsF4xSzIKZMht7bwcs7Z8Lo95nRma2eP8syVMQxJaejjXmSvC03rBsppp6V4tZmOfTBczd3xklpOTy4VWw4gBRVUge4cqA7OO3Lr7LkOImH/2eLBseGrHqyoRlHwVT4gUElwU4a5vZgd9vOFW8AZHXgposRgkPPhS1YzyOdVdkElLd0EAmtm1Si+vprCzZ1mW2V6IQBHq68WNLQ4Ut5aQv7VJURR+oIFzQkHU/d61p2oqtR3NpHMsuzmVQni2RN/29gNkYQPePq7TMfRcVUQDVkaOyImwxnKZpBGcV81/O+JkFSkP48r8egLVmdvS6Wb0CtZfJI/g8QYDjFcExWT0de+w=
+              GREMLIN_TEAM_SECRET: AgCcrLsUoDOnk9bGIwwOWt5L6BMTEU/Z7ahkgBxrfhWwdQ/wAjI7X2IMFTL9J1VOt71AKUxKd6InVkYOY4gP83gehp607UpaN1MSL3rO70VkibzjUtXkSHV8IcOme3eBRF0FU/gxJfqQbQwZU7wpZzoeyLKnMVvNuUtJG8J1AqYx+nAHosj/6NtbZWJATCk/O04HFllQA6EjRJqNbbt85lyCfMgIJfqwxfU3ImWNHsFO7N8nyujSbz3NBpUOHotyebTISbVugsdV+cFsjupsjD4oH7FKhddvetczAkGymmMEh07On7TxzVfjxUkZ5TBio6MFhVhkPlb0EIU6uw/iIb2VZGHOdZKG2EQ7CBYhwBHeKZ8PcOVvT4Q1X6QuOfiFIG0Z0seJfUphtgVbhzBdtBl4nKtrubqZtHJOKTUFmnObJiOYbMJ4FKqhl417VWWue5cVyrj57JYXghhnHatKGSmSW5DxaaXvIsTD20fMlLbalY8t4rAzdXT1axgKGlsxLHisyT9Zjv2OJKs8OGJXvQHAjc5YsrzdjdQI90qcBfIhaIsXpnop/llroB4Zq7H5bPIwYGYHlolcph88vRra2Q71zBysA6DkMRXH/foAFF6kJltnII3J6f4zVb6XvXrlALS0Uc8r4dwLTOJfELewoogaZ7Qffg6BdvGOAknYj7hVld0Z5Cxkl3gKmL3Bfi3gppbrksfzOMKvervFEKLFTLVdb77SORtpVuBl5ybGPLMYU/hcmCM=
+              GREMLIN_CLUSTER_ID: AgBv8NBQgBX5LBi1jWe0z/WyA9DqhYkxBapQzlqYiEV07k1B15Ih0jtaOsqzDpNNAkKwJYPTIzYDsCljO57TPFdV/gEeMjZH1/GZi4noBd22T8PcDEafsQaKlu58BSh/SXmFJAZmAhq9o1RStp6GyetP68X1fIVh2j20BXjymOpDSMVTnfKBpBCf/es30mARf5KdOP2XlctmX0RCqaK2Z81QqV97OsdvA+Qfcs9TxV5fyyfgPZVz4Z+ZqNE3/EdVHhtssyPzk+XXtZStrd6ukAfoaNDlq6b/Lq52xpz5PPfMvQucBPj+RyiDG3Y/IlUlaUhustvWAQW48fSX6ZpBDBnzRCCob9p+BQpllhAB1Aj9dSFRgnxDO3eo2qNmb65QHylzfk/2c6QVwGWUuD4vjA3cJPjSwzdtBIURsPX/H0JMycOTEwAHV9B94u3rtEU+e9JmF/o6IUz+QpjcWD+r4Za1SG+wg6txfe9dZ8hnWTas0LpSaNvhLMcsHnLAZHqhBRobkl+kQJTzZB4tTJhc7LbQWyqZNJQ0kYsVNHntqfDtI1z64AZQVNh6PDQ5Lw1rxwzqT05CcjfLx6joMkgzl1NOpriWyX/S9hJjnyCWywkga1YvKZD0cgSOMKfMpfTMly5GurJnrKqqmGtQcrdUJRfEw5KDzwuQha9hOnq50xu3+xL1RPQhjdjjvGHRautwpguRq9Z31Zf7M+lQqA==
           - name: ledger-secrets
             encryptedData:
               SENTRY_DSN: AgAH/7p0qqZR3Z9/NZN9XDXJ5EPoLDT5hDCaaCAyvaEkWg2MCKPUDB0Ka15qSVJbi+TZmRlMTJi6cIHvVl9ZfLeE3xyyGwZUhnjt/h9UXmwD7j2H65vS5KiWBVYXsJA1FibjUzXb/xDdmHjCwhCMvQQ89NgxlGknFNyMBTeCO+Gf+8/eshL/nF6bMQWAQJATkO8oMg037bxs0CarKQdMfMPN01xaT/Ih1YIIUthPXvCGU1EOMrkWMjmqTGNsyWR8CC4t8F54PiBDdGOUIpdEYInEzNkpkZohrtYT06cqiv2mt7eo5Fo8EFOVMdiwdof8xQ9+C4VBzzlBgJcmq70a3tjRMHbuq5snxdnkcqOZ4X1JSvrXwp4j7MHmZBmDs/tzbWJdZrVesR8wZ/JoQfLZfeXH6YZucb27u++dlaRBCX1/fXN3+ZglnhvKnVzoF3o+reXJG8eNsav2fVxI4QPCLnSMpW2Ge85DmKuM8z6rgc/wr/MLNe5TDSI1dy7MaFJR/Dc9taypbDjUPa7KlImpp6F/hDkA+jW6/urGjZGxbZD+8WQ8iNcfOcQ4Myi6xfEhu9P/A9R2aVCWDk02urfgqJwQoScau7J+D1LIrf13tiE5DVc3TBwvYRHRZ9BrnVguE+4bbQKdCM2TqEAi/Ox39EPgSZ52vwX5In2FTX3v0/NlPsLvGp+hrUa9KEUbYu4RcrA=
