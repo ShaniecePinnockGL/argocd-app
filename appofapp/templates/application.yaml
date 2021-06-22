@@ -19,6 +19,9 @@ spec:
     targetRevision: HEAD
     path: {{ $domain.name }}
     helm:
+      parameters:
+        - name: annotations.appRevision
+          value: $ARGOCD_APP_REVISION
       valueFiles:
         - values-{{ $environment }}.yaml
   destination:
