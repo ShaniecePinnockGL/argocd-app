@@ -23,7 +23,7 @@ applications:
     values:
       env:
         open:
-          SPRING_PROFILES_ACTIVE: v1
+          SPRING_PROFILES_ACTIVE: v2
           SPRING_HIKARI_POOL_SIZE: "10"
           SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
           SPRING_HIKARI_MINIMUM_IDLE: "10"
