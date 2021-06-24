@@ -14,11 +14,7 @@ metadata:
   annotations:
     {{- toYaml . | trim | nindent 4 }}
   {{- end }}
-  {{- with $.Values.domain }}
-  name: {{ . }}-{{ $app.name }}-{{ $namespace }}-{{ $dest.region }}
-  {{- else }}
-  name: {{ $app.name }}-{{ $namespace }}-{{ $dest.region }}
-  {{- end }}
+  name: {{ $.Values.domain }}-{{ $app.name }}-{{ $.Values.project }}-{{ $dest.region }}
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
