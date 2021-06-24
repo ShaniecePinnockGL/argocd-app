@@ -13,7 +13,7 @@
     "argodiff": "ts-node cmd/argodiff.ts",
     "changelog": "ts-node cmd/changelog.ts",
     "drift": "ts-node cmd/drift.ts",
-    "on-deploy": "ts-node cmd/on-deploy.ts",
+    "on-deployed": "ts-node cmd/on-deployed.ts",
     "build": "npm run test",
     "clean": "gts clean",
     "compile": "tsc",

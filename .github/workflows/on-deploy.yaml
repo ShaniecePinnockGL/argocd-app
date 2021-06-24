@@ -1,9 +1,9 @@
-name: On Deploy
+name: On Deployed
 on: repository_dispatch
 jobs:
-  notification:
-    name: Run On Deploy
-    runs-on: ubuntu-latest
+  on-deployed:
+    name: Run On Deployed
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -28,9 +28,9 @@ jobs:
       - name: Download dependencies
         working-directory: .github/script
         run: npm ci --production
-      - name: Run On Deploy
+      - name: Run On Deployed
         working-directory: .github/script
-        run: npm run on-deploy
+        run: npm run on-deployed
         env:
           GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
