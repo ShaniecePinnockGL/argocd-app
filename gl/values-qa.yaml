@@ -33,7 +33,7 @@ applications:
     version: "1.5.0"
   - name: drive-wealth
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "1.8.0"
+    version: "1.17.0"
   - name: experimentation-id
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.0.54-738e722"
@@ -92,7 +92,7 @@ applications:
         enableFilter: true
   - name: invest-profile
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "1.23.0"
+    version: "1.31.0"
   - name: kyc-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.0.190-26d3078"
