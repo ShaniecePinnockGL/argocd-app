@@ -1,13 +1,17 @@
 greenlight:
-  - gl/*
+  - common/**/*
+  - gl/**/*
 
 krona:
-  - krona/*
+  - common/**/*
+  - krona/**/*
 
 operations:
+  - common/**/*
   - operations/values.yaml
 
 nonprod:
+  - common/**/*
   - gl/values.yaml
   - gl/values-dev.yaml
   - gl/values-platdev.yaml
@@ -22,6 +26,7 @@ nonprod:
   - krona/values-perf.yaml
 
 prod:
+  - common/**/*
   - gl/values.yaml
   - gl/values-prod.yaml
   - krona/values.yaml

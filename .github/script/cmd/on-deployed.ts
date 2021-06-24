@@ -116,7 +116,7 @@ async function entrypoint() {
   try {
     const a: IArgoApp = context.payload.client_payload;
     startGroup('Argo CD context');
-    info(JSON.stringify(a));
+    info(JSON.stringify(a, null, 2));
     endGroup();
     await finalizeDeployment(a);
     await sendSlackMessage(a);
