@@ -1,8 +1,7 @@
-import {resolve} from 'path';
 import {readFile, readdir} from 'fs';
-import {promisify} from 'util';
 import {parse} from 'yaml';
-import {error} from '@actions/core';
+import {promisify} from 'util';
+import {resolve} from 'path';
 
 export const ENVIRONMENT_FILES_REGEX = () =>
   /^(?<domain>krona|gl)\/values-(?<project>\w+)\.yaml$/g;
@@ -40,13 +39,9 @@ export interface IEnvironmentFile {
   }>;
 }
 
-export enum Domains {
-  Greenlight = 'gl',
-  Krona = 'krona',
-}
-
 const readFileAsync = promisify(readFile);
 const readdirAsync = promisify(readdir);
+
 /**
  * @param file File path relative to the root of the repo
  * @returns The contents of the file
@@ -57,20 +52,22 @@ export async function readLocalFile(file: string | null) {
   return (await readFileAsync(resolve('../../', file))).toString();
 }
 
-export async function applicationNameToRepo(applicationName: string) {
+export function applicationNameToRepo(applicationName: string): string {
   switch (applicationName) {
-    case 'sealed-secrets':
-      return null;
+    case 'configmap':
+      return 'helm';
     case 'commander':
       return 'commander-api';
     case 'experimentation-id':
       return 'experimentation-id-service';
+    case 'sealed-secrets':
+      return 'helm';
     default:
       return applicationName;
   }
 }
 
-export async function refFromVersion(version: string): Promise<string> {
+export function refFromVersion(version: string): string {
   const matchesVersionSha = /^(?<version>[\d.]+)-(?<sha>[0-9a-f]{7})$/g.exec(
     version
   );
@@ -83,7 +80,7 @@ export async function refFromVersion(version: string): Promise<string> {
 
 export async function getAllEnvironmentFiles() {
   const domains = await Promise.all(
-    Object.values(Domains).map(
+    Object.values(Domain).map(
       async domain =>
         [domain as string, await readdirAsync(`../../${domain}`)] as [
           string,

@@ -1,21 +1,19 @@
-import got from 'got';
+import {Block, KnownBlock, WebClient} from '@slack/web-api';
+import {setSecret} from '@actions/core';
 
-const slackToken = process.env.SLACK_TOKEN;
+const token = process.env.SLACK_TOKEN ?? '';
+setSecret(token);
 
-export async function postMessage(channel: string, markdown: string) {
-  const response = await got<{ok: true}>(
-    'https://slack.com/api/chat.postMessage',
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${slackToken}`,
-      },
-      responseType: 'json',
-      json: {
-        channel,
-        text: markdown,
-      },
-    }
-  );
-  return response.body;
+const web = new WebClient(token);
+
+export async function postMessage(
+  channel: string,
+  text: string,
+  blocks?: (KnownBlock | Block)[]
+) {
+  return web.chat.postMessage({
+    channel,
+    text,
+    blocks,
+  });
 }

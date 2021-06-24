@@ -1,12 +1,8 @@
-import {parse} from 'yaml';
-import * as core from '@actions/core';
-
-import {getChangedFiles, readFileAtBase} from '../lib/git';
 import {
-  applicationNameToRepo,
   ENVIRONMENT_FILES_REGEX,
-  getAllEnvironmentFiles,
   IEnvironmentFile,
+  applicationNameToRepo,
+  getAllEnvironmentFiles,
   readLocalFile,
   refFromVersion,
 } from '../lib/common';
@@ -16,7 +12,11 @@ import {
   deleteCommentWithFooterIfExists,
   getCommit,
 } from '../lib/github';
-import { defaultSanitizer } from '../lib/util';
+import {info, setFailed, warning} from '@actions/core';
+import {getChangedFiles, readFileAtBase} from '../lib/git';
+import {defaultSanitizer} from '../lib/util';
+import {parse} from 'yaml';
+
 enum ChangeType {
   ADDED,
   MODIFIED,
@@ -40,7 +40,7 @@ async function main() {
     }));
 
   if (changedEnvironmentFiles.length === 0) {
-    core.info('No changed environment files.');
+    info('No changed environment files.');
     await deleteCommentWithFooterIfExists(footer);
     return;
   }
@@ -55,7 +55,7 @@ async function main() {
   const allEnvironmentFiles = await getAllEnvironmentFiles();
 
   const environmentFile = changedEnvironmentFiles[0];
-  core.info('Getting changes for ' + environmentFile);
+  info('Getting changes for ' + environmentFile);
 
   const [original, current] = await Promise.all([
     readFileAtBase(environmentFile.file),
@@ -78,7 +78,7 @@ async function main() {
     );
 
     if (!currentApp) {
-      core.info(`${originalApp.name} has been removed`);
+      info(`${originalApp.name} has been removed`);
       changes.push({
         type: ChangeType.DELETED,
         application: originalApp.name,
@@ -88,7 +88,7 @@ async function main() {
     }
 
     if (currentApp.version !== originalApp.version) {
-      core.info(
+      info(
         `${originalApp.name} has been updated from ${originalApp.version} to ${currentApp.version}`
       );
       changes.push({
@@ -105,7 +105,7 @@ async function main() {
       !parsedOriginal.applications.some(original => original.name === app.name)
   );
   addedApps.forEach(app => {
-    core.info(`${app.name} has been added`);
+    info(`${app.name} has been added`);
     changes.push({
       type: ChangeType.ADDED,
       application: app.name,
@@ -114,7 +114,7 @@ async function main() {
   });
 
   if (changes.length === 0) {
-    core.info('No changes to report');
+    info('No changes to report');
     await deleteCommentWithFooterIfExists(footer);
     return;
   }
@@ -127,14 +127,12 @@ async function main() {
     } else if (change.type === ChangeType.DELETED) {
       markdown += `#### :no_entry: ${change.application} has been removed\n`;
     } else if (change.type === ChangeType.MODIFIED) {
-      const repo = `GreenlightMe/${await applicationNameToRepo(
-        change.application
-      )}`;
-      const fromRef = await refFromVersion(change.fromVersion!);
-      const toRef = await refFromVersion(change.toVersion!);
+      const repo = `GreenlightMe/${applicationNameToRepo(change.application)}`;
+      const fromRef = refFromVersion(change.fromVersion!);
+      const toRef = refFromVersion(change.toVersion!);
 
       try {
-        core.info(
+        info(
           `Getting commits for ${repo} between ${change.fromVersion} to ${change.toVersion}`
         );
         const {commits, html_url} = await compareCommits(repo, fromRef, toRef);
@@ -182,7 +180,7 @@ async function main() {
         }
       } catch (e) {
         markdown += `#### :warning: ${change.application} has been updated from \`${change.fromVersion}\` to \`${change.toVersion}\` (unknown changes) :warning:\n`;
-        core.warning(`${change.application} had an error getting diff: ${e}`);
+        warning(`${change.application} had an error getting diff: ${e}`);
 
         const [from, to] = await Promise.allSettled([
           getCommit(repo, fromRef),
@@ -190,12 +188,12 @@ async function main() {
         ]);
 
         if (from.status === 'rejected') {
-          core.warning(`${fromRef} didn't exist: ${from.reason}`);
+          warning(`${fromRef} didn't exist: ${from.reason}`);
           markdown += `* \`${change.fromVersion}\` (${fromRef}) does not exist in ${repo}`;
         }
 
         if (to.status === 'rejected') {
-          core.warning(`${toRef} didn't exist: ${to.reason}`);
+          warning(`${toRef} didn't exist: ${to.reason}`);
           markdown += `* \`${change.toVersion}\` (${toRef}) does not exist in ${repo}`;
         }
       }
@@ -207,5 +205,5 @@ async function main() {
 }
 
 main().catch((err: Error) => {
-  core.setFailed(err);
+  setFailed(err);
 });

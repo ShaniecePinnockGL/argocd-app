@@ -1,11 +1,18 @@
 import {shellNoErr, writeToTemp} from './util';
-import * as yaml from 'yaml';
-import got from 'got';
 import {fetchHelmChart} from './helm';
+import got from 'got';
+import {parseAllDocuments} from 'yaml';
 
 export interface IArgoApp {
   metadata: {
     name: string;
+    labels: {
+      application: string;
+      'argocd.argoproj.io/instance': string;
+      cluster: string;
+      namespace: string;
+      region: string;
+    };
   };
   spec: {
     project: string;
@@ -26,13 +33,28 @@ export interface IArgoApp {
       namespace: string;
     };
   };
+  status: {
+    history: {
+      deployedAt: string;
+      id: number;
+      revision: string;
+    }[];
+    operationState: {
+      phase: string;
+      message: string;
+    };
+    sync: {
+      status: string;
+      revision: string;
+    };
+  };
 }
 
 export async function buildEnvironmentList(): Promise<IArgoApp[]> {
   const environmentsString = (
     await shellNoErr('helm template ./appofapp', {cwd: '../../'})
   ).stdout;
-  const environments = yaml.parseAllDocuments(environmentsString as string);
+  const environments = parseAllDocuments(environmentsString as string);
   return environments.map(env => env.toJSON());
 }
 
@@ -89,7 +111,7 @@ export async function buildAppsForEnvironment(
     await shellNoErr(`helm template ${args} ./${path}/`, {cwd: '../../'})
   ).stdout;
 
-  const apps = yaml.parseAllDocuments(appsString as string);
+  const apps = parseAllDocuments(appsString as string);
 
   return apps.map(appDocument => appDocument.toJSON());
 }
@@ -109,4 +131,13 @@ export async function getArgoLiveManifests(app: IArgoApp): Promise<any[]> {
       throw e;
     }
   }
+}
+
+export function getCurrentPreviousHistoryRevision(p: IArgoApp): {
+  current: string;
+  previous: string;
+} {
+  // sort ascending
+  const history = p.status.history.sort((a, b) => a.id - b.id);
+  return {current: history[0].revision, previous: history[1].revision};
 }

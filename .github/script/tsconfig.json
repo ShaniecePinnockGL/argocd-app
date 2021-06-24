@@ -14,10 +14,14 @@
     "target": "es2018",
     "lib": ["es2020"],
     "rootDir": ".",
-    "outDir": "build"
+    "outDir": "build",
+    "moduleResolution": "node"
   },
   "include": [
     "cmd/**/*.ts",
     "lib/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

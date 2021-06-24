@@ -9,6 +9,7 @@ const rawOcto = getOctokit(token);
 const octokit = rawOcto.rest;
 
 let _currentPR: Promise<RestEndpointMethodTypes['pulls']['get']['response']>;
+
 function currentPR() {
   if (_currentPR) return _currentPR;
 
@@ -25,8 +26,8 @@ function currentPR() {
 }
 
 export async function getCurrentPR() {
-  const response = await currentPR();
-  return response.data;
+  const {data} = await currentPR();
+  return data;
 }
 
 export async function getBaseRef() {
@@ -41,33 +42,33 @@ export async function compareCommits(
 ) {
   debug('Comparing commits for ' + repository + ' from ' + from + ' to ' + to);
   const [owner, repo] = repository.split('/', 2);
-  const results = await octokit.repos.compareCommits({
+  const {data} = await octokit.repos.compareCommits({
     owner,
     repo,
     base: from,
     head: to,
   });
-  return results.data;
+  return data;
 }
 
 export async function getCommit(repository: string, ref: string) {
   const [owner, repo] = repository.split('/', 2);
-  const results = await octokit.repos.getCommit({
+  const {data} = await octokit.repos.getCommit({
     owner,
     repo,
     ref,
   });
-  return results.data;
+  return data;
 }
 
 export async function getAllComments() {
-  const response = await octokit.issues.listComments({
+  const {data} = await octokit.issues.listComments({
     owner: context.repo.owner,
     issue_number: context.issue.number,
     repo: context.repo.repo,
   });
 
-  return response.data;
+  return data;
 }
 
 export async function createOrUpdateCommentWithFooter(
@@ -115,43 +116,80 @@ export async function deleteCommentWithFooterIfExists(footer: string) {
 }
 
 export async function createComment(body: string) {
-  const response = await octokit.issues.createComment({
+  const {data} = await octokit.issues.createComment({
     owner: context.repo.owner,
     issue_number: context.issue.number,
     repo: context.repo.repo,
     body: body,
   });
-  return response.data;
+  return data;
 }
 
 export async function editComment(commentId: number, body: string) {
-  const response = await octokit.issues.updateComment({
+  const {data} = await octokit.issues.updateComment({
     owner: context.repo.owner,
     issue_number: context.issue.number,
     repo: context.repo.repo,
     comment_id: commentId,
     body,
   });
-
-  return response.data;
+  return data;
 }
 
 export async function deleteComment(commentId: number) {
-  await octokit.issues.deleteComment({
+  const {data} = await octokit.issues.deleteComment({
     owner: context.repo.owner,
     issue_number: context.issue.number,
     repo: context.repo.repo,
     comment_id: commentId,
   });
+  return data;
 }
 
 export async function getUser() {
-  const response = await rawOcto.request('GET /user');
-  return response.data;
+  const {data} = await rawOcto.request('GET /user');
+  return data;
 }
 
 export async function getRepository(repository: string) {
   const [owner, repo] = repository.split('/', 2);
-  const response = await octokit.repos.get({owner, repo});
-  return response.data;
+  const {data} = await octokit.repos.get({owner, repo});
+  return data;
+}
+
+export async function createDeployment(
+  repo: string,
+  ref: string,
+  environment: string
+) {
+  const {data} = await octokit.repos.createDeployment({
+    owner: context.repo.owner,
+    repo,
+    ref,
+    environment,
+  });
+  return data;
+}
+
+export type DeploymentState =
+  | 'error'
+  | 'failure'
+  | 'inactive'
+  | 'in_progress'
+  | 'queued'
+  | 'pending'
+  | 'success';
+
+export async function createDeploymentStatus(
+  repo: string,
+  deploymentId: number,
+  state: DeploymentState
+) {
+  const {data} = await octokit.repos.createDeploymentStatus({
+    owner: context.repo.owner,
+    repo,
+    deployment_id: deploymentId,
+    state,
+  });
+  return data;
 }

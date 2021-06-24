@@ -1,4 +1,4 @@
-name: Go Scripts
+name: Go Build and Lint
 on:
   pull_request:
     branches:
@@ -6,13 +6,13 @@ on:
     paths:
       - script/**
 jobs:
-  go-build:
-    name: Build Go files
+  go-build-lint:
+    name: Build and lint Go files
     runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Go
+      - name: Setup build tools
         uses: actions/setup-go@v2
         with:
           go-version: '1.16'
@@ -26,16 +26,6 @@ jobs:
         run: |
           cd script/
           make build-migration
-  go-lint:
-    name: Lint Go files
-    runs-on: self-hosted
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.16'
       - name: Lint Go files
         uses: golangci/golangci-lint-action@v2
         with:

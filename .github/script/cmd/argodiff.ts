@@ -1,18 +1,18 @@
-import * as core from '@actions/core';
-import * as yaml from 'yaml';
-import * as deepDiff from 'deep-object-diff';
-import {diffYAMLResource, defaultSanitizer} from '../lib/util';
 import {
+  IArgoApp,
   buildAppsForEnvironment,
   buildEnvironmentList,
   getArgoLiveManifests,
-  IArgoApp,
   renderArgoApp,
 } from '../lib/argo';
 import {
   createOrUpdateCommentWithFooter,
   deleteCommentWithFooterIfExists,
 } from '../lib/github';
+import {endGroup, error, info, setFailed, startGroup} from '@actions/core';
+import {diffYAMLResource, defaultSanitizer} from '../lib/util';
+import {parseAllDocuments, stringify} from 'yaml';
+import {diff as deepDiff} from 'deep-object-diff';
 
 // 65535 minus a 5000 character buffer.
 const MAX_COMMENT_SIZE = 65535 - 5000;
@@ -35,9 +35,7 @@ async function splitResourcesByName(
     res.metadata.labels = res.metadata.labels || {};
     res.metadata.labels['argocd.argoproj.io/instance'] = app.metadata.name;
 
-    map[`${apiVersion}/${kind} ${resourceName}`] = yaml
-      .stringify(res)
-      .toString();
+    map[`${apiVersion}/${kind} ${resourceName}`] = stringify(res).toString();
     return map;
   }, {} as any);
 }
@@ -52,9 +50,9 @@ async function getArgoDiff(
 
   if (localApp) {
     const localManifestsString = await renderArgoApp(env, localApp);
-    const helmManifests = yaml
-      .parseAllDocuments(localManifestsString)
-      .map(doc => doc.toJSON());
+    const helmManifests = parseAllDocuments(localManifestsString).map(doc =>
+      doc.toJSON()
+    );
     newResourcesByName = await splitResourcesByName(
       env,
       localApp,
@@ -71,7 +69,7 @@ async function getArgoDiff(
     );
   }
 
-  const diff = deepDiff.diff(oldResourcesByName, newResourcesByName) as any;
+  const diff = deepDiff(oldResourcesByName, newResourcesByName) as any;
   const diffs = await Promise.all(
     Object.keys(diff).map(async key => {
       const colorDiff = await diffYAMLResource(
@@ -120,7 +118,7 @@ async function diffApps(
   const localAppsByName = processAppList(localAppsCopy);
   const remoteAppsByName = processAppList(remoteAppsCopy);
 
-  return deepDiff.diff(remoteAppsByName, localAppsByName);
+  return deepDiff(remoteAppsByName, localAppsByName);
 }
 
 async function processEnv(env: IArgoApp) {
@@ -156,10 +154,10 @@ async function main() {
         return {envName: env.metadata.name, appDiffs: appDiffs};
       } catch (e) {
         console.error(e);
-        core.error(`Failed to process env: ${env.metadata.name}`);
+        error(`Failed to process env: ${env.metadata.name}`);
         hadError = true;
         markdown += `:exclamation: **${env.metadata.name}**: [${e.name}] ${e.message}\n`;
-        return { envName: env.metadata.name, appDiffs: [] };
+        return {envName: env.metadata.name, appDiffs: []};
       }
     })
   );
@@ -170,11 +168,11 @@ async function main() {
     .sort((env1, env2) => env1.envName.localeCompare(env2.envName));
 
   if (envDiffs.length === 0 && !hadError) {
-    core.info('No Kubernetes Changes Detected');
+    info('No Kubernetes Changes Detected');
     await deleteCommentWithFooterIfExists(footer);
     return;
   } else {
-    core.info('Kubernetes Changes Found');
+    info('Kubernetes Changes Found');
   }
 
   for (const envDiff of envDiffs) {
@@ -185,7 +183,7 @@ async function main() {
       markdownBody += `\n### ${envDiff.envName}`;
       for (const appDiff of envDiff.appDiffs) {
         markdownBody += `\n  - **${appDiff.appName}**\n`;
-        core.startGroup(`ENV: ${envDiff.envName}\tAPP: ${appDiff.appName}`);
+        startGroup(`ENV: ${envDiff.envName}\tAPP: ${appDiff.appName}`);
         for (const resource of appDiff.appDiff) {
           console.log(resource.header);
           console.log(resource.colorDiff + '\n\n');
@@ -200,7 +198,7 @@ async function main() {
       </details>
 `;
         }
-        core.endGroup();
+        endGroup();
       }
     }
   }
@@ -218,5 +216,5 @@ async function main() {
 }
 
 main().catch((err: Error) => {
-  core.setFailed(err);
+  setFailed(err);
 });

@@ -1,15 +1,14 @@
-import {parse} from 'yaml';
-import * as core from '@actions/core';
-
-import {compareCommits, getRepository} from '../lib/github';
-import {postMessage} from '../lib/slack';
 import {
-  applicationNameToRepo,
   Domain,
   IEnvironmentFile,
+  applicationNameToRepo,
   readLocalFile,
   refFromVersion,
 } from '../lib/common';
+import {compareCommits, getRepository} from '../lib/github';
+import {setFailed, warning} from '@actions/core';
+import {parse} from 'yaml';
+import {postMessage} from '../lib/slack';
 
 const LATEST_SELECTOR = '>= 0.0.0-0';
 
@@ -52,15 +51,15 @@ async function computeDrift(
       if (!change.leadingVersion) {
         return {...change, changes: null};
       }
-      const repo = await applicationNameToRepo(change.application);
+      const repo = applicationNameToRepo(change.application);
       if (!repo) {
         return null;
       }
 
       const fullPathRepo = `GreenlightMe/${repo}`;
 
-      let fromRef = await refFromVersion(change.laggingVersion);
-      let toRef = await refFromVersion(change.leadingVersion);
+      let fromRef = refFromVersion(change.laggingVersion);
+      let toRef = refFromVersion(change.leadingVersion);
 
       if (
         change.laggingVersion === LATEST_SELECTOR ||
@@ -73,7 +72,7 @@ async function computeDrift(
           if (change.leadingVersion === LATEST_SELECTOR)
             toRef = repository.default_branch;
         } catch (e) {
-          core.warning(
+          warning(
             'Could not get repository for ' +
               fullPathRepo +
               ' - ' +
@@ -89,7 +88,7 @@ async function computeDrift(
           changes: commits,
         };
       } catch (e) {
-        core.warning(
+        warning(
           `Error getting commits for ${fullPathRepo}: ${fromRef}...${toRef}`
         );
         return {...change, changes: null};
@@ -141,7 +140,7 @@ function toMarkdown(
 
 async function main() {
   const serviceOwners = parse(
-    await readLocalFile('.github/service-owners.yml')
+    await readLocalFile('.github/service-owners.yaml')
   ) as {
     teams: {[teamName: string]: {channel: string; services: Array<string>}};
   };
@@ -165,5 +164,5 @@ async function main() {
 }
 
 main().catch((err: Error) => {
-  core.setFailed(err);
+  setFailed(err);
 });

@@ -1,20 +1,17 @@
-name: Pull Request Changelog
+name: TypeScript Build and Lint
 on:
   pull_request:
     branches:
       - main
     paths:
-      - gl/*.yaml
-      - krona/*.yaml
+      - .github/script/**
 jobs:
-  changelog:
-    name: Changelog
+  typescript-build-lint:
+    name: Build and lint TypeScript files
     runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Build cache
         uses: actions/cache@v2
         with:
@@ -31,11 +28,9 @@ jobs:
         env:
           ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
           ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
-      - name: Download dependencies
+      - name: Install dependencies
         working-directory: .github/script
-        run: npm ci --production
-      - name: Run Request Changelog
+        run: npm ci
+      - name: Test Node.js modules
         working-directory: .github/script
-        run: npm run changelog
-        env:
-          GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
+        run: npm run test

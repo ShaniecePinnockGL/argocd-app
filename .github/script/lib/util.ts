@@ -1,15 +1,16 @@
-import * as fs from 'fs';
-import * as os from 'os';
-import * as cp from 'child_process';
 import * as util from 'util';
+import {ExecOptions, exec} from 'child_process';
+import {tmpdir} from 'os';
+import {writeFileSync} from 'fs';
 
-export const shell = util.promisify(cp.exec);
+export const shell = util.promisify(exec);
 
 let tempCounter = 0;
+
 export function writeToTemp(suffix: string, contents: string) {
   const tmp =
-    os.tmpdir() + '/' + new Date().getMilliseconds() + tempCounter++ + suffix;
-  fs.writeFileSync(tmp, contents);
+    tmpdir() + '/' + new Date().getMilliseconds() + tempCounter++ + suffix;
+  writeFileSync(tmp, contents);
   return tmp;
 }
 
@@ -29,12 +30,12 @@ export async function diffYAMLResource(
   ).stdout.trim();
 }
 
-export function createSanitizer(...toRemove:string[]) {
-  return (input:string) =>{
-    return toRemove.reduce((str,itemToRem)=>{
+export function createSanitizer(...toRemove: string[]) {
+  return (input: string) => {
+    return toRemove.reduce((str, itemToRem) => {
       return str.split(itemToRem).join('<...>');
     }, input);
-  }
+  };
 }
 
 export const defaultSanitizer = createSanitizer(
@@ -44,6 +45,6 @@ export const defaultSanitizer = createSanitizer(
   process.env.SLACK_TOKEN!
 );
 
-export async function shellNoErr(cmd: string, opts?: cp.ExecOptions) {
+export async function shellNoErr(cmd: string, opts?: ExecOptions) {
   return await shell(cmd, opts).catch();
 }

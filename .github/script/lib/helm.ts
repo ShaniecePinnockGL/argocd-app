@@ -1,13 +1,13 @@
+import {mkdtempSync} from 'fs';
 import {shellNoErr} from './util';
-import * as fs from 'fs';
-import * as os from 'os';
+import {tmpdir} from 'os';
 
 export async function fetchHelmChart(
   repo: string,
   chart: string,
   version: string
 ): Promise<string> {
-  const tmpDir = fs.mkdtempSync(os.tmpdir() + '/helm');
+  const tmpDir = mkdtempSync(tmpdir() + '/helm');
   let cmd = 'helm pull';
   if (repo.startsWith('https://greenlight.jfrog.io/artifactory/')) {
     cmd += ` --username "${process.env.HELM_USERNAME}" --password "${process.env.HELM_PASSWORD}"`;

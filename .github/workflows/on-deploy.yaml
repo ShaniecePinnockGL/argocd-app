@@ -1,15 +1,9 @@
-name: Pull Request Changelog
-on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - gl/*.yaml
-      - krona/*.yaml
+name: On Deploy
+on: repository_dispatch
 jobs:
-  changelog:
-    name: Changelog
-    runs-on: self-hosted
+  notification:
+    name: Run On Deploy
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -34,8 +28,9 @@ jobs:
       - name: Download dependencies
         working-directory: .github/script
         run: npm ci --production
-      - name: Run Request Changelog
+      - name: Run On Deploy
         working-directory: .github/script
-        run: npm run changelog
+        run: npm run on-deploy
         env:
           GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
