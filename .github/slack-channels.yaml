@@ -1,20 +1,16 @@
 domain:
   gl:
     channels:
-#      - greenlight-monitor
-      - bot-testing
+      - greenlight-monitor
     prod:
       channels:
-#        - sprintliveaction
-        - bot-testing
+        - sprintliveaction
   krona:
     channels:
-#      - partner-krona-feed
-      - bot-testing
+      - partner-krona-feed
     prod:
       channels:
-#        - partner-krona-deploy
-        - bot-testing
+        - partner-krona-deploy
   operations:
     channels:
       - bot-testing
