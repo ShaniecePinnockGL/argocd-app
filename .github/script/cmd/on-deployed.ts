@@ -1,10 +1,14 @@
-import {IArgoApp, getCurrentPreviousHistoryRevision} from '../lib/argo';
+import {IArgoApp, getEnvironment} from '../lib/argo';
+import {
+  TDeploymentState,
+  createDeployment,
+  createDeploymentStatus,
+} from '../lib/github';
 import {
   applicationNameToRepo,
   readLocalFile,
   refFromVersion,
 } from '../lib/common';
-import {createDeployment, createDeploymentStatus} from '../lib/github';
 import {parse} from 'yaml';
 import {components} from '@octokit/openapi-types';
 import {context} from '@actions/github';
@@ -20,66 +24,61 @@ interface ISlackChannel {
   };
 }
 
-async function finalizeDeployment(p: IArgoApp) {
-  const name = applicationNameToRepo(p.metadata.labels.application);
+async function finalizeDeployment(a: IArgoApp) {
+  const name = applicationNameToRepo(a.metadata.labels.application);
+  const {domain, project, region} = getEnvironment(a);
   const d = (await createDeployment(
     name,
-    refFromVersion(p.status.sync.revision),
-    p.metadata.labels.cluster
+    refFromVersion(a.status.sync.revision),
+    `${domain}-${project}-${region}`
   )) as components['schemas']['deployment'];
-  switch (p.status.operationState.phase) {
+  let state: TDeploymentState;
+  switch (a.status.operationState.phase) {
     case 'Succeeded':
-      await createDeploymentStatus(name, d.id, 'success');
+      state = 'success';
       break;
     case 'Failed':
     default:
-      await createDeploymentStatus(name, d.id, 'failure');
+      state = 'failure';
       break;
   }
+  await createDeploymentStatus(name, d.id, state);
 }
 
-async function sendSlackMessage(p: IArgoApp) {
+async function sendSlackMessage(a: IArgoApp) {
   const slackChannels = parse(
     await readLocalFile('.github/slack-channels.yaml')
   ) as ISlackChannel;
 
   let channels: Array<string>;
-  if (p.metadata.labels.cluster.includes('krona')) {
-    if (p.metadata.labels.cluster.includes('prod'))
+  if (a.metadata.labels.cluster.includes('krona')) {
+    if (a.metadata.labels.cluster.includes('prod'))
       channels = slackChannels.domain['krona'].prod.channels;
     channels = slackChannels.domain['krona'].channels;
-  } else if (p.metadata.labels.cluster.includes('gl')) {
-    if (p.metadata.labels.cluster.includes('prod'))
+  } else if (a.metadata.labels.cluster.includes('gl')) {
+    if (a.metadata.labels.cluster.includes('prod'))
       channels = slackChannels.domain['gl'].prod.channels;
     channels = slackChannels.domain['gl'].channels;
   } else {
     channels = slackChannels.domain['operations'].channels;
   }
 
+  const {domain, project, region} = getEnvironment(a);
   let message: string;
-  switch (p.status.operationState.phase) {
+  switch (a.status.operationState.phase) {
     case 'Succeeded':
-      message = `:white_check_mark: *${p.metadata.labels.application}@${p.status.sync.revision}* was deployed to *${p.metadata.labels.cluster}*`;
+      message = `:white_check_mark: Deployed *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
       break;
     case 'Failed':
     default:
-      message = `:x: *${p.metadata.labels.application}@${p.status.sync.revision}* failed to deploy to *${p.metadata.labels.cluster}*\n\nReason: ${p.status.operationState.message}`;
+      message = `:x: Failed to deploy *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
       break;
   }
 
-  const {current: rawCurrent, previous: rawPrevious} =
-    getCurrentPreviousHistoryRevision(p);
-  const [previous, current] = [
-    refFromVersion(rawPrevious),
-    refFromVersion(rawCurrent),
-  ];
-  const argoCdLink = `https://argocd.glops.io/applications/${p.metadata.name}`;
-  let gitHubLink: string;
-  if (previous) {
-    gitHubLink = `https://github.com/GreenlightMe/${p.metadata.labels.application}/compare/${previous}...${current}`;
-  } else {
-    gitHubLink = `https://github.com/GreenlightMe/${p.metadata.labels.application}`;
-  }
+  const argoCdLink = `https://argocd.glops.io/applications/${a.metadata.name}`;
+  const gitHubLink = `https://github.com/GreenlightMe/${applicationNameToRepo(
+    a.metadata.labels.application
+  )}/deployments/activity_log?environment=${domain}-${project}-${region}`;
 
   const promises = [];
   for (const channel of channels) {
@@ -115,12 +114,12 @@ async function sendSlackMessage(p: IArgoApp) {
 
 async function entrypoint() {
   try {
-    const p: IArgoApp = context.payload.client_payload;
+    const a: IArgoApp = context.payload.client_payload;
     startGroup('Argo CD context');
-    info(JSON.stringify(p));
+    info(JSON.stringify(a));
     endGroup();
-    await finalizeDeployment(p);
-    await sendSlackMessage(p);
+    await finalizeDeployment(a);
+    await sendSlackMessage(a);
   } catch (error: unknown) {
     setFailed(error as Error);
   }

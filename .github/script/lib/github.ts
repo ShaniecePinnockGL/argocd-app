@@ -167,12 +167,13 @@ export async function createDeployment(
     repo,
     ref,
     environment,
+    auto_merge: false,
     required_contexts: [],
   });
   return data;
 }
 
-export type DeploymentState =
+export type TDeploymentState =
   | 'error'
   | 'failure'
   | 'inactive'
@@ -184,7 +185,7 @@ export type DeploymentState =
 export async function createDeploymentStatus(
   repo: string,
   deploymentId: number,
-  state: DeploymentState
+  state: TDeploymentState
 ) {
   const {data} = await octokit.repos.createDeploymentStatus({
     owner: context.repo.owner,

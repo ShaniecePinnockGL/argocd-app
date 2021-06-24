@@ -133,11 +133,17 @@ export async function getArgoLiveManifests(app: IArgoApp): Promise<any[]> {
   }
 }
 
-export function getCurrentPreviousHistoryRevision(p: IArgoApp): {
-  current: string;
-  previous: string;
+export function getEnvironment(a: IArgoApp): {
+  domain: string;
+  project: string;
+  region: string;
 } {
-  // sort ascending
-  const history = p.status.history.sort((a, b) => a.id - b.id);
-  return {current: history[0].revision, previous: history[1].revision};
+  const {domain, project, region} =
+    /(?<domain>\w+)-.+-(?<project>\w+)-(?<region>\w+)/.exec(a.metadata.name)!
+      .groups!;
+  return {
+    domain,
+    project,
+    region,
+  };
 }
