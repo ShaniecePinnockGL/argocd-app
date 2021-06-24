@@ -27,7 +27,15 @@ async function finalizeDeployment(p: IArgoApp) {
     refFromVersion(p.status.sync.revision),
     p.metadata.labels.cluster
   )) as components['schemas']['deployment'];
-  await createDeploymentStatus(name, d.id, 'success');
+  switch (p.status.operationState.phase) {
+    case 'Succeeded':
+      await createDeploymentStatus(name, d.id, 'success');
+      break;
+    case 'Failed':
+    default:
+      await createDeploymentStatus(name, d.id, 'failure');
+      break;
+  }
 }
 
 async function sendSlackMessage(p: IArgoApp) {
