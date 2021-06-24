@@ -12,7 +12,7 @@ syncPolicy:
   syncOptions:
     - CreateNamespace=true
 annotations:
-  notifications.argoproj.io/subscribe.on-deployed.act: ""
+  notifications.argoproj.io/subscribe.on-deployed.github: ""
 applications:
   - name: artifactory
     repo: https://charts.jfrog.io

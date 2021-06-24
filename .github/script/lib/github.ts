@@ -167,6 +167,7 @@ export async function createDeployment(
     repo,
     ref,
     environment,
+    required_contexts: [],
   });
   return data;
 }

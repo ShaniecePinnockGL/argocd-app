@@ -9,7 +9,7 @@ import {parse} from 'yaml';
 import {components} from '@octokit/openapi-types';
 import {context} from '@actions/github';
 import {postMessage} from '../lib/slack';
-import {setFailed} from '@actions/core';
+import {endGroup, info, setFailed, startGroup} from '@actions/core';
 
 interface ISlackChannel {
   domain: {
@@ -63,7 +63,7 @@ async function sendSlackMessage(p: IArgoApp) {
       break;
     case 'Failed':
     default:
-      message = `:x: *${p.metadata.labels.application}@${p.status.sync.revision}* failed to deploy to *${p.metadata.labels.cluster}*`;
+      message = `:x: *${p.metadata.labels.application}@${p.status.sync.revision}* failed to deploy to *${p.metadata.labels.cluster}*\n\nReason: ${p.status.operationState.message}`;
       break;
   }
 
@@ -116,6 +116,9 @@ async function sendSlackMessage(p: IArgoApp) {
 async function entrypoint() {
   try {
     const p: IArgoApp = context.payload.client_payload;
+    startGroup('Argo CD context');
+    info(JSON.stringify(p));
+    endGroup();
     await finalizeDeployment(p);
     await sendSlackMessage(p);
   } catch (error: unknown) {
