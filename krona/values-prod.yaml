@@ -18,14 +18,14 @@ common:
       jobs: {}
 applications:
   - name: account-history
-    version: 2.14.0
+    version: 2.14.2
     values:
       hpa:
         minReplicas: 10
         maxReplicas: 12
       env:
         open:
-          SPRING_PROFILES_ACTIVE: v1
+          SPRING_PROFILES_ACTIVE: v2
           SPRING_HIKARI_POOL_SIZE: "10"
           SPRING_HIKARI_MAXIMUM_POOL_SIZE: "50"
           SPRING_HIKARI_MINIMUM_IDLE: "10"
@@ -37,28 +37,6 @@ applications:
           LEDGER_GRPC_HOST: ambassador
           LEDGER_GRPC_PORT: "80"
           REPLICATION_SYNC_USE_SQS: "false"
-      e1:
-        jobs:
-        - name: "replication-sync"
-          schedule: "5 * * * *"
-          backoffLimit: 3
-          activeDeadlineSeconds: 1800
-          successHistory: 2
-          failedHistory: 5
-          env:
-            open:
-              SPRING_PROFILES_ACTIVE: sync
-              REPLICATION_SYNC_HOURS_FROM_EPOCH:
-        - name: "migrate"
-          schedule: "*/5 * * * *"
-          backoffLimit: 3
-          activeDeadlineSeconds: 1200
-          successHistory: 2
-          failedHistory: 5
-          env:
-            open:
-              SPRING_PROFILES_ACTIVE: migrate
-              MIGRATION_BATCH_SIZE: 10000
   - name: account-management
     version: 1.18.0
     values:
