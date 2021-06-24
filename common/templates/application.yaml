@@ -24,10 +24,11 @@ metadata:
     namespace: {{ $namespace }}
     region: {{ $dest.region }}
 spec:
-  {{- with $.Values.domain }}
-  project: {{ . }}-{{ $.Values.project }}
-  {{- else }}
+  {{- /* Handles the "operations" case */ -}}
+  {{- if eq $.Values.domain $.Values.project }}
   project: {{ $.Values.project }}
+  {{- else }}
+  project: {{ $.Values.domain }}-{{ $.Values.project }}
   {{- end }}
   source:
     chart: {{ $app.name }}
