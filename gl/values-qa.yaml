@@ -27,7 +27,7 @@ applications:
     version: "3.8.96-25a8cf8"
   - name: commander
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "2.0.302-ce42adb"
+    version: "2.0.302-13938f4"
   - name: communication
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.5.0"
