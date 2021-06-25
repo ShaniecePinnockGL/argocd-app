@@ -212,6 +212,22 @@ applications:
   - name: optimizely
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-dev
     version: ">= 0.0.0-0"
+    values:
+      loggingAgent: Datadog
+      optimizely:
+        requests:
+          cpu: 250m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 250Mi
+      agent:
+        requests:
+          cpu: 125m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 128Mi
   - name: reconciliation
     version: ">= 0.0.0-0"
     values:
