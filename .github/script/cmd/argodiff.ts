@@ -13,6 +13,7 @@ import {endGroup, error, info, setFailed, startGroup} from '@actions/core';
 import {diffYAMLResource, defaultSanitizer} from '../lib/util';
 import {parseAllDocuments, stringify} from 'yaml';
 import {diff as deepDiff} from 'deep-object-diff';
+import pLimit from 'p-limit';
 
 // 65535 minus a 5000 character buffer.
 const MAX_COMMENT_SIZE = 65535 - 5000;
@@ -121,6 +122,10 @@ async function diffApps(
   return deepDiff(remoteAppsByName, localAppsByName);
 }
 
+// diffing apps is incredibly expensive. Let's not diff more than 10 at a time.
+// this is necessary to prevent memory and CPU from spiking.
+const getArgoDiffLimiter = pLimit(10);
+
 async function processEnv(env: IArgoApp) {
   const localApps = await buildAppsForEnvironment(env);
   const remoteApps = await getArgoLiveManifests(env);
@@ -133,7 +138,10 @@ async function processEnv(env: IArgoApp) {
     Object.keys(diff).map(async (appName: string) => {
       const localApp = localApps.find(a => a.metadata.name === appName);
       const remoteApp = localApps.find(a => a.metadata.name === appName);
-      const helmDiff = await getArgoDiff(env, localApp, remoteApp);
+      const helmDiff = await getArgoDiffLimiter(() => {
+        info(`diffing ${localApp?.metadata.name || remoteApp?.metadata.name}`);
+        return getArgoDiff(env, localApp, remoteApp);
+      });
       return {appName: appName, appDiff: helmDiff};
     })
   );
