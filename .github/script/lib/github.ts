@@ -195,3 +195,21 @@ export async function createDeploymentStatus(
   });
   return data;
 }
+
+export async function getReviews() {
+  const reviews = await octokit.pulls.listReviews({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    pull_number: context.issue.number,
+  });
+  return reviews.data;
+}
+
+export async function requestReviews(reviewers: Array<string>) {
+  await octokit.pulls.requestReviewers({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    pull_number: context.issue.number,
+    reviewers,
+  });
+}

@@ -6,6 +6,17 @@ on:
     paths:
       - gl/*.yaml
       - krona/*.yaml
+  pull_request_review:
+    types:
+      - submitted
+    branches:
+      - main
+    paths:
+      - gl/*.yaml
+      - krona/*.yaml
+concurrency: 
+  group: ${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
 jobs:
   changelog:
     name: Changelog
