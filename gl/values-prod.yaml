@@ -26,7 +26,7 @@ applications:
     version: "3.8.96-25a8cf8"
   - name: commander
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
-    version: "2.0.287-c253b90"
+    version: "2.0.302-13938f4"
     values:
       e1:
         env:
