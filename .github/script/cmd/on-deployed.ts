@@ -42,7 +42,12 @@ async function finalizeDeployment(a: IArgoApp) {
       state = 'failure';
       break;
   }
-  await createDeploymentStatus(name, d.id, state);
+  await createDeploymentStatus(
+    name,
+    d.id,
+    state,
+    `https://argocd.glops.io/applications/${a.metadata.name}`
+  );
 }
 
 async function sendSlackMessage(a: IArgoApp) {

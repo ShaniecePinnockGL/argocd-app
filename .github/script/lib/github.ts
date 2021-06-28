@@ -185,13 +185,15 @@ export type TDeploymentState =
 export async function createDeploymentStatus(
   repo: string,
   deploymentId: number,
-  state: TDeploymentState
+  state: TDeploymentState,
+  environmentUrl?: string
 ) {
   const {data} = await octokit.repos.createDeploymentStatus({
     owner: context.repo.owner,
     repo,
     deployment_id: deploymentId,
     state,
+    environment_url: environmentUrl,
   });
   return data;
 }
