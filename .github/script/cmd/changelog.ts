@@ -218,6 +218,11 @@ async function main() {
     // PR author implicitly approves their changes
     approvedAuthors.add(currentPR.user.login);
   }
+  for (const author of allAuthors) {
+    if (author.endsWith('[bot]')) {
+      approvedAuthors.add(author); // Auto-approve bots
+    }
+  }
   const pendingAuthors =
     currentPR.requested_reviewers?.reduce((a, c) => {
       if (c !== null && allAuthors.has(c.login)) {
