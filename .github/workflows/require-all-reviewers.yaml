@@ -1,0 +1,46 @@
+name: Require All Reviewers
+on:
+  pull_request:
+    types: 
+      - opened
+      - reopened
+      - synchronize
+      - review_requested
+      - review_request_removed
+  pull_request_review:
+    types: 
+      - submitted
+      - dismissed
+jobs:
+  require-all-reviewers:
+    name: Require All Reviewers
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: .github/script/node_modules
+          restore-keys: ${{ runner.os }}-node-
+      - name: Setup build tools
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.4.0
+      - name: Setup npm
+        working-directory: .github/script
+        run: ./setup_npm.sh
+        env:
+          ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
+          ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+      - name: Download dependencies
+        working-directory: .github/script
+        run: npm ci --production
+      - name: Run Request Changelog
+        working-directory: .github/script
+        run: npm run require-all-reviewers
+        env:
+          GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
