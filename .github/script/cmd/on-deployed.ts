@@ -16,10 +16,12 @@ import {postMessage} from '../lib/slack';
 import {endGroup, info, setFailed, startGroup} from '@actions/core';
 
 interface ISlackChannel {
-  domain: {
+  domains: {
     [name: string]: {
-      channels: Array<string>;
-      prod: {channels: Array<string>};
+      default: Array<string>;
+      projects: {
+        [environment: string]: Array<string>;
+      };
     };
   };
 }
@@ -55,20 +57,12 @@ async function sendSlackMessage(a: IArgoApp) {
     await readLocalFile('.github/slack-channels.yaml')
   ) as ISlackChannel;
 
-  let channels: Array<string>;
-  if (a.metadata.labels.cluster.includes('krona')) {
-    if (a.metadata.labels.cluster.includes('prod'))
-      channels = slackChannels.domain['krona'].prod.channels;
-    channels = slackChannels.domain['krona'].channels;
-  } else if (a.metadata.labels.cluster.includes('gl')) {
-    if (a.metadata.labels.cluster.includes('prod'))
-      channels = slackChannels.domain['gl'].prod.channels;
-    channels = slackChannels.domain['gl'].channels;
-  } else {
-    channels = slackChannels.domain['operations'].channels;
-  }
-
   const {domain, project, region} = getEnvironment(a);
+  const channels =
+    slackChannels.domains[domain]?.projects[project] ??
+    slackChannels.domains[domain]?.default ??
+    [];
+
   let message: string;
   switch (a.status.operationState.phase) {
     case 'Succeeded':
