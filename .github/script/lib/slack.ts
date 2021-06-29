@@ -9,13 +9,13 @@ const web = new WebClient(token);
 export async function postMessage(
   channel: string,
   text: string,
-  blocks?: (KnownBlock | Block)[],
-  attachments?: MessageAttachment[]
+  attachments?: MessageAttachment[],
+  blocks?: (KnownBlock | Block)[]
 ) {
   return web.chat.postMessage({
     channel,
     text,
-    blocks,
     attachments,
+    blocks,
   });
 }

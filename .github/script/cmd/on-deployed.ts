@@ -85,27 +85,27 @@ async function sendSlackMessage(a: IArgoApp) {
   for (const channel of channels) {
     const epoch = Math.round(Date.now() / 1000);
     promises.push(
-      postMessage(
-        channel,
-        message,
-        [
-          {
-            type: 'section',
-            text: {type: 'mrkdwn', text: message},
-          },
-          {type: 'divider'},
-          {
-            type: 'context',
-            elements: [
-              {
-                type: 'mrkdwn',
-                text: `<!date^${epoch}^{date_num} {time_secs}|${Date.now()}> <${argoCdLink}|:argo: Argo CD> <${gitHubLink}|:octocat: GitHub>`,
-              },
-            ],
-          },
-        ],
-        [{color}]
-      )
+      postMessage(channel, message, [
+        {
+          blocks: [
+            {
+              type: 'section',
+              text: {type: 'mrkdwn', text: message},
+            },
+            {type: 'divider'},
+            {
+              type: 'context',
+              elements: [
+                {
+                  type: 'mrkdwn',
+                  text: `<!date^${epoch}^{date_num} {time_secs}|${Date.now()}> <${argoCdLink}|:argo: Argo CD> <${gitHubLink}|:octocat: GitHub>`,
+                },
+              ],
+            },
+          ],
+          color,
+        },
+      ])
     );
   }
 
