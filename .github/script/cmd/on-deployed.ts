@@ -114,7 +114,10 @@ async function sendSlackMessage(a: IArgoApp) {
     );
   }
 
-  await Promise.allSettled(promises);
+  const responses = await Promise.allSettled(promises);
+  startGroup('Slack messages');
+  info(JSON.stringify(responses));
+  endGroup();
 }
 
 async function entrypoint() {
