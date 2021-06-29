@@ -163,7 +163,7 @@ applications:
         enableFilter: true
   - name: invest-profile
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.35.0"
+    version: "1.36.0"
   - name: kyc-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.190-26d3078"
@@ -333,7 +333,7 @@ applications:
     version: "3.7.1392-ad77121"
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.689-bbb7ab2"
+    version: "1.0.690-0e7767b"
   - name: testaway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.50-ec6f871"
