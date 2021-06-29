@@ -63,14 +63,16 @@ async function sendSlackMessage(a: IArgoApp) {
     slackChannels.domains[domain]?.default ??
     [];
 
-  let message: string;
+  let message, color: string;
   switch (a.status.operationState.phase) {
     case 'Succeeded':
-      message = `:white_check_mark: Deployed *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
+      message = `Deployed *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
+      color = 'good';
       break;
     case 'Failed':
     default:
-      message = `:x: Failed to deploy *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
+      message = `Failed to deploy *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
+      color = 'bad';
       break;
   }
 
@@ -81,30 +83,29 @@ async function sendSlackMessage(a: IArgoApp) {
 
   const promises = [];
   for (const channel of channels) {
+    const epoch = Math.round(Date.now() / 1000);
     promises.push(
-      postMessage(channel, message, [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: message,
+      postMessage(
+        channel,
+        message,
+        [
+          {
+            type: 'section',
+            text: {type: 'mrkdwn', text: message},
           },
-        },
-        {
-          type: 'divider',
-        },
-        {
-          type: 'context',
-          elements: [
-            {
-              type: 'mrkdwn',
-              text: `<!date^${Math.round(
-                Date.now() / 1000
-              )}^{date_num} {time_secs}|${Date.now()}> <${argoCdLink}|:argo: Argo CD> <${gitHubLink}|:octocat: GitHub>`,
-            },
-          ],
-        },
-      ])
+          {type: 'divider'},
+          {
+            type: 'context',
+            elements: [
+              {
+                type: 'mrkdwn',
+                text: `<!date^${epoch}^{date_num} {time_secs}|${Date.now()}> <${argoCdLink}|:argo: Argo CD> <${gitHubLink}|:octocat: GitHub>`,
+              },
+            ],
+          },
+        ],
+        [{color}]
+      )
     );
   }
 

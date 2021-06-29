@@ -1,4 +1,4 @@
-import {Block, KnownBlock, WebClient} from '@slack/web-api';
+import {Block, KnownBlock, WebClient, MessageAttachment} from '@slack/web-api';
 import {setSecret} from '@actions/core';
 
 const token = process.env.SLACK_TOKEN ?? '';
@@ -9,11 +9,13 @@ const web = new WebClient(token);
 export async function postMessage(
   channel: string,
   text: string,
-  blocks?: (KnownBlock | Block)[]
+  blocks?: (KnownBlock | Block)[],
+  attachments?: MessageAttachment[]
 ) {
   return web.chat.postMessage({
     channel,
     text,
     blocks,
+    attachments,
   });
 }
