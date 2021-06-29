@@ -172,10 +172,10 @@ applications:
     version: "1.0.75-dbf8660"
   - name: registration
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.32.0"
+    version: "1.51.0"
   - name: registration-mapper
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.150-d6ad0cb"
+    version: "1.12.0"
   - name: savings
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.6.0"
@@ -342,4 +342,4 @@ applications:
     version: "1.19.0"
   - name: webreg
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.931-55002e9"
+    version: "1.0.939-3295ac8"
