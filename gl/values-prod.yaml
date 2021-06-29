@@ -43,7 +43,7 @@ applications:
     version: "1.4.0"
   - name: drive-wealth
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
-    version: "1.10.0"
+    version: "1.17.0"
     values:
       ambassadorEdgeStack:
         use: "true"
@@ -165,7 +165,7 @@ applications:
         enableFilter: true
   - name: invest-profile
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
-    version: "1.23.0"
+    version: "1.35.0"
     values:
       ambassadorEdgeStack:
         use: "true"
