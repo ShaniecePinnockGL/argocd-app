@@ -2,22 +2,22 @@ domains:
   gl:
     default:
       - bot-testing
-      # - greenlight-monitor
+      - greenlight-monitor
     projects:
       prod:
         - bot-testing
-        # - sprintliveaction
+        - sprintliveaction
   krona:
     default:
       - bot-testing
-      # - partner-krona-feed
+      - partner-krona-feed
     projects:
       uat:
         - bot-testing
-        # - partner-krona-deploy
+        - partner-krona-deploy
       prod:
         - bot-testing
-        # - partner-krona-deploy
+        - partner-krona-deploy
   operations:
     default:
       - bot-testing
