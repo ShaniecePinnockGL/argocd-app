@@ -81,14 +81,22 @@ spec:
     {{- end }}
   {{- end }}
   {{- with $.Values.options }}
-    {{- if .ignoreStartupProbe }}
+  {{- if or .ignoreStartupProbe .ignoreCronJobSuspend }}
   ignoreDifferences:
+  {{- end}}
+    {{- if .ignoreStartupProbe }}
   - group: apps
     kind: Deployment
     jsonPointers:
       - /spec/template/spec/containers/0/startupProbe
       - /spec/template/spec/containers/1/startupProbe
       - /spec/template/spec/containers/2/startupProbe
+    {{- end}}
+    {{- if .ignoreCronJobSuspend }}
+  - group: batch
+    kind: CronJob
+    jsonPointers:
+      - /spec/suspend
     {{- end}}
   {{- end}}
 {{- end }}

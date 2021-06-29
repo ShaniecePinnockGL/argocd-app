@@ -13,6 +13,7 @@ syncPolicy:
     prune: true
 options:
   ignoreStartupProbe: true
+  ignoreCronJobSuspend: true
 annotations:
   notifications.argoproj.io/subscribe.on-deployed.github: ""
 applications:
