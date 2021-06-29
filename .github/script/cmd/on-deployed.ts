@@ -26,6 +26,11 @@ interface ISlackChannel {
   };
 }
 
+const GreenlightColors = {
+  green: '#80D6B0',
+  red: '#D66755',
+};
+
 async function finalizeDeployment(a: IArgoApp) {
   const name = applicationNameToRepo(a.metadata.labels.application);
   const {domain, project, region} = getEnvironment(a);
@@ -67,12 +72,12 @@ async function sendSlackMessage(a: IArgoApp) {
   switch (a.status.operationState.phase) {
     case 'Succeeded':
       message = `Deployed *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
-      color = 'good';
+      color = GreenlightColors.green;
       break;
     case 'Failed':
     default:
       message = `Failed to deploy *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
-      color = 'bad';
+      color = GreenlightColors.red;
       break;
   }
 
@@ -85,7 +90,7 @@ async function sendSlackMessage(a: IArgoApp) {
   for (const channel of channels) {
     const epoch = Math.round(Date.now() / 1000);
     promises.push(
-      postMessage(channel, message, [
+      postMessage(channel, ' ', [
         {
           blocks: [
             {
