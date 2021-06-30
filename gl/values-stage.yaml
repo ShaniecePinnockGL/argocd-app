@@ -173,7 +173,7 @@ applications:
     version: "1.0.75-dbf8660"
   - name: registration
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.64.0"
+    version: "1.65.0"
   - name: registration-mapper
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.12.0"
