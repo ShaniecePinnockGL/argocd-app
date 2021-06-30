@@ -130,7 +130,7 @@ applications:
           type: secret
   - name: identity-prefill
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.16-dca4210"
+    version: "1.0.37"
   - name: inbound-authentication
     version: "0.8.0-develop.22"
     values:
