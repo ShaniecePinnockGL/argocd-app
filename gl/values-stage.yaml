@@ -36,7 +36,7 @@ applications:
     version: "1.4.0"
   - name: drive-wealth
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.17.0"
+    version: "1.22.0"
   - name: experimentation-id
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.54-738e722"
@@ -164,7 +164,7 @@ applications:
         enableFilter: true
   - name: invest-profile
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.36.0"
+    version: "1.45.0"
   - name: kyc-service
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.190-26d3078"
