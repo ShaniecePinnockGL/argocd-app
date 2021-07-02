@@ -208,7 +208,7 @@ applications:
               SENTRY_DSN: AgBkoODYVMi7YulFi8/Ew45N39fE1Pk6T169e4+jJBfeCgJ49ASHwkA+E3QvM/9MqcATddMzOVt0T+QY+oVzkkupSuMf3Egb75NqsPEJBbgQzFPbEBS8R+6ZWtdFhID5CuvoGCau2QIbpOnXRZoazitDJh33LrJJbCGGkJ/QgpKHea6AqExFWidG3LdNvXosd13sxeQU0N9vk6jF1UdcwdJ45OHHu6LDxFYjBukj/f+HxSZ3UfVhqViYMftuKPR65fFvD6GWPYxxNlHaBIJ7e69kcojBFslPXkIpu6nINnwFzfWIPxuZWTQeSeojc669jKAERRoj3WGuyUQmAxQQ6vzB2KyRQrKX+gToMYV/O1OoEg8zs2RLlRgbjm4sEbihVpKyMFek6wopYCE41vH/Ri1JQrKaQ9vA1Dr+l9KDaMCW/UEqQttFcmtGfaWd9nAHVRXDtWgqPYVzjPgwAPijJv3ETzZHTijQC6LQksuEVlmfTZVuHhj9C/H664TLahSMS9hJ3oKkxglkRpWheYLYMXrqLBTAfliLkPP3rV0AuS+OsKN0Mo/2DeSeKYgBmJ3NV68quA+svR8GXYgawfK8B80ivgSQtfu/eomDv9a3NsWj2/3JdwHlBoKLzAmkjhHmcP2CyAw1qPHhTh36vDts07jwcy1GxOsQ7nXzhMH/bE2JZIF4SlqzRPQzh//Mh6MOPy0m1IVKaz+GtPDxqv7Okt4iqXBlAh7fPhEpnwbkF6GQ/GdfIR8uGWbGxUJYT5inOGslfAqSVNvbgdocj/vzXgTNcpODNQNJOk4=
   - name: server-api
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
-    version: "3.7.1392-ad77121"
+    version: "3.7.1409-3cc1bfa"
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.0.676-05f180e"
