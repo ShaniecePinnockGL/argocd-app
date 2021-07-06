@@ -7,8 +7,8 @@ destinations:
     namespace: argo-cd-util
     region: e1
 syncPolicy:
-#   automated:
-#     prune: true
+  automated:
+    prune: true
   syncOptions:
     - CreateNamespace=true
 annotations:
