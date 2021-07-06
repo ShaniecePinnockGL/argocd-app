@@ -19,7 +19,7 @@ annotations:
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.297-17c882f"
+    version: "1.14.0"
     values:
       e1:
         cronjobs:
