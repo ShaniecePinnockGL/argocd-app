@@ -77,6 +77,9 @@ async function sendSlackMessage(a: IArgoApp) {
     case 'Failed':
     default:
       message = `Failed to deploy *${a.metadata.labels.application}@${a.status.sync.revision}* to *${domain}-${project}-${region}*`;
+      if (a.status.operationState.message) {
+        message += `\n\`\`\`${a.status.operationState.message}\`\`\``;
+      }
       color = GreenlightColors.red;
       break;
   }
