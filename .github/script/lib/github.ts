@@ -215,3 +215,16 @@ export async function requestReviews(reviewers: Array<string>) {
     reviewers,
   });
 }
+
+export async function isCollaborator(username: string) {
+  try {
+    await octokit.repos.checkCollaborator({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      username,
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}

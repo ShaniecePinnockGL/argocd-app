@@ -15,6 +15,7 @@ import {
   getCommit,
   getCurrentPR,
   getReviews,
+  isCollaborator,
   requestReviews,
 } from '../lib/github';
 import {info, warning, setFailed} from '@actions/core';
@@ -234,14 +235,28 @@ async function main() {
     a => !pendingAuthors.has(a) && !approvedAuthors.has(a)
   );
 
+  const validAuthorsToAdd = (
+    await Promise.all(
+      authorsToAdd.map(async author => {
+        if (!(await isCollaborator(author))) {
+          info(`${author} is not an engineer Greenlight`);
+          approvedAuthors.add(author);
+          return null;
+        } else {
+          return author;
+        }
+      })
+    )
+  ).filter(a => a !== null) as Array<string>;
+
   info('Authors:');
   info('\tApproved: ' + Array.from(approvedAuthors));
   info('\tPending:  ' + Array.from(pendingAuthors));
-  info('\tNew:      ' + Array.from(authorsToAdd));
+  info('\tNew:      ' + Array.from(validAuthorsToAdd));
 
-  if (authorsToAdd.length) {
-    await requestReviews(authorsToAdd);
-    authorsToAdd.forEach(a => pendingAuthors.add(a));
+  if (validAuthorsToAdd.length) {
+    await requestReviews(validAuthorsToAdd);
+    validAuthorsToAdd.forEach(a => pendingAuthors.add(a));
   }
 
   // Build markdown
