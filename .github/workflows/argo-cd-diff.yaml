@@ -44,7 +44,11 @@ jobs:
       - name: Run Argo CD Diff Tool
         working-directory: .github/script
         run: |
-          export PATH=./external-tools:$PATH
+          export PATH="`pwd`/external-tools:$PATH"
+
+          echo -e "Helm Version\n\tPath: `which helm`\n\tVersion: `helm version`"; 
+          echo -e "Dyff Version\n\tPath: `which dyff`\n\tVersion: `dyff version`"; 
+
           npm run argodiff
         env:
           GREENLIGHTBOT_PAT: ${{ secrets.GREENLIGHTBOT_PAT }}
