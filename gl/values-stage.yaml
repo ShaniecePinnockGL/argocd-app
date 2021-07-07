@@ -343,4 +343,4 @@ applications:
     version: "1.29.0"
   - name: webreg
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.0.946-1877e26"
+    version: "1.0.949-68aa64a"
