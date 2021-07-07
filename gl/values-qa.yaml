@@ -16,7 +16,7 @@ options:
 applications:
   - name: account-management-dtc
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "1.0.294-46fbd54"
+    version: "1.14.0"
     values:
       e1:
         cronjobs:
