@@ -48,7 +48,7 @@ applications:
     version: "0.0.42-83afae8"
   - name: feature-breaker
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "0.15.0"
+    version: "0.16.0"
   - name: feature-toggles
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-prod
     version: "1.0.34-7931b38"
