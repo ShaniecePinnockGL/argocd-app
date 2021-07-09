@@ -110,7 +110,7 @@ applications:
     version: "1.6.0"
   - name: server-api
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
-    version: "3.7.1427-e4a6804"
+    version: "3.7.1409-3cc1bfa"
   - name: stargateway
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-qa
     version: "1.0.676-05f180e"
