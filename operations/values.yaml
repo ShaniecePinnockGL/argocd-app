@@ -14,14 +14,6 @@ syncPolicy:
 annotations:
   notifications.argoproj.io/subscribe.on-deployed.github: ""
 applications:
-  - name: redis
-    repo: https://charts.bitnami.com/bitnami
-    namespace: mfarmer-testing
-    version: ">= 0.0.0-0"
-    values:
-      auth:
-        existingSecret: mfarmer-redis-auth-password
-        existingSecretPasswordKey: password
   - name: artifactory
     repo: https://charts.jfrog.io
     namespace: jfrog
@@ -38,11 +30,6 @@ applications:
     version: ">= 0.0.0-0"
     values:
       sealedSecrets:
-        - name: mfarmer-redis-auth-password
-          namespace:
-            - mfarmer-testing
-          encryptedData:
-            password: AgAZ7Ya6XWp+3xbsO8Wdydz7PmMfz9a5/lZANuAQpQ53abYgC4N7cj+gYgrfa/l6ut//jyfLB7m4RfVtqJQNOioZPzh9TuY/x1YVhRQX9KkE+VP5iweipsOSrxKdZlhaAkGJJapGmpPjXRU66Y91XSlWOLPl1cDyiwDw2zp5KF8/dUhSRFjgcX5eGSd87pl4J00JwUkM8z7n3WeIzOHN6SlPMaVSZCAmdkjbt0yQYG2b4D57LzQxwuJCzn1JvMLQjKbYbETD3drNG5ZBxbnr96h8C3GEw6X3hOR79w2VvBvIYTrRBSNMhjwq2YB78KWQ56TZHyH80ocsKNu4/cnR4sF8HStP3qiyupo32w4hJAVuc4vFyKWZ/WUB0KFuajCdU3fWoGgxw96zzNlqD0IGE+V3YWfh5jGdfP6hCBC0Uzh1Q5DYyr1x1Rp1wXwPPCEQ4XFu2b29dKItXToyJmv7UjU3j2F30R16ZtYdXuDCKOptsLMIFpLy4TAMSP1HTDZGBlrFMWfwJQ38KMurOfaXe3JLFczgsYt8NlVnuNsM0zURZ68ESBTQQktHqld1ZNazUMt6TWZMxF8d0CLDmDsK4oVs+KFzFGjzqQiALC1Y3PU9cOL1BLUbqlhZhS9qjm8tjQEI4F55izoFHhq/76udcCvqj82/ogs9aiye/aKYc19NdFy/+qDeGkBkaYOpf3/mAjVhGHXUgA==
         - name: jfrog-art-license
           namespace:
             - jfrog
