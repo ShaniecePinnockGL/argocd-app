@@ -343,7 +343,7 @@ applications:
     version: "1.0.50-ec6f871"
   - name: user-action
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
-    version: "1.29.0"
+    version: "1.31.0"
   - name: webreg
     repo: https://greenlight.jfrog.io/artifactory/gl-helm-stage
     version: "1.0.949-68aa64a"
